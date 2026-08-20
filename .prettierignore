@@ -1,0 +1,9 @@
+.astro/
+dist/
+node_modules/
+package-lock.json
+
+# Preserve planning records as authored.
+/GitHub Pages Technical Blog Setup Spec.md
+/IMPLEMENTATION_ACTION_ITEMS.md
+/WORKLOG_*.md

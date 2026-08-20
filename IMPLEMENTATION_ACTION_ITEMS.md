@@ -21,11 +21,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 1. Establish the project baseline
 
-- [ ] Initialize a minimal Astro project with TypeScript in the repository root.
-- [ ] Select Astro's static output mode and record the supported Node.js version.
-- [ ] Add the core scripts: `dev`, `build`, `preview`, and any content/type checks.
-- [ ] Add `.gitignore`, formatting defaults, and a minimal public-assets directory.
-- [ ] Verify the untouched starter builds locally.
+- [x] Initialize a minimal Astro project with TypeScript in the repository root.
+- [x] Select Astro's static output mode and record the supported Node.js version.
+- [x] Add the core scripts: `dev`, `build`, `preview`, and any content/type checks.
+- [x] Add `.gitignore`, formatting defaults, and a minimal public-assets directory.
+- [x] Verify the untouched starter builds locally.
 
 **Gate:** dependency installation and the production build both succeed.
 
