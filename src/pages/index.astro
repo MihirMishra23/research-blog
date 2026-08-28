@@ -1,5 +1,5 @@
 ---
-const title = 'The LLM Map';
+import { siteConfig, sitePath } from '../config/site';
 ---
 
 <!doctype html>
@@ -8,12 +8,17 @@ const title = 'The LLM Map';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <meta name="description" content={siteConfig.description} />
+    <link rel="icon" type="image/svg+xml" href={sitePath('/favicon.svg')} />
+    <title>{siteConfig.title}</title>
   </head>
   <body>
+    <header>
+      <a href={sitePath('/')}>{siteConfig.title}</a>
+    </header>
     <main>
-      <h1>{title}</h1>
-      <p>An evolving map of modern language model research.</p>
+      <h1>{siteConfig.title}</h1>
+      <p>{siteConfig.description}</p>
     </main>
   </body>
 </html>

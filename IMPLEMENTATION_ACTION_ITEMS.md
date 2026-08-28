@@ -31,11 +31,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 2. Configure the site and GitHub Pages path model
 
-- [ ] Add one central site configuration for the title, description, author placeholders, repository name, and future canonical domain.
-- [ ] Configure Astro's `site` and `base` values so a project Pages URL works without hard-coded paths in components.
-- [ ] Ensure internal links and public asset URLs work both locally and below a GitHub repository subpath.
-- [ ] Add a GitHub Actions workflow that builds and deploys the static output on pushes to `main`.
-- [ ] Document the required GitHub Pages source setting and workflow permissions for later activation.
+- [x] Add one central site configuration for the title, description, author placeholders, repository name, and future canonical domain.
+- [x] Configure Astro's `site` and `base` values so a project Pages URL works without hard-coded paths in components.
+- [x] Ensure internal links and public asset URLs work both locally and below a GitHub repository subpath.
+- [x] Add a GitHub Actions workflow that builds and deploys the static output on pushes to `main`.
+- [x] Document the required GitHub Pages source setting and workflow permissions for later activation.
 
 **Gate:** the workflow file and Astro configuration agree on the build output and base path.
 
