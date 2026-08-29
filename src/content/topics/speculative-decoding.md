@@ -25,8 +25,8 @@ papers:
     url: https://arxiv.org/abs/2211.17192
     year: 2022
 map:
-  x: 1235
-  y: 355
+  x: 1350
+  y: 360
   width: 245
   height: 50
   labelOffsetX: 0

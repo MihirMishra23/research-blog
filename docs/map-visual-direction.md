@@ -103,3 +103,5 @@ The map is visually ready when:
 - red marks are noticeable but rare;
 - the map still looks hand-composed after selection and highlighting states are applied;
 - desktop, keyboard, and mobile fallback behavior meet the functional map requirements.
+
+The implemented V1 interaction and responsive behavior are documented in [Interactive map V1](./map-interaction.md).

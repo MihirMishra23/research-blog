@@ -28,7 +28,7 @@ papers:
     year: 2024
 map:
   x: 650
-  y: 190
+  y: 135
   width: 105
   height: 44
   labelOffsetX: 3

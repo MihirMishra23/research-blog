@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import LlmMap from '../components/LlmMap.astro';
+import { createLlmMapModel } from '../content/map-model';
+import { shouldIncludeTopic } from '../content/visibility';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const topics = (await getCollection('topics')).filter((entry) =>
+  shouldIncludeTopic(entry.data),
+);
+const model = createLlmMapModel(topics);
+---
+
+<BaseLayout
+  title="Interactive map preview"
+  description="A hand-drawn interactive map connecting the initial LLM concepts."
+>
+  <header class="map-preview__header">
+    <p class="eyebrow">Map milestone · interaction V1</p>
+    <h1>Follow the branches.</h1>
+    <p>
+      Select a handwritten label to inspect its immediate neighborhood, or use
+      the semantic list after the drawing. The final homepage placement arrives
+      in the next assembly step.
+    </p>
+  </header>
+  <LlmMap model={model} />
+</BaseLayout>

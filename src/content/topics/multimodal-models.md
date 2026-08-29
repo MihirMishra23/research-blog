@@ -29,8 +29,8 @@ papers:
     url: https://arxiv.org/abs/2204.14198
     year: 2022
 map:
-  x: 1110
-  y: 690
+  x: 1130
+  y: 800
   width: 215
   height: 50
   labelOffsetX: 2

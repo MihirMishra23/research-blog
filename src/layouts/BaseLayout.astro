@@ -14,7 +14,10 @@ const { title = siteConfig.title, description = siteConfig.description } =
   Astro.props;
 const documentTitle =
   title === siteConfig.title ? title : `${title} · ${siteConfig.title}`;
-const isMapPage = Astro.url.pathname === sitePath('/');
+const isMapPage =
+  Astro.url.pathname === sitePath('/') ||
+  Astro.url.pathname.startsWith(sitePath('/map/')) ||
+  Astro.url.pathname.startsWith(sitePath('/map-preview/'));
 const isWritingPage = Astro.url.pathname.startsWith(sitePath('/writing/'));
 const isTopicsPage = Astro.url.pathname.startsWith(sitePath('/topics/'));
 ---

@@ -1,0 +1,546 @@
+---
+import { siteHref, siteConfig } from '../config/site';
+import type {
+  LlmMapModel,
+  MapAreaNode,
+  MapEdge,
+  MapNode,
+  MapPosition,
+  MapTopicNode,
+} from '../content/map-model';
+import StatusLabel from './StatusLabel.astro';
+
+interface Props {
+  model: LlmMapModel;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { model, headingLevel = 'h2' } = Astro.props;
+const PanelHeadingTag = headingLevel;
+const nodeById = new Map(model.nodes.map((node) => [node.id, node]));
+const areas = model.nodes.filter(
+  (node): node is MapAreaNode => node.kind === 'area',
+);
+const topics = model.nodes.filter(
+  (node): node is MapTopicNode => node.kind === 'topic',
+);
+const safeModelJson = JSON.stringify(model).replaceAll('<', '\\u003c');
+
+const stringSeed = (value: string) =>
+  [...value].reduce((total, character) => total + character.charCodeAt(0), 0);
+
+function nodeHref(node: MapNode): string {
+  if (node.kind === 'topic') return siteHref(node.href);
+  if (node.kind === 'area')
+    return siteHref(`/topics/#category-${node.category}`);
+  return siteHref('/topics/');
+}
+
+function ovalPath(node: MapNode): string {
+  const { x, y, width, height } = node.position;
+  const seed = stringSeed(node.id);
+  const left = x - width / 2;
+  const right = x + width / 2;
+  const top = y - height / 2;
+  const bottom = y + height / 2;
+  const a = (seed % 9) - 4;
+  const b = ((seed * 3) % 11) - 5;
+
+  return [
+    `M ${left + 8} ${y + a}`,
+    `C ${left - 3} ${top + 16 + b}, ${x - width * 0.22} ${top - 5}, ${x + 3} ${top + 1}`,
+    `C ${x + width * 0.29} ${top - 3}, ${right + 5} ${top + 17 - a}, ${right - 1} ${y + 2}`,
+    `C ${right + 3} ${bottom - 12 + b}, ${x + width * 0.24} ${bottom + 4}, ${x - 4} ${bottom}`,
+    `C ${x - width * 0.3} ${bottom + 3}, ${left - 4} ${bottom - 15 - a}, ${left + 8} ${y + a}`,
+    'Z',
+  ].join(' ');
+}
+
+function boundaryPoint(position: MapPosition, toward: MapPosition) {
+  const dx = toward.x - position.x;
+  const dy = toward.y - position.y;
+  const distance = Math.hypot(dx, dy) || 1;
+  const radius =
+    Math.min(position.width / 2, position.height / 2) +
+    (position.height > 60 ? 1 : 8);
+  return {
+    x: position.x + (dx / distance) * radius,
+    y: position.y + (dy / distance) * radius,
+  };
+}
+
+function edgePath(edge: MapEdge): string {
+  const source = nodeById.get(edge.source)!;
+  const target = nodeById.get(edge.target)!;
+  const start = boundaryPoint(source.position, target.position);
+  const end = boundaryPoint(target.position, source.position);
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const distance = Math.hypot(dx, dy) || 1;
+  const bend = ((stringSeed(edge.id) % 17) - 8) * 1.7;
+  const controlX = (start.x + end.x) / 2 + (-dy / distance) * bend;
+  const controlY = (start.y + end.y) / 2 + (dx / distance) * bend;
+  return `M ${start.x} ${start.y} Q ${controlX} ${controlY} ${end.x} ${end.y}`;
+}
+
+function edgeMidpoint(edge: MapEdge) {
+  const source = nodeById.get(edge.source)!;
+  const target = nodeById.get(edge.target)!;
+  return {
+    x: (source.position.x + target.position.x) / 2,
+    y: (source.position.y + target.position.y) / 2,
+  };
+}
+
+const groupedTopics = areas.map((area) => ({
+  area,
+  topics: topics.filter((topic) => topic.category === area.category),
+}));
+---
+
+<section class="llm-map" data-llm-map data-has-selection="false">
+  <div class="llm-map__workspace">
+    <div
+      class="llm-map__canvas-scroll"
+      tabindex="0"
+      aria-label="Scrollable LLM map canvas"
+    >
+      <svg
+        class="llm-map__canvas"
+        viewBox={`0 0 ${model.canvas.width} ${model.canvas.height}`}
+        role="img"
+        aria-labelledby="llm-map-svg-title llm-map-svg-description"
+      >
+        <title id="llm-map-svg-title">
+          Interactive map of six LLM concepts
+        </title>
+        <desc id="llm-map-svg-description">
+          A hand-drawn radial knowledge sketch. LLMs are in the center, with
+          Post-training, Inference systems, and Multimodal areas branching to
+          six selectable concepts.
+        </desc>
+        <defs>
+          <pattern
+            id="llm-map-dot-grid"
+            width="88"
+            height="88"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="8" cy="8" r="2.6" class="llm-map__paper-dot"></circle>
+          </pattern>
+        </defs>
+
+        <rect
+          class="llm-map__paper"
+          width={model.canvas.width}
+          height={model.canvas.height}></rect>
+        <rect
+          class="llm-map__dot-field"
+          width={model.canvas.width}
+          height={model.canvas.height}
+          fill="url(#llm-map-dot-grid)"></rect>
+
+        <g class="llm-map__edges" aria-hidden="true">
+          {
+            model.edges.map((edge) => (
+              <g
+                class:list={['llm-map__edge', `llm-map__edge--${edge.kind}`]}
+                data-map-edge={edge.id}
+                data-source={edge.source}
+                data-target={edge.target}
+              >
+                <path d={edgePath(edge)} />
+                {edge.kind === 'progression' && (
+                  <g class="llm-map__progress-marks">
+                    {[-12, 0, 12].map((offset) => {
+                      const midpoint = edgeMidpoint(edge);
+                      return (
+                        <circle
+                          cx={midpoint.x + offset}
+                          cy={midpoint.y}
+                          r="4"
+                        />
+                      );
+                    })}
+                  </g>
+                )}
+              </g>
+            ))
+          }
+        </g>
+
+        <g class="llm-map__nodes">
+          {
+            model.nodes.map((node) => (
+              <a
+                class:list={['llm-map__node', `llm-map__node--${node.kind}`]}
+                href={nodeHref(node)}
+                data-map-node={node.id}
+                data-node-kind={node.kind}
+                aria-label={`Explore ${node.label}`}
+                aria-controls="llm-map-detail"
+                aria-expanded="false"
+              >
+                <rect
+                  class="llm-map__hit-area"
+                  x={node.position.x - Math.max(node.position.width, 72) / 2}
+                  y={node.position.y - Math.max(node.position.height, 72) / 2}
+                  width={Math.max(node.position.width, 72)}
+                  height={Math.max(node.position.height, 72)}
+                  rx="10"
+                />
+                {node.kind !== 'topic' && (
+                  <path class="llm-map__oval" d={ovalPath(node)} />
+                )}
+                <text
+                  class="llm-map__label"
+                  x={node.position.x + node.position.labelOffsetX}
+                  y={node.position.y + node.position.labelOffsetY}
+                  text-anchor="middle"
+                  dominant-baseline="central"
+                >
+                  {node.label}
+                </text>
+                {node.kind === 'topic' &&
+                  (node.maturity === 'active' ||
+                    node.maturity === 'frontier') && (
+                    <circle
+                      class="llm-map__frontier-mark"
+                      cx={node.position.x + node.position.width / 2 + 10}
+                      cy={node.position.y - 10}
+                      r="4.5"
+                    />
+                  )}
+                <g class="llm-map__selection-marks" aria-hidden="true">
+                  {[-12, 0, 12].map((offset) => (
+                    <circle
+                      cx={node.position.x + offset}
+                      cy={node.position.y + node.position.height / 2 + 14}
+                      r="4"
+                    />
+                  ))}
+                </g>
+              </a>
+            ))
+          }
+        </g>
+      </svg>
+    </div>
+
+    <aside
+      class="llm-map__detail"
+      id="llm-map-detail"
+      aria-labelledby="llm-map-detail-title"
+      aria-live="polite"
+    >
+      <div class="llm-map__detail-topline">
+        <span data-map-detail-index>Map overview</span>
+        <button type="button" data-map-reset hidden>Return to overview</button>
+      </div>
+      <PanelHeadingTag
+        id="llm-map-detail-title"
+        data-map-detail-title
+        tabindex="-1"
+      >
+        Explore the sketch
+      </PanelHeadingTag>
+      <p data-map-detail-description>
+        Select any handwritten label to isolate its immediate conceptual
+        neighborhood. Every concept remains available as a regular link below.
+      </p>
+      <div class="llm-map__detail-status" data-map-detail-status hidden>
+        <span>Maturity</span>
+        <strong data-map-detail-maturity></strong>
+      </div>
+      <div class="llm-map__detail-group" data-map-prerequisites hidden>
+        <h3>Prerequisites</h3>
+        <ul data-map-prerequisite-list></ul>
+      </div>
+      <div class="llm-map__detail-group" data-map-related hidden>
+        <h3>Immediate connections</h3>
+        <ul data-map-related-list></ul>
+      </div>
+      <a
+        class="llm-map__detail-link"
+        href={siteHref('/topics/')}
+        data-map-detail-link
+      >
+        Browse the topic index →
+      </a>
+    </aside>
+  </div>
+
+  <section class="llm-map__fallback" aria-labelledby="llm-map-fallback-title">
+    <div class="llm-map__fallback-heading">
+      <p class="section-index">Semantic map / text view</p>
+      <h2 id="llm-map-fallback-title">Browse the same terrain as a list</h2>
+    </div>
+    <ul>
+      {
+        groupedTopics.map(({ area, topics: areaTopics }) => (
+          <li>
+            <h3>
+              <a href={siteHref(`/topics/#category-${area.category}`)}>
+                {area.label}
+              </a>
+            </h3>
+            <p>{area.description}</p>
+            <ul>
+              {areaTopics.map((topic) => (
+                <li>
+                  <a href={siteHref(topic.href)}>{topic.label}</a>
+                  <StatusLabel status={topic.maturity} />
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <script
+    type="application/json"
+    data-map-model
+    set:html={safeModelJson}
+    is:inline
+  />
+  <span data-map-base hidden>{siteConfig.deployment.base}</span>
+</section>
+
+<script>
+  import { resolveMapSelection } from '../content/map-selection';
+
+  const mapRoots = document.querySelectorAll<HTMLElement>('[data-llm-map]');
+
+  for (const mapRoot of mapRoots) {
+    if (mapRoot.dataset.mapReady === 'true') continue;
+    mapRoot.dataset.mapReady = 'true';
+
+    const modelElement =
+      mapRoot.querySelector<HTMLScriptElement>('[data-map-model]');
+    const baseElement = mapRoot.querySelector<HTMLElement>('[data-map-base]');
+    if (!modelElement || !baseElement) continue;
+
+    const model = JSON.parse(modelElement.textContent ?? '{}');
+    const deploymentBase = baseElement.textContent?.trim() || '/';
+    const nodes = new Map(
+      model.nodes.map((node: { id: string }) => [node.id, node]),
+    );
+    const nodeElements = [
+      ...mapRoot.querySelectorAll<SVGAElement>('[data-map-node]'),
+    ];
+    const edgeElements = [
+      ...mapRoot.querySelectorAll<SVGGElement>('[data-map-edge]'),
+    ];
+    const resetButton =
+      mapRoot.querySelector<HTMLButtonElement>('[data-map-reset]');
+    const canvasScroll = mapRoot.querySelector<HTMLElement>(
+      '.llm-map__canvas-scroll',
+    );
+    const detailTitle = mapRoot.querySelector<HTMLElement>(
+      '[data-map-detail-title]',
+    );
+    const detailIndex = mapRoot.querySelector<HTMLElement>(
+      '[data-map-detail-index]',
+    );
+    const detailDescription = mapRoot.querySelector<HTMLElement>(
+      '[data-map-detail-description]',
+    );
+    const detailStatus = mapRoot.querySelector<HTMLElement>(
+      '[data-map-detail-status]',
+    );
+    const detailMaturity = mapRoot.querySelector<HTMLElement>(
+      '[data-map-detail-maturity]',
+    );
+    const prerequisiteGroup = mapRoot.querySelector<HTMLElement>(
+      '[data-map-prerequisites]',
+    );
+    const prerequisiteList = mapRoot.querySelector<HTMLElement>(
+      '[data-map-prerequisite-list]',
+    );
+    const relatedGroup =
+      mapRoot.querySelector<HTMLElement>('[data-map-related]');
+    const relatedList = mapRoot.querySelector<HTMLElement>(
+      '[data-map-related-list]',
+    );
+    const detailLink = mapRoot.querySelector<HTMLAnchorElement>(
+      '[data-map-detail-link]',
+    );
+    let lastTrigger: SVGAElement | null = null;
+
+    const siteHref = (href: string) => {
+      if (deploymentBase === '/') return href;
+      return `${deploymentBase}${href}`;
+    };
+
+    const setList = (list: HTMLElement | null, ids: string[]) => {
+      if (!list) return;
+      list.replaceChildren();
+      for (const id of ids) {
+        const node = nodes.get(id) as
+          { label: string; href?: string } | undefined;
+        if (!node) continue;
+        const item = document.createElement('li');
+        if (node.href) {
+          const link = document.createElement('a');
+          link.href = siteHref(node.href);
+          link.textContent = node.label;
+          item.append(link);
+        } else {
+          item.textContent = node.label;
+        }
+        list.append(item);
+      }
+    };
+
+    const reset = (restoreFocus = false) => {
+      mapRoot.dataset.hasSelection = 'false';
+      delete mapRoot.dataset.selectedNode;
+      nodeElements.forEach((element) => {
+        element.classList.remove('is-selected', 'is-related', 'is-dimmed');
+        element.setAttribute('aria-expanded', 'false');
+      });
+      edgeElements.forEach((element) =>
+        element.classList.remove('is-related', 'is-dimmed'),
+      );
+      if (resetButton) resetButton.hidden = true;
+      if (detailIndex) detailIndex.textContent = 'Map overview';
+      if (detailTitle) detailTitle.textContent = 'Explore the sketch';
+      if (detailDescription) {
+        detailDescription.textContent =
+          'Select any handwritten label to isolate its immediate conceptual neighborhood. Every concept remains available as a regular link below.';
+      }
+      if (detailStatus) detailStatus.hidden = true;
+      if (prerequisiteGroup) prerequisiteGroup.hidden = true;
+      if (relatedGroup) relatedGroup.hidden = true;
+      if (detailLink) {
+        detailLink.href = siteHref('/topics/');
+        detailLink.textContent = 'Browse the topic index →';
+      }
+      if (restoreFocus) lastTrigger?.focus();
+    };
+
+    const select = (nodeId: string, trigger: SVGAElement) => {
+      const selection = resolveMapSelection(model, nodeId);
+      const node = nodes.get(nodeId) as
+        | {
+            kind: 'root' | 'area' | 'topic';
+            label: string;
+            description: string;
+            href?: string;
+            category?: string;
+            maturity?: string;
+            prerequisites?: string[];
+            relationships?: {
+              cameBefore: string[];
+              leadsTo: string[];
+              related: string[];
+            };
+          }
+        | undefined;
+      if (!selection || !node) return;
+
+      lastTrigger = trigger;
+      mapRoot.dataset.hasSelection = 'true';
+      mapRoot.dataset.selectedNode = nodeId;
+      const connectedNodes = new Set(selection.connectedNodeIds);
+      const connectedEdges = new Set(selection.connectedEdgeIds);
+
+      nodeElements.forEach((element) => {
+        const id = element.dataset.mapNode ?? '';
+        element.classList.toggle('is-selected', id === nodeId);
+        element.classList.toggle(
+          'is-related',
+          id !== nodeId && connectedNodes.has(id),
+        );
+        element.classList.toggle('is-dimmed', !connectedNodes.has(id));
+        element.setAttribute('aria-expanded', String(id === nodeId));
+      });
+      edgeElements.forEach((element) => {
+        const isConnected = connectedEdges.has(element.dataset.mapEdge ?? '');
+        element.classList.toggle('is-related', isConnected);
+        element.classList.toggle('is-dimmed', !isConnected);
+      });
+
+      if (resetButton) resetButton.hidden = false;
+      if (detailIndex) {
+        detailIndex.textContent =
+          node.kind === 'topic'
+            ? `${node.category?.replaceAll('-', ' ')} · concept`
+            : node.kind === 'area'
+              ? 'Major area'
+              : 'Map center';
+      }
+      if (detailTitle) detailTitle.textContent = node.label;
+      if (detailDescription) detailDescription.textContent = node.description;
+
+      const isTopic = node.kind === 'topic';
+      if (detailStatus && detailMaturity) {
+        detailStatus.hidden = !isTopic;
+        detailMaturity.textContent = node.maturity?.replaceAll('-', ' ') ?? '';
+        detailMaturity.dataset.maturity = node.maturity ?? '';
+      }
+
+      const prerequisites = node.prerequisites ?? [];
+      if (prerequisiteGroup)
+        prerequisiteGroup.hidden = prerequisites.length === 0;
+      setList(prerequisiteList, prerequisites);
+
+      const explicitRelationships = isTopic
+        ? [
+            ...(node.relationships?.cameBefore ?? []),
+            ...(node.relationships?.leadsTo ?? []),
+            ...(node.relationships?.related ?? []),
+          ]
+        : selection.connectedNodeIds.filter((id) => id !== nodeId);
+      const related = [...new Set(explicitRelationships)];
+      if (relatedGroup) relatedGroup.hidden = related.length === 0;
+      setList(relatedList, related);
+
+      if (detailLink) {
+        detailLink.href = node.href
+          ? siteHref(node.href)
+          : node.kind === 'area'
+            ? siteHref(`/topics/#category-${node.category}`)
+            : siteHref('/topics/');
+        detailLink.textContent =
+          node.kind === 'topic'
+            ? 'Open the full topic page →'
+            : node.kind === 'area'
+              ? 'Browse this topic area →'
+              : 'Browse the topic index →';
+      }
+    };
+
+    for (const nodeElement of nodeElements) {
+      nodeElement.addEventListener('click', (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+        event.preventDefault();
+        select(nodeElement.dataset.mapNode ?? '', nodeElement);
+      });
+      nodeElement.addEventListener('keydown', (event) => {
+        if (event.key !== ' ') return;
+        event.preventDefault();
+        select(nodeElement.dataset.mapNode ?? '', nodeElement);
+      });
+    }
+
+    resetButton?.addEventListener('click', () => reset(true));
+    mapRoot.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mapRoot.dataset.hasSelection === 'true') {
+        event.preventDefault();
+        reset(true);
+      }
+    });
+
+    requestAnimationFrame(() => {
+      if (canvasScroll && canvasScroll.scrollWidth > canvasScroll.clientWidth) {
+        canvasScroll.scrollLeft =
+          (canvasScroll.scrollWidth - canvasScroll.clientWidth) / 2;
+      }
+    });
+  }
+</script>
