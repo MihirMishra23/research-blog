@@ -72,11 +72,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 6. Implement shared content UI
 
-- [ ] Build reusable breadcrumbs for conceptual paths.
-- [ ] Build an article summary component showing description, date, topics, type, and difficulty.
-- [ ] Build topic/status labels with restrained maturity indicators.
-- [ ] Build an article layout with metadata, optional “Code for this article” link, and content typography.
-- [ ] Add previous, next, and related-content navigation derived from metadata where practical.
+- [x] Build reusable breadcrumbs for conceptual paths.
+- [x] Build an article summary component showing description, date, topics, type, and difficulty.
+- [x] Build topic/status labels with restrained maturity indicators.
+- [x] Build an article layout with metadata, optional “Code for this article” link, and content typography.
+- [x] Add previous, next, and related-content navigation derived from metadata where practical.
 
 **Gate:** shared components do not embed assumptions about a particular sample article or topic.
 

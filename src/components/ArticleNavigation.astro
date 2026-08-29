@@ -1,0 +1,54 @@
+---
+import type { ArticleNavigationData } from '../types/content-ui';
+import ContentNavigationLink from './ContentNavigationLink.astro';
+
+interface Props {
+  navigation: ArticleNavigationData;
+}
+
+const { navigation } = Astro.props;
+const related = navigation.related ?? [];
+const hasNavigation =
+  navigation.previous || navigation.next || related.length > 0;
+---
+
+{
+  hasNavigation && (
+    <nav class="article-navigation" aria-labelledby="continue-exploring">
+      <h2 id="continue-exploring">Continue exploring</h2>
+
+      {(navigation.previous || navigation.next) && (
+        <div class="article-navigation__sequence">
+          {navigation.previous && (
+            <div>
+              <p>Previous</p>
+              <ContentNavigationLink
+                item={navigation.previous}
+                direction="previous"
+              />
+            </div>
+          )}
+          {navigation.next && (
+            <div>
+              <p>Next</p>
+              <ContentNavigationLink item={navigation.next} direction="next" />
+            </div>
+          )}
+        </div>
+      )}
+
+      {related.length > 0 && (
+        <div class="article-navigation__related">
+          <p>Related</p>
+          <ul>
+            {related.map((item) => (
+              <li>
+                <ContentNavigationLink item={item} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </nav>
+  )
+}

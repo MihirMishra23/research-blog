@@ -148,3 +148,7 @@ export const topicSchema = z
 export type WritingData = z.infer<typeof writingSchema>;
 export type TopicData = z.infer<typeof topicSchema>;
 export type PaperLink = z.infer<typeof paperLinkSchema>;
+export type ArticleType = (typeof ARTICLE_TYPES)[number];
+export type DifficultyLevel = (typeof DIFFICULTY_LEVELS)[number];
+export type PublicationStatus = (typeof PUBLICATION_STATUSES)[number];
+export type ConceptMaturity = (typeof MATURITY_STATUSES)[number];

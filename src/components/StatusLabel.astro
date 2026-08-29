@@ -1,0 +1,33 @@
+---
+import type { ConceptMaturity, PublicationStatus } from '../content/schemas';
+
+type Status = ConceptMaturity | PublicationStatus;
+
+interface Props {
+  status: Status;
+  prefix?: string;
+}
+
+const { status, prefix } = Astro.props;
+const label = status.replaceAll('-', ' ');
+const maturityStates = new Set<Status>([
+  'foundational',
+  'established',
+  'active',
+  'frontier',
+]);
+const isMaturity = maturityStates.has(status);
+---
+
+<span
+  class:list={[
+    'status-label',
+    `status-label--${status}`,
+    { 'status-label--maturity': isMaturity },
+  ]}
+  aria-label={`${prefix ? `${prefix}: ` : ''}${label}`}
+>
+  {isMaturity && <span class="status-label__mark" aria-hidden="true" />}
+  {prefix && <span class="status-label__prefix">{prefix}</span>}
+  <span>{label}</span>
+</span>

@@ -1,0 +1,22 @@
+---
+import { siteHref } from '../config/site';
+import type { TopicReference } from '../types/content-ui';
+import StatusLabel from './StatusLabel.astro';
+
+interface Props extends TopicReference {}
+
+const { id, label, href, maturity } = Astro.props;
+---
+
+<span class="topic-label" data-topic={id}>
+  {
+    href ? (
+      <a href={siteHref(href)}>
+        <span class="topic-label__name">{label}</span>
+      </a>
+    ) : (
+      <span class="topic-label__name">{label}</span>
+    )
+  }
+  {maturity && <StatusLabel status={maturity} />}
+</span>

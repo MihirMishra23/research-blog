@@ -14,6 +14,7 @@ const { title = siteConfig.title, description = siteConfig.description } =
   Astro.props;
 const documentTitle =
   title === siteConfig.title ? title : `${title} · ${siteConfig.title}`;
+const isMapPage = Astro.url.pathname === sitePath('/');
 ---
 
 <!doctype html>
@@ -74,7 +75,10 @@ const documentTitle =
 
         <div class="site-header__tools">
           <nav class="site-nav" aria-label="Primary navigation">
-            <a href={sitePath('/')} aria-current="page">Map</a>
+            <a
+              href={sitePath('/')}
+              aria-current={isMapPage ? 'page' : undefined}>Map</a
+            >
             <a href={siteConfig.repository.url}>Source</a>
           </nav>
           <ThemeToggle />

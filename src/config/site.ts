@@ -48,3 +48,12 @@ export function sitePath(path = '/'): string {
 
   return `${siteConfig.deployment.base}${normalizedPath}`;
 }
+
+/** Resolve internal root-relative links while leaving absolute URLs and anchors alone. */
+export function siteHref(href: string): string {
+  if (/^(?:[a-z][a-z\d+.-]*:|#)/i.test(href)) {
+    return href;
+  }
+
+  return sitePath(href);
+}

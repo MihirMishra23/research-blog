@@ -1,8 +1,46 @@
----
-layout: ../layouts/RenderingTestLayout.astro
-title: Math and code rendering
-description: A build-time fixture for checking technical writing in light and dark themes.
----
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { siteConfig } from '../config/site';
+
+export const article = {
+  title: 'Math and code rendering',
+  description:
+    'A build-time fixture for checking technical writing in light and dark themes.',
+  date: new Date('2026-08-28'),
+  topics: [
+    { id: 'markdown-mdx', label: 'Markdown / MDX', maturity: 'established' },
+    {
+      id: 'technical-typesetting',
+      label: 'Technical typesetting',
+      maturity: 'active',
+    },
+  ],
+  level: 'introductory',
+  type: 'experiment',
+  status: 'published',
+  github: `${siteConfig.repository.url}/blob/main/src/pages/rendering-test.mdx`,
+};
+
+export const breadcrumbs = [
+  { label: 'Research notebook', href: '/' },
+  { label: 'Rendering test' },
+];
+
+export const navigation = {
+  previous: {
+    title: 'The LLM Map',
+    href: '/',
+    description: 'Return to the research map overview.',
+  },
+  related: [
+    {
+      title: 'Content model',
+      href: `${siteConfig.repository.url}/blob/main/docs/content-model.md`,
+      description: 'See how writing and topics are structured.',
+    },
+  ],
+};
+
+<ArticleLayout article={article} breadcrumbs={breadcrumbs} navigation={navigation}>
 
 This page exercises the technical-writing pipeline. Inline math such as
 $O(n^2d + nd^2)$ should sit naturally inside a sentence without shifting its
@@ -33,3 +71,5 @@ def causal_attention(query, key, value):
 ```
 
 MDX expressions also render correctly: **{2 + 2} tokens inspected**.
+
+</ArticleLayout>

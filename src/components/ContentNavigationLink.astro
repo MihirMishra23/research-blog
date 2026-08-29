@@ -1,0 +1,22 @@
+---
+import { siteHref } from '../config/site';
+import type { ContentLink } from '../types/content-ui';
+
+interface Props {
+  item: ContentLink;
+  direction?: 'previous' | 'next';
+}
+
+const { item, direction } = Astro.props;
+---
+
+<a
+  class:list={[
+    'article-navigation__link',
+    direction && `article-navigation__link--${direction}`,
+  ]}
+  href={siteHref(item.href)}
+>
+  <span class="article-navigation__title">{item.title}</span>
+  {item.description && <span>{item.description}</span>}
+</a>

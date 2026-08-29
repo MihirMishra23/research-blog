@@ -1,0 +1,47 @@
+---
+import ArticleNavigation from '../components/ArticleNavigation.astro';
+import ArticleSummary from '../components/ArticleSummary.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { siteHref } from '../config/site';
+import type {
+  ArticleMetadata,
+  ArticleNavigationData,
+  BreadcrumbItem,
+} from '../types/content-ui';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  article: ArticleMetadata;
+  breadcrumbs?: BreadcrumbItem[];
+  navigation?: ArticleNavigationData;
+}
+
+const { article, breadcrumbs = [], navigation } = Astro.props;
+---
+
+<BaseLayout title={article.title} description={article.description}>
+  <article class="article-shell">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="article-header">
+      <p class="eyebrow">
+        {article.type.replaceAll('-', ' ')} · {article.level}
+      </p>
+      <h1>{article.title}</h1>
+      <ArticleSummary article={article} />
+      {
+        article.github && (
+          <a class="article-header__code-link" href={siteHref(article.github)}>
+            Code for this article <span aria-hidden="true">↗</span>
+          </a>
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    {navigation && <ArticleNavigation navigation={navigation} />}
+  </article>
+</BaseLayout>
