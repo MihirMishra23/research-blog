@@ -123,6 +123,7 @@ export const topicSchema = z
     status: z.enum(MATURITY_STATUSES),
     draft: z.boolean().default(false),
     aliases: z.array(z.string().trim().min(1).max(80)).default([]),
+    mapLabel: z.string().trim().min(1).max(48).optional(),
     problem: z.string().trim().min(10).max(600).optional(),
     idea: z.string().trim().min(10).max(600).optional(),
     consequence: z.string().trim().min(10).max(600).optional(),
@@ -156,3 +157,4 @@ export type ArticleType = (typeof ARTICLE_TYPES)[number];
 export type DifficultyLevel = (typeof DIFFICULTY_LEVELS)[number];
 export type PublicationStatus = (typeof PUBLICATION_STATUSES)[number];
 export type ConceptMaturity = (typeof MATURITY_STATUSES)[number];
+export type TopicCategory = (typeof TOPIC_CATEGORIES)[number];

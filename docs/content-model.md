@@ -110,6 +110,8 @@ Required core fields are `name`, `summary`, `category`, `type`, and maturity `st
 
 The optional `problem`, `idea`, `consequence`, `limitations`, and `whatCameNext` fields populate the topic page's standard conceptual framework. Missing steps are omitted, so an early topic stub never renders empty headings. Longer explanations remain in the Markdown/MDX body.
 
+The optional `mapLabel` provides the compact label used in the knowledge sketch. The `map` object stores the topic's manually authored V1 coordinates, hit-area dimensions, and small label offsets. Published topics included in the V1 map must provide this geometry. The typed composition and validation rules are documented in [LLM map data model](./map-data-model.md).
+
 Supported maturity states:
 
 - `foundational`: a durable prerequisite or framing idea that later concepts build on;
@@ -139,6 +141,7 @@ Schema validation rejects spaces, uppercase letters, underscores, duplicate IDs 
 npm test
 npm run check
 npm run build
+npm run verify:map-model
 ```
 
 The schema tests exercise valid metadata, deliberately invalid metadata, default values, and production visibility behavior. Astro validates actual collection entries during content synchronization and production builds.

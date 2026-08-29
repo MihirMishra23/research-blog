@@ -88,6 +88,7 @@ The desktop composition is primary. On smaller screens:
 
 - Prefer lightweight SVG with manually authored paths and positions.
 - Keep graph data separate from drawing geometry and interaction state.
+- Consume the renderer-neutral model documented in [LLM map data model](./map-data-model.md); do not duplicate topic metadata or edges inside the SVG component.
 - It is acceptable to use a small rough-stroke helper if it produces deterministic static output and does not materially increase the client bundle.
 - Do not use default React Flow nodes, generic rounded rectangles, physics-based force layouts, glossy status badges, or card grids.
 - Do not trace the reference image as a background. Recreate its visual grammar with semantic, interactive SVG.

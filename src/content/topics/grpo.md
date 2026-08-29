@@ -6,6 +6,7 @@ type: method
 status: active
 aliases:
   - 'GRPO'
+mapLabel: 'GRPO'
 problem: 'Policy optimization for verifiable tasks can be expensive when it requires a separately trained value model.'
 idea: 'Sample a group of responses for each prompt and estimate each response advantage relative to rewards within that group.'
 consequence: 'Policy optimization can avoid a separate value model and work naturally with automatically checkable outcome rewards.'
@@ -25,6 +26,13 @@ papers:
   - title: 'DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models'
     url: https://arxiv.org/abs/2402.03300
     year: 2024
+map:
+  x: 650
+  y: 190
+  width: 105
+  height: 44
+  labelOffsetX: 3
+  labelOffsetY: -2
 ---
 
 > **Sample content:** This page is an orientation stub. It intentionally avoids

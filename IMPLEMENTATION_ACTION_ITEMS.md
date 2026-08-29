@@ -114,11 +114,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 10. Define the editable LLM map data model
 
-- [ ] Represent nodes and edges as typed static data, separate from rendering code.
-- [ ] Include stable IDs, slugs, labels, categories, descriptions, maturity, prerequisites, relationships, and manually assigned V1 positions.
-- [ ] Encode enough relationships to demonstrate progression and cross-category exploration among the six initial nodes.
-- [ ] Leave extension points for learning paths, frontier mode, paper overlays, and a larger taxonomy without implementing those interfaces.
-- [ ] Validate that every map topic slug resolves to an existing topic page.
+- [x] Represent nodes and edges as typed static data, separate from rendering code.
+- [x] Include stable IDs, slugs, labels, categories, descriptions, maturity, prerequisites, relationships, and manually assigned V1 positions.
+- [x] Encode enough relationships to demonstrate progression and cross-category exploration among the six initial nodes.
+- [x] Leave extension points for learning paths, frontier mode, paper overlays, and a larger taxonomy without implementing those interfaces.
+- [x] Validate that every map topic slug resolves to an existing topic page.
 
 **Gate:** invalid edges, duplicate IDs, and missing topic targets are caught by checks or tests.
 

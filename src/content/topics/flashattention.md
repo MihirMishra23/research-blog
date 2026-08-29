@@ -6,6 +6,7 @@ type: method
 status: established
 aliases:
   - 'Flash Attention'
+mapLabel: 'FlashAttention'
 problem: 'Materializing the full attention matrix creates costly reads and writes between high-bandwidth memory and on-chip memory.'
 idea: 'Tile exact attention around the memory hierarchy and maintain online softmax statistics so the full score matrix never needs to be materialized in high-bandwidth memory.'
 consequence: 'Attention performs the same mathematical operation with substantially less memory traffic, improving speed and memory use on supported hardware.'
@@ -16,6 +17,7 @@ cameBefore: []
 leadsTo: []
 related:
   - speculative-decoding
+  - multimodal-models
 frontierQuestions:
   - 'How should exact attention kernels evolve for new accelerators, precisions, and sparse patterns?'
   - 'Where do end-to-end bottlenecks move after attention IO is reduced?'
@@ -26,6 +28,13 @@ papers:
   - title: 'FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning'
     url: https://arxiv.org/abs/2307.08691
     year: 2023
+map:
+  x: 1045
+  y: 185
+  width: 190
+  height: 48
+  labelOffsetX: -4
+  labelOffsetY: 0
 ---
 
 > **Sample content:** This compact explanation is a rendering fixture, not a

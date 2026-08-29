@@ -7,6 +7,7 @@ status: established
 aliases:
   - 'Supervised fine-tuning'
   - 'Instruction tuning'
+mapLabel: 'SFT'
 problem: 'A pretrained next-token predictor does not automatically follow instructions or adopt a useful response format.'
 idea: 'Continue next-token training on curated prompt-and-response demonstrations that exemplify the behavior the model should produce.'
 consequence: 'The model becomes easier to direct and gains a behavioral starting point for later preference or reward-based optimization.'
@@ -25,6 +26,13 @@ papers:
   - title: 'Training language models to follow instructions with human feedback'
     url: https://arxiv.org/abs/2203.02155
     year: 2022
+map:
+  x: 330
+  y: 195
+  width: 90
+  height: 44
+  labelOffsetX: -2
+  labelOffsetY: 0
 ---
 
 > **Sample content:** This short orientation note exists to exercise the initial

@@ -7,6 +7,7 @@ status: active
 aliases:
   - 'Multimodal language models'
   - 'Vision-language models'
+mapLabel: 'Multimodal Models'
 problem: 'Text-only interfaces cannot directly represent or reason over the perceptual signals present in images, audio, and video.'
 idea: 'Connect modality-specific encoders or tokens to a shared model so perceptual inputs and language can condition one another.'
 consequence: 'A single interface can retrieve, interpret, and generate information across text and perceptual modalities.'
@@ -15,7 +16,8 @@ whatCameNext: 'Architectures are moving toward longer video and audio contexts, 
 prerequisites: []
 cameBefore: []
 leadsTo: []
-related: []
+related:
+  - flashattention
 frontierQuestions:
   - 'How can models ground language in perception without relying on shallow dataset correlations?'
   - 'Which representations and evaluations expose failures in temporal and spatial reasoning?'
@@ -26,6 +28,13 @@ papers:
   - title: 'Flamingo: a Visual Language Model for Few-Shot Learning'
     url: https://arxiv.org/abs/2204.14198
     year: 2022
+map:
+  x: 1110
+  y: 690
+  width: 215
+  height: 50
+  labelOffsetX: 2
+  labelOffsetY: 0
 ---
 
 > **Sample content:** This is a taxonomy seed, not a complete history of

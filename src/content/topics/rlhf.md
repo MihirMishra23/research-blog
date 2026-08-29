@@ -6,6 +6,7 @@ type: method
 status: established
 aliases:
   - 'RLHF'
+mapLabel: 'RLHF'
 problem: 'Demonstrations alone cannot efficiently specify which of several plausible model responses people prefer.'
 idea: 'Learn a reward signal from human comparisons, then optimize the model toward responses that score well while constraining movement from a reference policy.'
 consequence: 'Developers can shape behavior using comparative judgments rather than writing one ideal demonstration for every prompt.'
@@ -25,6 +26,13 @@ papers:
   - title: 'Training language models to follow instructions with human feedback'
     url: https://arxiv.org/abs/2203.02155
     year: 2022
+map:
+  x: 470
+  y: 235
+  width: 100
+  height: 44
+  labelOffsetX: 0
+  labelOffsetY: 2
 ---
 
 > **Sample content:** This is a deliberately compact topic placeholder, not a

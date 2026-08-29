@@ -6,6 +6,7 @@ type: method
 status: active
 aliases:
   - 'Speculative sampling'
+mapLabel: 'Speculative Decoding'
 problem: 'Autoregressive generation normally requires one serial target-model pass for each emitted token.'
 idea: 'Use a cheaper process to draft several tokens, then have the target model verify the proposed block in parallel with an exact acceptance rule.'
 consequence: 'A target-model pass can advance generation by multiple accepted tokens without changing the target output distribution.'
@@ -23,6 +24,13 @@ papers:
   - title: 'Fast Inference from Transformers via Speculative Decoding'
     url: https://arxiv.org/abs/2211.17192
     year: 2022
+map:
+  x: 1235
+  y: 355
+  width: 245
+  height: 50
+  labelOffsetX: 0
+  labelOffsetY: 2
 ---
 
 > **Sample content:** This note sketches the idea and omits many sampling and
