@@ -51,12 +51,12 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 4. Model content and validate frontmatter
 
-- [ ] Create Astro content collections for `writing` and `topics`.
-- [ ] Define the shared topic vocabulary and enums for article type, difficulty, publication status, and concept maturity.
-- [ ] Validate writing frontmatter: title, description, date, topics, level, type, status/draft, optional GitHub URL, and optional paper links.
-- [ ] Validate topic metadata while allowing optional fields during the initial rollout.
-- [ ] Exclude drafts and non-published posts from production indexes and feeds.
-- [ ] Choose a single-source-of-truth rule so adding a concept does not require unrelated edits in multiple files.
+- [x] Create Astro content collections for `writing` and `topics`.
+- [x] Define the shared topic vocabulary and enums for article type, difficulty, publication status, and concept maturity.
+- [x] Validate writing frontmatter: title, description, date, topics, level, type, status/draft, optional GitHub URL, and optional paper links.
+- [x] Validate topic metadata while allowing optional fields during the initial rollout.
+- [x] Exclude drafts and non-published posts from production indexes and feeds.
+- [x] Choose a single-source-of-truth rule so adding a concept does not require unrelated edits in multiple files.
 
 **Gate:** valid sample content passes checks, and deliberately invalid frontmatter fails with a useful message.
 
