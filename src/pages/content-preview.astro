@@ -1,0 +1,158 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleSummary from '../components/ArticleSummary.astro';
+import StatusLabel from '../components/StatusLabel.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { assertContentReferences } from '../content/references';
+
+const topics = (await getCollection('topics')).sort((a, b) =>
+  a.data.name.localeCompare(b.data.name),
+);
+const writing = (await getCollection('writing')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+assertContentReferences(topics, writing);
+
+const topicById = new Map(topics.map((entry) => [entry.id, entry]));
+const renderedTopics = await Promise.all(
+  topics.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+const renderedWriting = await Promise.all(
+  writing.map(async (entry) => ({ entry, ...(await render(entry)) })),
+);
+
+const topicName = (id: string) => topicById.get(id)?.data.name ?? id;
+---
+
+<BaseLayout
+  title="Initial content preview"
+  description="A temporary build-time preview of the first topic and writing entries."
+>
+  <header class="content-preview__header">
+    <p class="eyebrow">Content milestone · step 07</p>
+    <h1>Initial content set</h1>
+    <p>
+      A temporary integration view for six topic entries and two sample
+      articles. Permanent writing and topic routes arrive in the next two steps.
+    </p>
+    <nav aria-label="Preview sections">
+      <a href="#writing">2 sample articles</a>
+      <a href="#topics">6 topic entries</a>
+    </nav>
+  </header>
+
+  <section
+    class="content-preview__section"
+    id="writing"
+    aria-labelledby="writing-title"
+  >
+    <div class="content-preview__section-heading">
+      <p class="section-index">Writing / 02</p>
+      <h2 id="writing-title">Sample articles</h2>
+    </div>
+
+    <div class="content-preview__entries">
+      {
+        renderedWriting.map(({ entry, Content }) => (
+          <article class="content-preview__entry" id={`writing-${entry.id}`}>
+            <h3>{entry.data.title}</h3>
+            <ArticleSummary
+              article={{
+                ...entry.data,
+                topics: entry.data.topics.map((id) => ({
+                  id,
+                  label: topicName(id),
+                  href: `#topic-${id}`,
+                  maturity: topicById.get(id)?.data.status,
+                })),
+              }}
+            />
+            <div class="prose content-preview__body">
+              <Content />
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section
+    class="content-preview__section"
+    id="topics"
+    aria-labelledby="topics-title"
+  >
+    <div class="content-preview__section-heading">
+      <p class="section-index">Topics / 06</p>
+      <h2 id="topics-title">Concept entries</h2>
+    </div>
+
+    <div class="content-preview__entries">
+      {
+        renderedTopics.map(({ entry, Content }) => {
+          const relationships = [
+            ...entry.data.prerequisites,
+            ...entry.data.cameBefore,
+            ...entry.data.leadsTo,
+            ...entry.data.related,
+          ].filter((id, index, values) => values.indexOf(id) === index);
+
+          return (
+            <article class="content-preview__entry" id={`topic-${entry.id}`}>
+              <div class="content-preview__topic-heading">
+                <div>
+                  <p>{entry.data.category.replaceAll('-', ' ')}</p>
+                  <h3>{entry.data.name}</h3>
+                </div>
+                <StatusLabel status={entry.data.status} prefix="Maturity" />
+              </div>
+              <p class="content-preview__summary">{entry.data.summary}</p>
+
+              {relationships.length > 0 && (
+                <div class="content-preview__relationships">
+                  <span>Connected concepts</span>
+                  <ul>
+                    {relationships.map((id) => (
+                      <li>
+                        <a href={`#topic-${id}`}>{topicName(id)}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div class="prose content-preview__body">
+                <Content />
+              </div>
+
+              {entry.data.frontierQuestions.length > 0 && (
+                <aside class="content-preview__frontier">
+                  <h4>Frontier questions</h4>
+                  <ul>
+                    {entry.data.frontierQuestions.map((question) => (
+                      <li>{question}</li>
+                    ))}
+                  </ul>
+                </aside>
+              )}
+
+              {entry.data.papers.length > 0 && (
+                <div class="content-preview__papers">
+                  <h4>Important papers</h4>
+                  <ul>
+                    {entry.data.papers.map((paper) => (
+                      <li>
+                        <a href={paper.url}>{paper.title}</a>
+                        {paper.year && <span> ({paper.year})</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>

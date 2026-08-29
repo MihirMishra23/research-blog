@@ -1,0 +1,53 @@
+---
+name: 'Reinforcement Learning from Human Feedback (RLHF)'
+summary: 'Post-training that uses human preference data to optimize model behavior through a learned reward signal.'
+category: post-training
+type: method
+status: established
+aliases:
+  - 'RLHF'
+problem: 'Demonstrations alone cannot efficiently specify which of several plausible model responses people prefer.'
+prerequisites:
+  - sft
+cameBefore:
+  - sft
+leadsTo: []
+related:
+  - grpo
+frontierQuestions:
+  - 'How well do learned rewards generalize beyond the preference-data distribution?'
+  - 'How much optimization pressure can be applied before reward-model errors dominate behavior?'
+papers:
+  - title: 'Training language models to follow instructions with human feedback'
+    url: https://arxiv.org/abs/2203.02155
+    year: 2022
+---
+
+> **Sample content:** This is a deliberately compact topic placeholder, not a
+> comprehensive account of modern preference optimization.
+
+## What is it?
+
+RLHF turns comparisons between model responses into a training signal. A common
+pipeline begins with an SFT model, fits a reward model to human rankings, and
+then updates the policy to produce responses with higher predicted reward.
+
+## Core objective
+
+A simplified objective trades off reward against movement away from a reference
+policy:
+
+$$
+\max_\theta\;
+\mathbb{E}_{y\sim\pi_\theta(\cdot\mid x)}[r_\phi(x,y)]
+- \beta D_{\mathrm{KL}}(\pi_\theta\|\pi_{\mathrm{ref}}).
+$$
+
+The KL term is not just a mathematical decoration: it limits how aggressively
+the policy exploits imperfections in the learned reward.
+
+## Limitations
+
+RLHF inherits ambiguity and bias from preference collection, reward-model
+generalization, and the optimization algorithm. A higher learned reward is not
+the same thing as a universally better answer.

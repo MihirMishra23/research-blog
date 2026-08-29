@@ -82,12 +82,12 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 7. Create the initial content set
 
-- [ ] Add topic entries for SFT, RLHF, GRPO, FlashAttention, Speculative Decoding, and Multimodal Models.
-- [ ] Give each topic a summary, category, maturity, prerequisites, relationships, and frontier questions where relevant.
-- [ ] Add the sample post “Why does post-training exist?”
-- [ ] Add the sample post “Why is LLM inference memory-bound?”
-- [ ] Include enough math, code, topic links, and metadata across the samples to exercise the content system.
-- [ ] Keep placeholder prose clearly marked so it cannot be mistaken for finished research writing.
+- [x] Add topic entries for SFT, RLHF, GRPO, FlashAttention, Speculative Decoding, and Multimodal Models.
+- [x] Give each topic a summary, category, maturity, prerequisites, relationships, and frontier questions where relevant.
+- [x] Add the sample post “Why does post-training exist?”
+- [x] Add the sample post “Why is LLM inference memory-bound?”
+- [x] Include enough math, code, topic links, and metadata across the samples to exercise the content system.
+- [x] Keep placeholder prose clearly marked so it cannot be mistaken for finished research writing.
 
 **Gate:** all six topic entries and both posts pass schema validation and render without broken links.
 

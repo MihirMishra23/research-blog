@@ -1,0 +1,75 @@
+---
+title: 'Why is LLM inference memory-bound?'
+description: 'A systems-oriented sketch of arithmetic intensity, memory movement, attention kernels, and decoding latency.'
+date: 2026-08-27
+topics:
+  - flashattention
+  - speculative-decoding
+tags:
+  - gpu-systems
+  - decoding
+  - memory-bandwidth
+level: intermediate
+type: explainer
+status: published
+github: null
+papers:
+  - title: 'FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness'
+    url: https://arxiv.org/abs/2205.14135
+    year: 2022
+  - title: 'Fast Inference from Transformers via Speculative Decoding'
+    url: https://arxiv.org/abs/2211.17192
+    year: 2022
+previous: why-post-training-exists
+next: null
+related: []
+---
+
+> **Sample article:** This is a deliberately simplified systems note used to
+> test MDX, math, code, and topic metadata. It is not a hardware benchmark.
+
+Calling an operation “memory-bound” means its execution rate is limited more by
+moving data than by the accelerator's peak arithmetic throughput. Autoregressive
+decoding often lands in this regime because every new token reuses a large set of
+model weights while doing relatively little work per fetched byte at small batch
+sizes.
+
+## Arithmetic intensity is the clue
+
+Arithmetic intensity compares computation with data movement:
+
+$$
+I = \frac{\text{floating-point operations}}
+{\text{bytes transferred}}.
+$$
+
+A roofline-style upper bound is
+
+$$
+P \leq \min(P_{\mathrm{peak}},\; B_{\mathrm{memory}} I).
+$$
+
+If (I) is low, adding theoretical FLOPs does little unless memory bandwidth or
+data reuse also improves.
+
+## Shape matters
+
+The same matrix multiplication can behave differently during prompt processing
+and single-token decoding. This schematic pseudo-code makes the small decode
+dimension visible:
+
+```python
+# Prefill processes many sequence positions together.
+prefill = hidden_states @ weight
+
+# Decode may process one new position per request.
+decode = next_hidden_state @ weight
+```
+
+## Two different responses to serialization
+
+FlashAttention reduces IO inside exact attention by tiling work around the memory
+hierarchy. Speculative decoding attacks token-by-token serialization by drafting
+several candidates and verifying them together. Neither method makes the whole
+system automatically fast: batch shape, KV-cache traffic, acceptance rate, and
+scheduler overhead still matter.
