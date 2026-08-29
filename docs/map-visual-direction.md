@@ -20,9 +20,10 @@ Use a stable radial hierarchy:
 
 1. Place `LLMs` in an irregular central oval.
 2. Place major areas around it in their own irregular ovals.
-3. Connect each major area to the center with a short organic stroke.
-4. Extend individual concepts outward as handwritten labels connected by branch strokes.
-5. Allow selected concepts to branch again where a method has important descendants, such as speculative decoding leading to Medusa and EAGLE.
+3. Enclose every topic concept in a smaller irregular bubble so the map reads as a connected node diagram rather than annotated branches.
+4. Connect each major area to the center with a short organic stroke.
+5. Extend individual concepts outward as handwritten bubbles connected by branch strokes.
+6. Allow selected concepts to branch again where a method has important descendants, such as speculative decoding leading to Medusa and EAGLE.
 
 The composition should be manually positioned in V1. Slight asymmetry, varied branch lengths, and uneven spacing are desirable when they improve the sketched quality. Avoid automatic layouts that constantly move or optimize the drawing into a regular grid.
 
@@ -40,7 +41,7 @@ The composition should be manually positioned in V1. Slight asymmetry, varied br
 - Predominantly black/ink-colored outlines and connectors.
 - Rounded caps and joins.
 - Slightly irregular curves instead of mechanically perfect circles and straight lines.
-- Major-category ovals should be hand-shaped SVG paths, not pill components.
+- Root, category, and topic bubbles should be hand-shaped SVG paths, not pill components.
 - Selected or related paths may become marginally heavier, but should not turn into neon or glowing edges.
 
 ### Lettering

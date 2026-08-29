@@ -62,8 +62,8 @@ function boundaryPoint(
 ) {
   const dx = toward.x - position.x;
   const dy = toward.y - position.y;
-  const radiusX = position.width / 2 + (position.height > 60 ? 1 : 10);
-  const radiusY = position.height / 2 + (position.height > 60 ? 1 : 10);
+  const radiusX = position.width / 2 + 1;
+  const radiusY = position.height / 2 + 1;
   const scale =
     1 /
     Math.sqrt(
@@ -142,7 +142,7 @@ const groupedTopics = areas.map((area) => ({
         <desc id="llm-map-svg-description">
           A hand-drawn radial knowledge sketch. LLMs are in the center, with
           Post-training, Inference systems, and Multimodal areas branching to
-          six selectable concepts.
+          six selectable concept bubbles.
         </desc>
         <defs>
           <pattern
@@ -214,9 +214,7 @@ const groupedTopics = areas.map((area) => ({
                   height={Math.max(node.position.height, 72)}
                   rx="10"
                 />
-                {node.kind !== 'topic' && (
-                  <path class="llm-map__oval" d={ovalPath(node)} />
-                )}
+                <path class="llm-map__oval" d={ovalPath(node)} />
                 <text
                   class="llm-map__label"
                   x={node.position.x + node.position.labelOffsetX}

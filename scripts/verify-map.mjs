@@ -61,8 +61,8 @@ assert.match(
 assert.match(html, /id="llm-map-dot-grid"/, 'dotted-paper pattern is missing');
 assert.equal(
   (html.match(/class="llm-map__oval"/g) ?? []).length,
-  4,
-  'root and major areas should render as irregular ovals',
+  10,
+  'every map node should render as an irregular bubble',
 );
 assert.match(
   html,

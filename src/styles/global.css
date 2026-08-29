@@ -1105,6 +1105,10 @@ main {
   vector-effect: non-scaling-stroke;
 }
 
+.llm-map__node--topic .llm-map__oval {
+  stroke-width: 3.5;
+}
+
 .llm-map__label {
   fill: var(--map-ink);
   stroke: var(--map-paper);

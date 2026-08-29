@@ -29,8 +29,8 @@ papers:
 map:
   x: 650
   y: 135
-  width: 105
-  height: 44
+  width: 125
+  height: 62
   labelOffsetX: 3
   labelOffsetY: -2
 ---

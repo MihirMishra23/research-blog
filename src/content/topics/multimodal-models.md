@@ -31,8 +31,8 @@ papers:
 map:
   x: 1130
   y: 800
-  width: 215
-  height: 50
+  width: 255
+  height: 68
   labelOffsetX: 2
   labelOffsetY: 0
 ---
