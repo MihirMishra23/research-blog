@@ -1,0 +1,84 @@
+<button
+  class="theme-toggle"
+  type="button"
+  data-theme-toggle
+  aria-label="Color theme: system"
+>
+  <span class="theme-toggle__mark" aria-hidden="true">◐</span>
+  <span>Theme:</span>
+  <span data-theme-label>system</span>
+</button>
+
+<script>
+  type ThemeSetting = 'system' | 'light' | 'dark';
+
+  const storageKey = 'llm-map-theme';
+  const settings: ThemeSetting[] = ['system', 'light', 'dark'];
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const button = document.querySelector<HTMLButtonElement>(
+    '[data-theme-toggle]',
+  );
+
+  function isThemeSetting(value: string | undefined): value is ThemeSetting {
+    return value === 'system' || value === 'light' || value === 'dark';
+  }
+
+  function resolveTheme(setting: ThemeSetting): 'light' | 'dark' {
+    return setting === 'system'
+      ? mediaQuery.matches
+        ? 'dark'
+        : 'light'
+      : setting;
+  }
+
+  function applyTheme(setting: ThemeSetting, persist = true) {
+    const resolvedTheme = resolveTheme(setting);
+    document.documentElement.dataset.theme = resolvedTheme;
+    document.documentElement.dataset.themeSetting = setting;
+    document.documentElement.style.colorScheme = resolvedTheme;
+
+    if (persist) {
+      try {
+        window.localStorage.setItem(storageKey, setting);
+      } catch {
+        // The selected theme still applies when storage is unavailable.
+      }
+    }
+
+    if (!button) return;
+
+    const label = button.querySelector<HTMLElement>('[data-theme-label]');
+    if (label) label.textContent = setting;
+    button.setAttribute(
+      'aria-label',
+      `Color theme: ${setting}. Activate to choose the next theme.`,
+    );
+  }
+
+  if (button) {
+    const initialSetting = isThemeSetting(
+      document.documentElement.dataset.themeSetting,
+    )
+      ? document.documentElement.dataset.themeSetting
+      : 'system';
+
+    applyTheme(initialSetting, false);
+
+    button.addEventListener('click', () => {
+      const currentSetting = isThemeSetting(
+        document.documentElement.dataset.themeSetting,
+      )
+        ? document.documentElement.dataset.themeSetting
+        : 'system';
+      const nextSetting =
+        settings[(settings.indexOf(currentSetting) + 1) % settings.length];
+      applyTheme(nextSetting);
+    });
+
+    mediaQuery.addEventListener('change', () => {
+      if (document.documentElement.dataset.themeSetting === 'system') {
+        applyTheme('system', false);
+      }
+    });
+  }
+</script>

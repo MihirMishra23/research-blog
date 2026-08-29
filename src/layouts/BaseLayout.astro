@@ -1,0 +1,97 @@
+---
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { siteConfig, sitePath } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = siteConfig.title, description = siteConfig.description } =
+  Astro.props;
+const documentTitle =
+  title === siteConfig.title ? title : `${title} · ${siteConfig.title}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={sitePath('/favicon.svg')} />
+    <title>{documentTitle}</title>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const storageKey = 'llm-map-theme';
+        let setting = 'system';
+
+        try {
+          const storedSetting = window.localStorage.getItem(storageKey);
+          if (
+            storedSetting === 'light' ||
+            storedSetting === 'dark' ||
+            storedSetting === 'system'
+          ) {
+            setting = storedSetting;
+          }
+        } catch {
+          // Fall back to the system theme when storage is unavailable.
+        }
+
+        const resolved =
+          setting === 'system'
+            ? window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+            : setting;
+
+        root.classList.add('has-js');
+        root.dataset.theme = resolved;
+        root.dataset.themeSetting = setting;
+        root.style.colorScheme = resolved;
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <a
+          class="site-identity"
+          href={sitePath('/')}
+          aria-label={`${siteConfig.title}, home`}
+        >
+          <span class="site-identity__index" aria-hidden="true">01</span>
+          <span>{siteConfig.title}</span>
+        </a>
+
+        <div class="site-header__tools">
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a href={sitePath('/')} aria-current="page">Map</a>
+            <a href={siteConfig.repository.url}>Source</a>
+          </nav>
+          <ThemeToggle />
+        </div>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <p>
+          An evolving research notebook by <span>{siteConfig.author.name}</span
+          >.
+        </p>
+        <a href={siteConfig.repository.url}
+          >View source on GitHub <span aria-hidden="true">↗</span></a
+        >
+      </footer>
+    </div>
+  </body>
+</html>

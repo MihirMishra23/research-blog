@@ -1,24 +1,41 @@
 ---
-import { siteConfig, sitePath } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={siteConfig.description} />
-    <link rel="icon" type="image/svg+xml" href={sitePath('/favicon.svg')} />
-    <title>{siteConfig.title}</title>
-  </head>
-  <body>
-    <header>
-      <a href={sitePath('/')}>{siteConfig.title}</a>
-    </header>
-    <main>
-      <h1>{siteConfig.title}</h1>
-      <p>{siteConfig.description}</p>
-    </main>
-  </body>
-</html>
+<BaseLayout>
+  <section class="intro" aria-labelledby="page-title">
+    <div class="intro__content">
+      <p class="eyebrow">Research notebook · evolving in public</p>
+      <h1 id="page-title">{siteConfig.title}</h1>
+      <p class="lede">{siteConfig.description}</p>
+    </div>
+
+    <aside class="annotation" aria-label="Current site status">
+      <span class="annotation__label">Now mapping</span>
+      <p>
+        The conceptual terrain between training, inference, evaluation, and the
+        systems that connect them.
+      </p>
+    </aside>
+  </section>
+
+  <section class="field-note" aria-labelledby="field-note-title">
+    <p class="section-index">Field note / 001</p>
+    <div class="field-note__body">
+      <h2 id="field-note-title">Start with relationships, not definitions.</h2>
+      <p>
+        Modern language models make more sense when each method is placed beside
+        the problem it answered, the ideas it inherited, and the work it made
+        possible. This site is being built as that connected view.
+      </p>
+      <ul class="topic-line" aria-label="Initial areas of exploration">
+        <li>Pre-training</li>
+        <li>Post-training</li>
+        <li>Inference</li>
+        <li>Evaluation</li>
+        <li>Agents</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

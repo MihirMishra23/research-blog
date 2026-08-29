@@ -41,11 +41,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 3. Define the visual foundation
 
-- [ ] Create design tokens for color, typography, spacing, borders, and content widths.
-- [ ] Implement a responsive base layout with semantic header, navigation, main content, and footer.
-- [ ] Implement light and dark themes, honoring the system preference and supporting a persistent manual toggle.
-- [ ] Establish notebook-like visual details without gradients, large hero treatments, or card-heavy layouts.
-- [ ] Add visible keyboard focus states, adequate contrast, and reduced-motion behavior.
+- [x] Create design tokens for color, typography, spacing, borders, and content widths.
+- [x] Implement a responsive base layout with semantic header, navigation, main content, and footer.
+- [x] Implement light and dark themes, honoring the system preference and supporting a persistent manual toggle.
+- [x] Establish notebook-like visual details without gradients, large hero treatments, or card-heavy layouts.
+- [x] Add visible keyboard focus states, adequate contrast, and reduced-motion behavior.
 
 **Gate:** the empty site shell is readable and navigable at desktop and narrow mobile widths in both themes.
 
