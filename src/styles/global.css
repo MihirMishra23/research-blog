@@ -1050,17 +1050,29 @@ main {
 }
 
 .llm-map__edge--related path {
-  stroke-width: 2.5;
-  stroke-dasharray: 5 8;
+  stroke: var(--map-red);
+  stroke-width: 3;
 }
 
-.llm-map__edge.is-related path {
+.llm-map__edge--related {
+  opacity: 0;
+}
+
+.llm-map[data-has-selection='true'] .llm-map__edge--related.is-related {
+  opacity: 1;
+}
+
+.llm-map__edge:not(.llm-map__edge--related).is-related path {
   stroke-width: 5.5;
 }
 
 .llm-map__edge.is-dimmed,
 .llm-map__node.is-dimmed {
   opacity: 0.18;
+}
+
+.llm-map__edge--related.is-dimmed {
+  opacity: 0;
 }
 
 .llm-map__progress-marks circle,

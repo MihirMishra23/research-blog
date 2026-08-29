@@ -54,6 +54,8 @@ export interface MapEdge {
   target: string;
   kind: MapEdgeKind;
   directed: boolean;
+  /** Optional authored waypoints for relationships that need to avoid labels. */
+  route?: Array<{ x: number; y: number }>;
 }
 
 export interface LlmMapModel {
@@ -155,6 +157,15 @@ export const MAP_AREAS: readonly MapAreaNode[] = [
   },
 ];
 
+const MAP_EDGE_ROUTES: Readonly<
+  Record<string, Array<{ x: number; y: number }>>
+> = {
+  'related:flashattention:multimodal-models': [
+    { x: 1510, y: 170 },
+    { x: 1510, y: 720 },
+  ],
+};
+
 function topicPosition(topic: MapTopicRecord): MapPosition | undefined {
   const position = topic.data.map;
   if (!position) return undefined;
@@ -220,7 +231,7 @@ export function findMapModelErrors(topics: MapTopicRecord[]): string[] {
 
 function addEdge(edges: MapEdge[], edge: MapEdge): void {
   if (!edges.some((candidate) => candidate.id === edge.id)) {
-    edges.push(edge);
+    edges.push({ ...edge, route: MAP_EDGE_ROUTES[edge.id] });
   }
 }
 

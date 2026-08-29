@@ -7,7 +7,7 @@ The reusable `LlmMap.astro` component renders the typed model from `src/content/
 - A stable 1536 × 994 viewBox preserves the hand-composed positions from topic frontmatter.
 - The central LLM node and three major areas use deterministic, slightly asymmetric SVG paths rather than perfect ellipses or UI pills.
 - Topic concepts are handwritten branch labels with transparent 72-unit hit regions.
-- Curved connectors are derived from typed edges and given deterministic small bends.
+- Curved hierarchy and progression connectors are derived from typed edges, stop at the true label or oval boundary, and receive deterministic small bends.
 - A quiet SVG pattern creates the dotted-paper canvas in both themes.
 - Red is limited to progression dots, active/frontier markers, and the selected-node mark.
 - Shantell Sans is bundled locally through Fontsource under the SIL Open Font License; the rest of the site retains its editorial serif and monospace typography.
@@ -27,6 +27,8 @@ With JavaScript:
 5. “Return to overview” or Escape clears the selection and restores focus to the triggering node.
 
 Modified clicks keep ordinary link behavior so users can open topic pages in another tab.
+
+The overview deliberately omits non-hierarchical `related` edges. When either endpoint is selected, the relevant relationship appears as a thin solid red connection and is named in the detail panel. This keeps the overview readable without discarding cross-category exploration. Long selected relationships use authored outside waypoints so they never pass through topic labels.
 
 ## Responsive behavior
 

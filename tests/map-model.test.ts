@@ -85,3 +85,24 @@ test('map validation reports duplicate IDs, missing positions, areas, and target
     true,
   );
 });
+
+test('map model applies an authored outside route to the long cross-category edge', () => {
+  const model = createLlmMapModel([
+    topic('flashattention', {
+      category: 'inference-systems',
+      related: ['multimodal-models'],
+    }),
+    topic('multimodal-models', {
+      category: 'multimodal',
+      related: ['flashattention'],
+    }),
+  ]);
+  const edge = model.edges.find(
+    (candidate) => candidate.id === 'related:flashattention:multimodal-models',
+  );
+
+  assert.deepEqual(edge?.route, [
+    { x: 1510, y: 170 },
+    { x: 1510, y: 720 },
+  ]);
+});

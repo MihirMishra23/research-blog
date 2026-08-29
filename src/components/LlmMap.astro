@@ -56,24 +56,49 @@ function ovalPath(node: MapNode): string {
   ].join(' ');
 }
 
-function boundaryPoint(position: MapPosition, toward: MapPosition) {
+function boundaryPoint(
+  position: MapPosition,
+  toward: Pick<MapPosition, 'x' | 'y'>,
+) {
   const dx = toward.x - position.x;
   const dy = toward.y - position.y;
-  const distance = Math.hypot(dx, dy) || 1;
-  const radius =
-    Math.min(position.width / 2, position.height / 2) +
-    (position.height > 60 ? 1 : 8);
+  const radiusX = position.width / 2 + (position.height > 60 ? 1 : 10);
+  const radiusY = position.height / 2 + (position.height > 60 ? 1 : 10);
+  const scale =
+    1 /
+    Math.sqrt(
+      (dx * dx) / (radiusX * radiusX) + (dy * dy) / (radiusY * radiusY),
+    );
   return {
-    x: position.x + (dx / distance) * radius,
-    y: position.y + (dy / distance) * radius,
+    x: position.x + dx * scale,
+    y: position.y + dy * scale,
   };
 }
 
 function edgePath(edge: MapEdge): string {
   const source = nodeById.get(edge.source)!;
   const target = nodeById.get(edge.target)!;
-  const start = boundaryPoint(source.position, target.position);
-  const end = boundaryPoint(target.position, source.position);
+  const start = boundaryPoint(
+    source.position,
+    edge.route?.[0] ?? target.position,
+  );
+  const end = boundaryPoint(
+    target.position,
+    edge.route?.at(-1) ?? source.position,
+  );
+  if (edge.route && edge.route.length > 0) {
+    const points = [...edge.route, end];
+    let path = `M ${start.x} ${start.y}`;
+
+    for (let index = 0; index < edge.route.length; index += 1) {
+      const control = edge.route[index];
+      const next = points[index + 1];
+      path += ` Q ${control.x} ${control.y} ${(control.x + next.x) / 2} ${(control.y + next.y) / 2}`;
+    }
+
+    path += ` Q ${end.x} ${end.y} ${end.x} ${end.y}`;
+    return path;
+  }
   const dx = end.x - start.x;
   const dy = end.y - start.y;
   const distance = Math.hypot(dx, dy) || 1;

@@ -97,6 +97,21 @@ assert.match(
   /shantell-sans-latin-wght-normal[^)]*\.woff2/,
   'locally bundled handwritten font is missing',
 );
+assert.match(
+  css,
+  /\.llm-map__edge--related\{opacity:0\}/,
+  'related edges should be hidden in the overview',
+);
+assert.match(
+  css,
+  /\.llm-map__edge--related path\{[^}]*stroke:var\(--map-red\)/,
+  'selected related edges should use the red relationship accent',
+);
+assert.doesNotMatch(
+  css,
+  /\.llm-map__edge--related path\{[^}]*stroke-dasharray/,
+  'related edges should not use unexplained dotted styling',
+);
 assert.doesNotMatch(
   `${html}\n${css}`,
   /fonts\.(?:googleapis|gstatic)\.com/,
