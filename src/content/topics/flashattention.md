@@ -7,6 +7,10 @@ status: established
 aliases:
   - 'Flash Attention'
 problem: 'Materializing the full attention matrix creates costly reads and writes between high-bandwidth memory and on-chip memory.'
+idea: 'Tile exact attention around the memory hierarchy and maintain online softmax statistics so the full score matrix never needs to be materialized in high-bandwidth memory.'
+consequence: 'Attention performs the same mathematical operation with substantially less memory traffic, improving speed and memory use on supported hardware.'
+limitations: 'Gains depend on shapes, hardware, precision, kernel support, and whether attention is the actual end-to-end bottleneck.'
+whatCameNext: 'Later kernels improve work partitioning and adapt IO-aware attention to new architectures, accelerators, precisions, and sparsity patterns.'
 prerequisites: []
 cameBefore: []
 leadsTo: []

@@ -104,11 +104,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 9. Implement topic routes and indexes
 
-- [ ] Create `/topics/` with a navigable, grouped topic index.
-- [ ] Generate `/topics/[topic]/` pages from topic content.
-- [ ] Present the conceptual framework: problem, idea/how it works, consequences, limitations, and what came next.
-- [ ] Show prerequisites, related concepts, frontier questions, associated articles, and important paper links when present.
-- [ ] Handle missing optional metadata gracefully.
+- [x] Create `/topics/` with a navigable, grouped topic index.
+- [x] Generate `/topics/[topic]/` pages from topic content.
+- [x] Present the conceptual framework: problem, idea/how it works, consequences, limitations, and what came next.
+- [x] Show prerequisites, related concepts, frontier questions, associated articles, and important paper links when present.
+- [x] Handle missing optional metadata gracefully.
 
 **Gate:** all initial concepts have working pages, reciprocal concept links, and correct associated-post lists.
 

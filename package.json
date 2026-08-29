@@ -15,6 +15,7 @@
     "verify:rendering": "node scripts/verify-rendering.mjs",
     "verify:content": "node scripts/verify-content.mjs",
     "verify:writing": "node scripts/verify-writing.mjs",
+    "verify:topics": "node scripts/verify-topics.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"

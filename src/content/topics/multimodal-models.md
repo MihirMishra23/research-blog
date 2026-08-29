@@ -8,6 +8,10 @@ aliases:
   - 'Multimodal language models'
   - 'Vision-language models'
 problem: 'Text-only interfaces cannot directly represent or reason over the perceptual signals present in images, audio, and video.'
+idea: 'Connect modality-specific encoders or tokens to a shared model so perceptual inputs and language can condition one another.'
+consequence: 'A single interface can retrieve, interpret, and generate information across text and perceptual modalities.'
+limitations: 'Language priors can masquerade as grounding, while data provenance, temporal and spatial reasoning, and cross-modal evaluation remain difficult.'
+whatCameNext: 'Architectures are moving toward longer video and audio contexts, native multimodal generation, and stronger grounding and interaction.'
 prerequisites: []
 cameBefore: []
 leadsTo: []

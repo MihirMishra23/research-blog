@@ -16,6 +16,7 @@ const documentTitle =
   title === siteConfig.title ? title : `${title} · ${siteConfig.title}`;
 const isMapPage = Astro.url.pathname === sitePath('/');
 const isWritingPage = Astro.url.pathname.startsWith(sitePath('/writing/'));
+const isTopicsPage = Astro.url.pathname.startsWith(sitePath('/topics/'));
 ---
 
 <!doctype html>
@@ -83,6 +84,10 @@ const isWritingPage = Astro.url.pathname.startsWith(sitePath('/writing/'));
             <a
               href={sitePath('/writing/')}
               aria-current={isWritingPage ? 'page' : undefined}>Writing</a
+            >
+            <a
+              href={sitePath('/topics/')}
+              aria-current={isTopicsPage ? 'page' : undefined}>Topics</a
             >
             <a href={siteConfig.repository.url}>Source</a>
           </nav>

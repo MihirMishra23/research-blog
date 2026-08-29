@@ -1,0 +1,27 @@
+---
+import { siteHref } from '../config/site';
+import type { TopicData } from '../content/schemas';
+import StatusLabel from './StatusLabel.astro';
+
+interface Props {
+  id: string;
+  data: TopicData;
+}
+
+const { id, data } = Astro.props;
+---
+
+<article class="topic-index-item">
+  <div class="topic-index-item__marker" aria-hidden="true">↳</div>
+  <div>
+    <div class="topic-index-item__heading">
+      <h3><a href={siteHref(`/topics/${id}/`)}>{data.name}</a></h3>
+      <StatusLabel status={data.status} />
+    </div>
+    <p>{data.summary}</p>
+    <p class="topic-index-item__kind">
+      {data.type.replaceAll('-', ' ')}
+      {data.aliases.length > 0 && ` · also ${data.aliases.join(', ')}`}
+    </p>
+  </div>
+</article>

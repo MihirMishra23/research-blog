@@ -10,6 +10,7 @@ A topic Markdown or MDX file is the canonical record for a concept. It owns:
 - category, concept type, and maturity;
 - parent and concept relationships;
 - prerequisites and conceptual progression;
+- optional problem, idea, consequence, limitation, and next-step orientation;
 - frontier questions and paper links;
 - optional hand-composed map geometry;
 - explanatory topic-page prose in the document body.
@@ -87,6 +88,11 @@ summary: 'A family of methods that verify multiple proposed tokens in parallel.'
 category: inference-systems
 type: method
 status: active
+problem: 'Autoregressive generation normally needs one target-model pass per token.'
+idea: 'Draft several tokens cheaply, then verify the proposed block in parallel.'
+consequence: 'One target-model pass can advance generation by several tokens.'
+limitations: 'Low acceptance or expensive drafting can erase the latency gain.'
+whatCameNext: 'New work explores self-drafting and serving-aware proposal strategies.'
 prerequisites:
   - autoregressive-decoding
 leadsTo:
@@ -101,6 +107,8 @@ map:
 ```
 
 Required core fields are `name`, `summary`, `category`, `type`, and maturity `status`. Relationship lists and richer orientation fields default to empty or remain optional so topics can be introduced incrementally.
+
+The optional `problem`, `idea`, `consequence`, `limitations`, and `whatCameNext` fields populate the topic page's standard conceptual framework. Missing steps are omitted, so an early topic stub never renders empty headings. Longer explanations remain in the Markdown/MDX body.
 
 Supported maturity states:
 

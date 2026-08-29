@@ -7,6 +7,10 @@ status: established
 aliases:
   - 'RLHF'
 problem: 'Demonstrations alone cannot efficiently specify which of several plausible model responses people prefer.'
+idea: 'Learn a reward signal from human comparisons, then optimize the model toward responses that score well while constraining movement from a reference policy.'
+consequence: 'Developers can shape behavior using comparative judgments rather than writing one ideal demonstration for every prompt.'
+limitations: 'Preference data and learned rewards can encode bias, generalize poorly, and become exploitable under too much optimization pressure.'
+whatCameNext: 'Direct preference objectives and outcome-verifiable reinforcement learning explore simpler or more task-specific feedback pipelines.'
 prerequisites:
   - sft
 cameBefore:

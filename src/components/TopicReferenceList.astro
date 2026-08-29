@@ -1,0 +1,40 @@
+---
+import { siteHref } from '../config/site';
+import type { ConceptMaturity } from '../content/schemas';
+import StatusLabel from './StatusLabel.astro';
+
+interface Reference {
+  id: string;
+  name: string;
+  summary: string;
+  status: ConceptMaturity;
+}
+
+interface Props {
+  title: string;
+  references: Reference[];
+}
+
+const { title, references } = Astro.props;
+---
+
+{
+  references.length > 0 && (
+    <section class="topic-reference-group">
+      <h3>{title}</h3>
+      <ul>
+        {references.map((reference) => (
+          <li>
+            <div>
+              <a href={siteHref(`/topics/${reference.id}/`)}>
+                {reference.name}
+              </a>
+              <StatusLabel status={reference.status} />
+            </div>
+            <p>{reference.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

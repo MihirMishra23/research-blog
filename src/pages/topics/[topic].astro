@@ -1,0 +1,216 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import StatusLabel from '../../components/StatusLabel.astro';
+import TopicReferenceList from '../../components/TopicReferenceList.astro';
+import { siteHref } from '../../config/site';
+import {
+  shouldIncludeTopic,
+  shouldIncludeWriting,
+} from '../../content/visibility';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { BreadcrumbItem } from '../../types/content-ui';
+
+export async function getStaticPaths() {
+  const topics = (await getCollection('topics')).filter((entry) =>
+    shouldIncludeTopic(entry.data),
+  );
+
+  return topics.map((entry) => ({
+    params: { topic: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'topics'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const topics = (await getCollection('topics')).filter((topic) =>
+  shouldIncludeTopic(topic.data),
+);
+const writing = (await getCollection('writing'))
+  .filter((article) => shouldIncludeWriting(article.data))
+  .filter((article) => article.data.topics.includes(entry.id))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const topicById = new Map(topics.map((topic) => [topic.id, topic]));
+const categoryLabel = entry.data.category
+  .split('-')
+  .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+  .join(' ');
+const resolveReferences = (ids: string[]) =>
+  ids.flatMap((id) => {
+    const topic = topicById.get(id);
+    return topic
+      ? [
+          {
+            id,
+            name: topic.data.name,
+            summary: topic.data.summary,
+            status: topic.data.status,
+          },
+        ]
+      : [];
+  });
+const referenceGroups = [
+  {
+    title: 'Prerequisites',
+    references: resolveReferences(entry.data.prerequisites),
+  },
+  {
+    title: 'What came before',
+    references: resolveReferences(entry.data.cameBefore),
+  },
+  {
+    title: 'What came next',
+    references: resolveReferences(entry.data.leadsTo),
+  },
+  {
+    title: 'Related concepts',
+    references: resolveReferences(entry.data.related),
+  },
+].filter((group) => group.references.length > 0);
+const framework = [
+  { label: 'Problem', value: entry.data.problem },
+  { label: 'Idea · how it works', value: entry.data.idea },
+  { label: 'Consequence', value: entry.data.consequence },
+  { label: 'Limitations', value: entry.data.limitations },
+  { label: 'What came next', value: entry.data.whatCameNext },
+].filter((step): step is { label: string; value: string } =>
+  Boolean(step.value),
+);
+const breadcrumbs: BreadcrumbItem[] = [
+  { label: 'The LLM Map', href: '/' },
+  {
+    label: categoryLabel,
+    href: `/topics/#category-${entry.data.category}`,
+  },
+  { label: entry.data.name },
+];
+---
+
+<BaseLayout title={entry.data.name} description={entry.data.summary}>
+  <article class="topic-page">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="topic-page__header">
+      <p class="topic-page__kind">
+        {categoryLabel} · {entry.data.type.replaceAll('-', ' ')}
+      </p>
+      <h1>{entry.data.name}</h1>
+      <p class="topic-page__summary">{entry.data.summary}</p>
+      <div class="topic-page__status">
+        <StatusLabel status={entry.data.status} prefix="Maturity" />
+        {
+          entry.data.aliases.length > 0 && (
+            <p>
+              <span>Also called:</span> {entry.data.aliases.join(', ')}
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      framework.length > 0 && (
+        <section class="topic-framework" aria-labelledby="framework-title">
+          <div class="topic-section-heading">
+            <p class="section-index">Orientation / 01</p>
+            <h2 id="framework-title">Why this idea appeared</h2>
+          </div>
+          <ol>
+            {framework.map((step) => (
+              <li>
+                <h3>{step.label}</h3>
+                <p>{step.value}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )
+    }
+
+    <section class="topic-explanation" aria-labelledby="explanation-title">
+      <div class="topic-section-heading">
+        <p class="section-index">Concept note / 02</p>
+        <h2 id="explanation-title">Working explanation</h2>
+      </div>
+      <div class="prose"><Content /></div>
+    </section>
+
+    {
+      referenceGroups.length > 0 && (
+        <section class="topic-connections" aria-labelledby="connections-title">
+          <div class="topic-section-heading">
+            <p class="section-index">Connections / 03</p>
+            <h2 id="connections-title">Continue through the map</h2>
+          </div>
+          <div class="topic-connections__grid">
+            {referenceGroups.map((group) => (
+              <TopicReferenceList {...group} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      (entry.data.frontierQuestions.length > 0 ||
+        writing.length > 0 ||
+        entry.data.papers.length > 0) && (
+        <section class="topic-resources" aria-labelledby="resources-title">
+          <div class="topic-section-heading">
+            <p class="section-index">Notebook / 04</p>
+            <h2 id="resources-title">Questions and sources</h2>
+          </div>
+          <div class="topic-resources__grid">
+            {entry.data.frontierQuestions.length > 0 && (
+              <section>
+                <h3>Where is the frontier?</h3>
+                <ul>
+                  {entry.data.frontierQuestions.map((question) => (
+                    <li>{question}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
+            {writing.length > 0 && (
+              <section>
+                <h3>Articles</h3>
+                <ul>
+                  {writing.map((article) => (
+                    <li>
+                      <a href={siteHref(`/writing/${article.id}/`)}>
+                        {article.data.title}
+                      </a>
+                      <p>{article.data.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+            {entry.data.papers.length > 0 && (
+              <section>
+                <h3>Important papers</h3>
+                <ul>
+                  {entry.data.papers.map((paper) => (
+                    <li>
+                      <a href={paper.url}>{paper.title}</a>
+                      {paper.year && <span> ({paper.year})</span>}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+        </section>
+      )
+    }
+
+    <nav class="topic-page__return" aria-label="Topic index">
+      <a href={siteHref('/topics/')}>← Return to all topics</a>
+    </nav>
+  </article>
+</BaseLayout>

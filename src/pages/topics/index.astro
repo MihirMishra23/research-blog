@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import TopicIndexItem from '../../components/TopicIndexItem.astro';
+import { TOPIC_CATEGORIES } from '../../content/schemas';
+import { shouldIncludeTopic } from '../../content/visibility';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const topics = (await getCollection('topics'))
+  .filter((entry) => shouldIncludeTopic(entry.data))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+const labelFor = (value: string) =>
+  value
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+const groups = TOPIC_CATEGORIES.map((category) => ({
+  category,
+  topics: topics.filter((topic) => topic.data.category === category),
+})).filter((group) => group.topics.length > 0);
+---
+
+<BaseLayout
+  title="Topics"
+  description="A grouped index of concepts in the LLM map, from post-training methods to inference systems and multimodal models."
+>
+  <header class="topics-index__header">
+    <p class="eyebrow">Concept atlas · grouped index</p>
+    <h1>Topics</h1>
+    <p>
+      Short conceptual orientations connected by prerequisites, progressions,
+      related methods, articles, and primary papers.
+    </p>
+  </header>
+
+  <div class="topics-index">
+    <nav class="topics-index__jump" aria-label="Topic categories">
+      <span>Jump to</span>
+      {
+        groups.map((group) => (
+          <a href={`#category-${group.category}`}>{labelFor(group.category)}</a>
+        ))
+      }
+    </nav>
+
+    {
+      groups.map((group, index) => (
+        <section
+          class="topics-index__group"
+          id={`category-${group.category}`}
+          aria-labelledby={`category-${group.category}-title`}
+        >
+          <div class="topics-index__group-heading">
+            <p class="section-index">
+              {String(index + 1).padStart(2, '0')} /{' '}
+              {String(group.topics.length).padStart(2, '0')}
+            </p>
+            <h2 id={`category-${group.category}-title`}>
+              {labelFor(group.category)}
+            </h2>
+          </div>
+          <div class="topics-index__entries">
+            {group.topics.map((topic) => (
+              <TopicIndexItem id={topic.id} data={topic.data} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

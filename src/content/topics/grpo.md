@@ -7,6 +7,10 @@ status: active
 aliases:
   - 'GRPO'
 problem: 'Policy optimization for verifiable tasks can be expensive when it requires a separately trained value model.'
+idea: 'Sample a group of responses for each prompt and estimate each response advantage relative to rewards within that group.'
+consequence: 'Policy optimization can avoid a separate value model and work naturally with automatically checkable outcome rewards.'
+limitations: 'Training behavior remains sensitive to group composition, sparse rewards, normalization, clipping, regularization, and data generation choices.'
+whatCameNext: 'Current work tests how group-relative objectives scale across reasoning domains and how much observed progress comes from the optimizer versus the surrounding recipe.'
 prerequisites:
   - sft
 cameBefore:

@@ -7,6 +7,10 @@ status: active
 aliases:
   - 'Speculative sampling'
 problem: 'Autoregressive generation normally requires one serial target-model pass for each emitted token.'
+idea: 'Use a cheaper process to draft several tokens, then have the target model verify the proposed block in parallel with an exact acceptance rule.'
+consequence: 'A target-model pass can advance generation by multiple accepted tokens without changing the target output distribution.'
+limitations: 'Low acceptance, costly drafting, small batches, or serving overhead can erase the latency benefit.'
+whatCameNext: 'Research now explores self-speculation, learned draft heads, tree-shaped proposals, and serving-aware scheduling strategies.'
 prerequisites: []
 cameBefore: []
 leadsTo: []

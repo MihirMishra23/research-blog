@@ -8,6 +8,10 @@ aliases:
   - 'Supervised fine-tuning'
   - 'Instruction tuning'
 problem: 'A pretrained next-token predictor does not automatically follow instructions or adopt a useful response format.'
+idea: 'Continue next-token training on curated prompt-and-response demonstrations that exemplify the behavior the model should produce.'
+consequence: 'The model becomes easier to direct and gains a behavioral starting point for later preference or reward-based optimization.'
+limitations: 'A demonstration presents one acceptable response but does not rank alternatives, and the learned behavior remains bounded by the coverage and quality of the dataset.'
+whatCameNext: 'Preference and reward-driven methods such as RLHF and GRPO add comparative feedback after the supervised stage.'
 prerequisites: []
 cameBefore: []
 leadsTo:
