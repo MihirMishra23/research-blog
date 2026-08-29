@@ -125,6 +125,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 ### 11. Build the interactive map V1
 
 - [ ] Implement the map as a reusable, lightweight SVG-based interactive component.
+- [ ] Match the approved visual reference: a radial hand-drawn knowledge sketch on a quiet dotted-paper canvas, not a conventional graph or card layout.
+- [ ] Arrange “LLMs” as the central oval, major areas as irregular surrounding ovals, and individual concepts as handwritten branch labels.
+- [ ] Use slightly imperfect ink-like connectors and outlines, with manually composed positions that preserve the reference's organic spacing.
+- [ ] Use restrained red dots and marks for conceptual progression, selection, and frontier status while keeping the map predominantly monochrome.
+- [ ] Keep labels and hierarchy legible in both themes without losing the paper-and-ink character.
 - [ ] Display the six initial concept nodes and their immediate connections.
 - [ ] Support pointer click/tap and keyboard activation for every node.
 - [ ] Highlight the selected node and its immediate relationships.
@@ -133,7 +138,7 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 - [ ] Use a bottom-sheet treatment for the detail panel on small screens.
 - [ ] Provide a semantic hierarchical topic list as the non-graph fallback.
 
-**Gate:** the core map flow works with a mouse, touch-sized viewport, keyboard only, and assistive labels.
+**Gate:** the map is recognizably faithful to the approved hand-drawn radial reference and the core flow works with a mouse, touch-sized viewport, keyboard only, and assistive labels.
 
 ### 12. Assemble the homepage and map route
 
