@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig } from '../config/site';
+import { siteConfig, sitePath } from '../config/site';
 ---
 
 <BaseLayout>
@@ -17,6 +17,9 @@ import { siteConfig } from '../config/site';
         The conceptual terrain between training, inference, evaluation, and the
         systems that connect them.
       </p>
+      <a class="annotation__link" href={sitePath('/rendering-test/')}
+        >View the math + code test →</a
+      >
     </aside>
   </section>
 

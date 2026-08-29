@@ -1,0 +1,35 @@
+---
+layout: ../layouts/RenderingTestLayout.astro
+title: Math and code rendering
+description: A build-time fixture for checking technical writing in light and dark themes.
+---
+
+This page exercises the technical-writing pipeline. Inline math such as
+$O(n^2d + nd^2)$ should sit naturally inside a sentence without shifting its
+line height.
+
+## Display math
+
+The language-model objective should be rendered as selectable, accessible HTML
+rather than a client-generated image:
+
+$$
+L(\theta) =
+-\mathbb{E}_{(x,y)\sim D}
+\log \pi_\theta(y \mid x)
+$$
+
+## Highlighted code
+
+The following block has a visible language label and gains a copy button when
+JavaScript is available. The highlighted source remains fully readable without
+JavaScript.
+
+```python
+def causal_attention(query, key, value):
+    scores = query @ key.transpose(-2, -1)
+    weights = scores.softmax(dim=-1)
+    return weights @ value
+```
+
+MDX expressions also render correctly: **{2 + 2} tokens inspected**.

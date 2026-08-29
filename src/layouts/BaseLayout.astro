@@ -1,6 +1,8 @@
 ---
 import ThemeToggle from '../components/ThemeToggle.astro';
+import CodeBlockEnhancer from '../components/CodeBlockEnhancer.astro';
 import { siteConfig, sitePath } from '../config/site';
+import 'katex/dist/katex.min.css';
 import '../styles/global.css';
 
 interface Props {
@@ -93,5 +95,7 @@ const documentTitle =
         >
       </footer>
     </div>
+
+    <CodeBlockEnhancer />
   </body>
 </html>

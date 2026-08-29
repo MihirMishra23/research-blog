@@ -1,0 +1,39 @@
+<script>
+  for (const block of document.querySelectorAll<HTMLElement>(
+    '.astro-code[data-language]',
+  )) {
+    if (!navigator.clipboard?.writeText) continue;
+    if (block.parentElement?.classList.contains('code-block')) continue;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block';
+    block.before(wrapper);
+    wrapper.append(block);
+
+    const button = document.createElement('button');
+    button.className = 'code-block__copy';
+    button.type = 'button';
+    button.textContent = 'Copy';
+    button.setAttribute(
+      'aria-label',
+      `Copy ${block.dataset.languageLabel ?? 'code'} example`,
+    );
+
+    button.addEventListener('click', async () => {
+      const code = block.querySelector('code')?.textContent ?? '';
+
+      try {
+        await navigator.clipboard.writeText(code);
+        button.textContent = 'Copied';
+      } catch {
+        button.textContent = 'Copy failed';
+      }
+
+      window.setTimeout(() => {
+        button.textContent = 'Copy';
+      }, 1800);
+    });
+
+    wrapper.append(button);
+  }
+</script>

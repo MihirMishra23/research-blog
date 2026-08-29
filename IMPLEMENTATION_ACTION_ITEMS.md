@@ -62,11 +62,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 5. Add Markdown/MDX, math, and code capabilities
 
-- [ ] Configure Markdown and MDX content rendering.
-- [ ] Add static KaTeX-compatible math rendering and its required styles.
-- [ ] Configure Shiki syntax highlighting with readable light and dark themes.
-- [ ] Add language labels and a progressively enhanced copy button to code blocks.
-- [ ] Confirm content remains readable when client-side JavaScript is unavailable.
+- [x] Configure Markdown and MDX content rendering.
+- [x] Add static KaTeX-compatible math rendering and its required styles.
+- [x] Configure Shiki syntax highlighting with readable light and dark themes.
+- [x] Add language labels and a progressively enhanced copy button to code blocks.
+- [x] Confirm content remains readable when client-side JavaScript is unavailable.
 
 **Gate:** one test page correctly renders inline math, display math, and a labeled code block in both themes.
 
