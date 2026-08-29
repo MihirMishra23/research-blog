@@ -28,6 +28,6 @@ const isMaturity = maturityStates.has(status);
   aria-label={`${prefix ? `${prefix}: ` : ''}${label}`}
 >
   {isMaturity && <span class="status-label__mark" aria-hidden="true" />}
-  {prefix && <span class="status-label__prefix">{prefix}</span>}
+  {prefix && <span class="status-label__prefix">{prefix}:</span>}
   <span>{label}</span>
 </span>

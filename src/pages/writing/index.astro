@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import WritingArchiveFilters from '../../components/WritingArchiveFilters.astro';
+import WritingArchiveItem from '../../components/WritingArchiveItem.astro';
+import { ARTICLE_TYPES, DIFFICULTY_LEVELS } from '../../content/schemas';
+import {
+  shouldIncludeTopic,
+  shouldIncludeWriting,
+} from '../../content/visibility';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const writing = (await getCollection('writing'))
+  .filter((entry) => shouldIncludeWriting(entry.data))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const topics = (await getCollection('topics')).filter((entry) =>
+  shouldIncludeTopic(entry.data),
+);
+const topicById = new Map(topics.map((entry) => [entry.id, entry]));
+const usedTopicIds = new Set(writing.flatMap((entry) => entry.data.topics));
+const usedTypes = new Set(writing.map((entry) => entry.data.type));
+const usedLevels = new Set(writing.map((entry) => entry.data.level));
+const labelFor = (value: string) => value.replaceAll('-', ' ');
+
+const filterTopics = topics
+  .filter((entry) => usedTopicIds.has(entry.id))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))
+  .map((entry) => ({ value: entry.id, label: entry.data.name }));
+const filterTypes = ARTICLE_TYPES.filter((type) => usedTypes.has(type)).map(
+  (type) => ({ value: type, label: labelFor(type) }),
+);
+const filterLevels = DIFFICULTY_LEVELS.filter((level) =>
+  usedLevels.has(level),
+).map((level) => ({ value: level, label: labelFor(level) }));
+---
+
+<BaseLayout
+  title="Writing"
+  description="Explanations, research notes, and systems sketches connected to the LLM topic map."
+>
+  <header class="writing-archive__header">
+    <p class="eyebrow">Research notebook · chronological index</p>
+    <h1>Writing</h1>
+    <p>
+      Explanations and working notes organized by topic, format, and difficulty.
+      The complete archive remains available without JavaScript.
+    </p>
+  </header>
+
+  <section class="writing-archive" aria-labelledby="archive-title">
+    <div class="writing-archive__heading">
+      <div>
+        <p class="section-index">
+          Index / {String(writing.length).padStart(2, '0')}
+        </p>
+        <h2 id="archive-title">All articles</h2>
+      </div>
+      <WritingArchiveFilters
+        topics={filterTopics}
+        types={filterTypes}
+        levels={filterLevels}
+      />
+    </div>
+
+    {
+      writing.length > 0 ? (
+        <div class="writing-archive__list">
+          {writing.map((entry) => (
+            <WritingArchiveItem
+              id={entry.id}
+              data={entry.data}
+              topics={entry.data.topics.map((id) => {
+                const topic = topicById.get(id);
+                return {
+                  id,
+                  label: topic?.data.name ?? id,
+                  href: `/topics/${id}/`,
+                  maturity: topic?.data.status,
+                };
+              })}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="writing-archive__empty">No published articles yet.</p>
+      )
+    }
+
+    <p class="writing-archive__empty" data-writing-empty hidden>
+      No articles match all three filters. Clear a filter to broaden the list.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { resolveArticleNavigation } from '../../content/article-navigation';
+import {
+  shouldIncludeTopic,
+  shouldIncludeWriting,
+} from '../../content/visibility';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import type { ArticleMetadata, BreadcrumbItem } from '../../types/content-ui';
+
+export async function getStaticPaths() {
+  const writing = (await getCollection('writing')).filter((entry) =>
+    shouldIncludeWriting(entry.data),
+  );
+
+  return writing.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'writing'>;
+}
+
+const { entry } = Astro.props;
+const allWriting = (await getCollection('writing')).filter((candidate) =>
+  shouldIncludeWriting(candidate.data),
+);
+const topics = (await getCollection('topics')).filter((topic) =>
+  shouldIncludeTopic(topic.data),
+);
+const topicById = new Map(topics.map((topic) => [topic.id, topic]));
+const primaryTopic = topicById.get(entry.data.topics[0]);
+const { Content } = await render(entry);
+const article: ArticleMetadata = {
+  ...entry.data,
+  topics: entry.data.topics.map((id) => {
+    const topic = topicById.get(id);
+    return {
+      id,
+      label: topic?.data.name ?? id,
+      href: `/topics/${id}/`,
+      maturity: topic?.data.status,
+    };
+  }),
+};
+const breadcrumbs: BreadcrumbItem[] = [
+  { label: 'The LLM Map', href: '/' },
+  ...(primaryTopic
+    ? [
+        { label: primaryTopic.data.category.replaceAll('-', ' ') },
+        { label: primaryTopic.data.name, href: `/topics/${primaryTopic.id}/` },
+      ]
+    : []),
+  { label: entry.data.title },
+];
+const navigation = resolveArticleNavigation(
+  entry.data,
+  allWriting.map((candidate) => ({
+    id: candidate.id,
+    title: candidate.data.title,
+    description: candidate.data.description,
+    href: `/writing/${candidate.id}/`,
+  })),
+);
+---
+
+<ArticleLayout
+  article={article}
+  breadcrumbs={breadcrumbs}
+  navigation={navigation}
+>
+  <Content />
+</ArticleLayout>

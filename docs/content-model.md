@@ -104,10 +104,12 @@ Required core fields are `name`, `summary`, `category`, `type`, and maturity `st
 
 Supported maturity states:
 
-- `foundational`
-- `established`
-- `active`
-- `frontier`
+- `foundational`: a durable prerequisite or framing idea that later concepts build on;
+- `established`: well understood and broadly adopted, with stable core methods or evidence;
+- `active`: in substantial current use or development, with important implementation or research questions still moving;
+- `frontier`: early, rapidly changing work whose dominant approaches and evidence are not yet settled.
+
+Maturity describes the state of the concept, not article quality or publication status. It is intentionally approximate and should be revised as the field changes.
 
 Topic drafts remain visible in development but production routes and indexes must apply `shouldIncludeTopic()`.
 

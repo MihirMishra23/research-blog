@@ -1,0 +1,46 @@
+---
+import { siteHref } from '../config/site';
+import type { WritingData } from '../content/schemas';
+import type { TopicReference } from '../types/content-ui';
+import TopicLabel from './TopicLabel.astro';
+
+interface Props {
+  id: string;
+  data: WritingData;
+  topics: TopicReference[];
+}
+
+const { id, data, topics } = Astro.props;
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'long',
+  timeZone: 'UTC',
+}).format(data.date);
+---
+
+<article
+  class="writing-entry"
+  data-writing-entry
+  data-topics={data.topics.join(' ')}
+  data-type={data.type}
+  data-level={data.level}
+>
+  <div class="writing-entry__date">
+    <time datetime={data.date.toISOString()}>{formattedDate}</time>
+  </div>
+  <div class="writing-entry__content">
+    <p class="writing-entry__kind">
+      {data.type.replaceAll('-', ' ')} · {data.level}
+    </p>
+    <h2><a href={siteHref(`/writing/${id}/`)}>{data.title}</a></h2>
+    <p class="writing-entry__description">{data.description}</p>
+    <ul class="writing-entry__topics" aria-label="Article topics">
+      {
+        topics.map((topic) => (
+          <li>
+            <TopicLabel {...topic} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>

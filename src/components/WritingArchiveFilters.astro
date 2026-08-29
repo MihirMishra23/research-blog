@@ -1,0 +1,132 @@
+---
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  topics: Option[];
+  types: Option[];
+  levels: Option[];
+}
+
+const { topics, types, levels } = Astro.props;
+---
+
+<form class="writing-filter" data-writing-filter aria-label="Filter writing">
+  <div class="writing-filter__field">
+    <label for="writing-filter-topic">Topic</label>
+    <select id="writing-filter-topic" name="topic">
+      <option value="">All topics</option>
+      {
+        topics.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))
+      }
+    </select>
+  </div>
+  <div class="writing-filter__field">
+    <label for="writing-filter-type">Format</label>
+    <select id="writing-filter-type" name="type">
+      <option value="">All formats</option>
+      {
+        types.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))
+      }
+    </select>
+  </div>
+  <div class="writing-filter__field">
+    <label for="writing-filter-level">Difficulty</label>
+    <select id="writing-filter-level" name="level">
+      <option value="">All levels</option>
+      {
+        levels.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))
+      }
+    </select>
+  </div>
+  <button type="reset">Clear filters</button>
+  <p
+    class="writing-filter__status"
+    data-writing-filter-status
+    aria-live="polite"
+  >
+  </p>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-writing-filter]');
+  const entries = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-writing-entry]'),
+  );
+  const emptyState = document.querySelector<HTMLElement>(
+    '[data-writing-empty]',
+  );
+  const status = document.querySelector<HTMLElement>(
+    '[data-writing-filter-status]',
+  );
+
+  if (form) {
+    const controls = {
+      topic: form.elements.namedItem('topic') as HTMLSelectElement,
+      type: form.elements.namedItem('type') as HTMLSelectElement,
+      level: form.elements.namedItem('level') as HTMLSelectElement,
+    };
+
+    const setFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+
+      for (const [name, control] of Object.entries(controls)) {
+        const value = params.get(name) ?? '';
+        control.value = Array.from(control.options).some(
+          (option) => option.value === value,
+        )
+          ? value
+          : '';
+      }
+    };
+
+    const applyFilters = () => {
+      const values = {
+        topic: controls.topic.value,
+        type: controls.type.value,
+        level: controls.level.value,
+      };
+      let visible = 0;
+
+      for (const entry of entries) {
+        const topics = entry.dataset.topics?.split(' ') ?? [];
+        const matches =
+          (!values.topic || topics.includes(values.topic)) &&
+          (!values.type || entry.dataset.type === values.type) &&
+          (!values.level || entry.dataset.level === values.level);
+
+        entry.hidden = !matches;
+        if (matches) visible += 1;
+      }
+
+      if (emptyState) emptyState.hidden = visible > 0;
+      if (status) {
+        status.textContent = `${visible} ${visible === 1 ? 'article' : 'articles'} shown`;
+      }
+
+      const params = new URLSearchParams();
+      for (const [name, value] of Object.entries(values)) {
+        if (value) params.set(name, value);
+      }
+      const query = params.toString();
+      window.history.replaceState(
+        null,
+        '',
+        `${window.location.pathname}${query ? `?${query}` : ''}`,
+      );
+    };
+
+    setFromUrl();
+    applyFilters();
+    form.addEventListener('input', applyFilters);
+    form.addEventListener('reset', () => window.setTimeout(applyFilters));
+  }
+</script>

@@ -93,12 +93,12 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 8. Implement article routes and the writing archive
 
-- [ ] Generate `/writing/[slug]/` pages from published writing content.
-- [ ] Display the conceptual breadcrumb path at the top of each article.
-- [ ] Connect article topics to their topic pages.
-- [ ] Create `/writing/` as a reverse-chronological archive.
-- [ ] Add client-light filtering by topic, article type, and difficulty.
-- [ ] Provide useful empty states and preserve a complete list when JavaScript is unavailable.
+- [x] Generate `/writing/[slug]/` pages from published writing content.
+- [x] Display the conceptual breadcrumb path at the top of each article.
+- [x] Connect article topics to their topic pages.
+- [x] Create `/writing/` as a reverse-chronological archive.
+- [x] Add client-light filtering by topic, article type, and difficulty.
+- [x] Provide useful empty states and preserve a complete list when JavaScript is unavailable.
 
 **Gate:** every published post is reachable from the archive and every displayed filter produces correct results.
 
