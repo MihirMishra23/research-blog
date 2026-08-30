@@ -19,6 +19,7 @@
     "verify:map-model": "node scripts/verify-map-model.mjs",
     "verify:map": "node scripts/verify-map.mjs",
     "verify:homepage": "node scripts/verify-homepage.mjs",
+    "verify:supporting-pages": "node scripts/verify-supporting-pages.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"

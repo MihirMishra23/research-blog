@@ -154,9 +154,9 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 13. Add supporting pages
 
-- [ ] Create `/about/` using the specified placeholder structure and clearly marked personal-link placeholders.
-- [ ] Create `/research/` with Publications, Selected Projects, Experiments, and Research Interests sections.
-- [ ] Add useful page titles and descriptions for both routes.
+- [x] Create `/about/` using the specified placeholder structure and clearly marked personal-link placeholders.
+- [x] Create `/research/` with Publications, Selected Projects, Experiments, and Research Interests sections.
+- [x] Add useful page titles and descriptions for both routes.
 
 **Gate:** both pages are linked in site navigation and contain no accidental fake personal data.
 

@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const sections = [
+  {
+    index: '01',
+    id: 'publications',
+    title: 'Publications',
+    description:
+      'Publication entries and primary-source links will appear here once Mihir adds them.',
+  },
+  {
+    index: '02',
+    id: 'selected-projects',
+    title: 'Selected Projects',
+    description:
+      'Selected research and engineering projects will appear here once Mihir adds them.',
+  },
+  {
+    index: '03',
+    id: 'experiments',
+    title: 'Experiments',
+    description:
+      'Experiment records, results, and supporting materials will appear here once Mihir adds them.',
+  },
+  {
+    index: '04',
+    id: 'research-interests',
+    title: 'Research Interests',
+    description:
+      'A detailed statement of current research interests will appear here once Mihir writes it.',
+  },
+];
+---
+
+<BaseLayout
+  title="Research"
+  description="Research portfolio for Mihir Mishra, including publications, selected projects, experiments, and research interests."
+>
+  <header class="research-page__header">
+    <p class="eyebrow">Portfolio · evolving record</p>
+    <div class="research-page__intro">
+      <h1>Research</h1>
+      <div>
+        <p>
+          This page is the research-portfolio counterpart to the public
+          notebook.
+        </p>
+        <p class="profile-page__notice">
+          <span>Portfolio content pending</span>
+          The sections below are intentionally empty until Mihir adds his own work
+          and descriptions.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="research-page__sections">
+    {
+      sections.map((section) => (
+        <section
+          class="research-section"
+          id={section.id}
+          aria-labelledby={`${section.id}-title`}
+        >
+          <p class="section-index">{section.index} / Placeholder</p>
+          <div>
+            <h2 id={`${section.id}-title`}>{section.title}</h2>
+            <p>{section.description}</p>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

@@ -20,6 +20,8 @@ const isMapPage =
   Astro.url.pathname.startsWith(sitePath('/map-preview/'));
 const isWritingPage = Astro.url.pathname.startsWith(sitePath('/writing/'));
 const isTopicsPage = Astro.url.pathname.startsWith(sitePath('/topics/'));
+const isResearchPage = Astro.url.pathname.startsWith(sitePath('/research/'));
+const isAboutPage = Astro.url.pathname.startsWith(sitePath('/about/'));
 ---
 
 <!doctype html>
@@ -91,6 +93,14 @@ const isTopicsPage = Astro.url.pathname.startsWith(sitePath('/topics/'));
             <a
               href={sitePath('/topics/')}
               aria-current={isTopicsPage ? 'page' : undefined}>Topics</a
+            >
+            <a
+              href={sitePath('/research/')}
+              aria-current={isResearchPage ? 'page' : undefined}>Research</a
+            >
+            <a
+              href={sitePath('/about/')}
+              aria-current={isAboutPage ? 'page' : undefined}>About</a
             >
             <a href={siteConfig.repository.url}>Source</a>
           </nav>

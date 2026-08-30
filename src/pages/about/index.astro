@@ -1,0 +1,84 @@
+---
+import { siteConfig } from '../../config/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const interests = [
+  'Post-training',
+  'Reinforcement learning for LLMs',
+  'Inference',
+  'Multimodal models',
+  'Evaluation',
+];
+
+const profileLinks = [
+  { label: 'GitHub', href: siteConfig.author.github },
+  { label: 'Google Scholar', href: siteConfig.author.googleScholar },
+  { label: 'X', href: siteConfig.author.x },
+  { label: 'LinkedIn', href: siteConfig.author.linkedIn },
+  {
+    label: 'Email',
+    href: siteConfig.author.email ? `mailto:${siteConfig.author.email}` : null,
+  },
+  { label: 'CV', href: siteConfig.author.cv },
+];
+---
+
+<BaseLayout
+  title="About"
+  description="About Mihir Mishra and The LLM Map, a personal research notebook for understanding modern language models."
+>
+  <header class="profile-page__header">
+    <p class="eyebrow">Profile · owner page</p>
+    <div class="profile-page__intro">
+      <h1>About</h1>
+      <div>
+        <p class="profile-page__notice">
+          <span>Profile copy pending</span>
+          Mihir will write the final biography for this page.
+        </p>
+        <p>
+          The LLM Map is a personal research notebook and an evolving map of the
+          modern deep-learning landscape.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="profile-page__body">
+    <section class="profile-section" aria-labelledby="interests-title">
+      <div class="profile-section__heading">
+        <p class="section-index">01 / Interests</p>
+        <h2 id="interests-title">Working interests</h2>
+      </div>
+      <div class="profile-section__content">
+        <p class="placeholder-label">Placeholder list from the setup spec</p>
+        <ul class="interest-list">
+          {interests.map((interest) => <li>{interest}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="profile-section" aria-labelledby="profile-links-title">
+      <div class="profile-section__heading">
+        <p class="section-index">02 / Links</p>
+        <h2 id="profile-links-title">Elsewhere</h2>
+      </div>
+      <ul class="profile-links">
+        {
+          profileLinks.map((link) => (
+            <li>
+              <span>{link.label}</span>
+              {link.href ? (
+                <a href={link.href}>
+                  Open <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <span class="profile-links__placeholder">Not added yet</span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>
