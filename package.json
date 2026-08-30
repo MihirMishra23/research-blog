@@ -21,6 +21,7 @@
     "verify:homepage": "node scripts/verify-homepage.mjs",
     "verify:supporting-pages": "node scripts/verify-supporting-pages.mjs",
     "verify:discovery": "node scripts/verify-discovery.mjs",
+    "verify:production": "node scripts/verify-production.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"

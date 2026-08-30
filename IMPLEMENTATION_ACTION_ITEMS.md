@@ -173,13 +173,13 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 15. Verify quality and production behavior
 
-- [ ] Run formatting, type/content checks, tests, and the production build.
-- [ ] Preview the production output at the configured GitHub Pages base path.
-- [ ] Check all internal links and referenced static assets.
-- [ ] Test representative desktop and mobile viewport sizes.
-- [ ] Test keyboard navigation, focus order, color contrast, reduced motion, and the non-graph fallback.
-- [ ] Confirm the generated site works without unnecessary client-side JavaScript.
-- [ ] Record known limitations that are intentionally deferred.
+- [x] Run formatting, type/content checks, tests, and the production build.
+- [x] Preview the production output at the configured GitHub Pages base path.
+- [x] Check all internal links and referenced static assets.
+- [x] Test representative desktop and mobile viewport sizes.
+- [x] Test keyboard navigation, focus order, color contrast, reduced motion, and the non-graph fallback.
+- [x] Confirm the generated site works without unnecessary client-side JavaScript.
+- [x] Record known limitations that are intentionally deferred.
 
 **Gate:** all blocking issues are fixed or explicitly documented before deployment.
 
