@@ -25,6 +25,14 @@ The primary themes are:
 
 The site should feel like an **evolving research notebook and public learning system**, rather than a generic corporate blog.
 
+## Editorial ownership and AI policy
+
+This is a single-author personal blog owned and maintained by Mihir. The product does not need contributor accounts, public submissions, collaborative editing, author roles, or an in-browser content editor.
+
+All publishable article-body prose must be written by Mihir. This includes explanations, arguments, examples, transitions, and conclusions. AI may assist with article-title ideas, topic and concept names, graph structure, taxonomy, layout, code, schemas, and site tooling, but it must not draft or rewrite prose that will be presented as a finished article.
+
+AI-generated placeholder prose is allowed only for clearly labeled sample or draft fixtures used to test the site. It must be fully replaced with Mihir's own writing before the article is treated as real editorial content or intentionally published as his work.
+
 ---
 
 # 1. Technical preferences
@@ -381,6 +389,8 @@ Topic pages should primarily serve as navigation and conceptual orientation.
 # 9. Blog posts
 
 Posts should live in Markdown or MDX.
+
+Each real article is single-author work: Mihir writes its body content. Tooling may validate, format, and render that writing, but it must not silently generate or replace the prose. AI assistance may be used for title ideation, but not to produce or rewrite article text.
 
 Suggested frontmatter:
 
@@ -938,7 +948,7 @@ Why is LLM inference memory-bound?
 A map of modern LLM research
 ```
 
-These can contain short placeholder text and should primarily demonstrate styling/navigation.
+These can contain short placeholder text and should primarily demonstrate styling/navigation. Every such post must be visibly labeled as sample or draft content. AI-generated placeholder text must never be treated as a finished article and must be fully replaced by Mihir's own prose before becoming real editorial content.
 
 ---
 
@@ -1057,9 +1067,11 @@ How to install
 
 How to run locally
 
-How to create a post
+How the owner creates and publishes a post
 
-How to create a topic
+The article-authorship and permitted-AI-assistance policy
+
+How the owner creates a topic
 
 How to add a node to the map
 
@@ -1072,6 +1084,8 @@ How to configure a custom domain
 
 Include exact commands.
 
+The README is an owner operations guide, not contributor onboarding. Do not add instructions for public submissions, collaborator roles, or shared editorial access.
+
 For example:
 
 ```bash
@@ -1082,9 +1096,9 @@ npm run build
 
 ---
 
-# 37. Developer experience
+# 37. Owner publishing experience
 
-Optimize for easy content creation.
+Optimize for easy content creation by the site owner. Do not introduce contributor accounts, role management, submission queues, or a browser-based collaborative editor.
 
 Adding a new post should ideally require only:
 
@@ -1094,6 +1108,8 @@ Adding a new post should ideally require only:
 3. Write article.
 4. Push to GitHub.
 ```
+
+Step 3 always means Mihir writes the publishable article prose. AI may suggest titles and topic labels, generate graph relationships, and help with the surrounding site code and tooling, but it must not supply or rewrite the article body.
 
 Adding a map concept should ideally require editing one data file or creating one topic content file.
 

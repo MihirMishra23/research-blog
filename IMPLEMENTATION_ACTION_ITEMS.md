@@ -15,7 +15,7 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 - Writing pages link back into the topic structure.
 - The writing archive, About page, Research page, RSS feed, and sitemap work.
 - The site is responsive, keyboard-accessible, and usable without the graph UI.
-- A production build passes, and the README documents the content and deployment workflows.
+- A production build passes, and the README documents the owner's publishing and deployment workflows, including the editorial-authorship policy.
 
 ## Ordered action items
 
@@ -87,7 +87,7 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 - [x] Add the sample post “Why does post-training exist?”
 - [x] Add the sample post “Why is LLM inference memory-bound?”
 - [x] Include enough math, code, topic links, and metadata across the samples to exercise the content system.
-- [x] Keep placeholder prose clearly marked so it cannot be mistaken for finished research writing.
+- [x] Keep placeholder prose clearly marked as sample or draft content so it cannot be mistaken for a finished, owner-authored article.
 
 **Gate:** all six topic entries and both posts pass schema validation and render without broken links.
 
@@ -183,16 +183,18 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 **Gate:** all blocking issues are fixed or explicitly documented before deployment.
 
-### 16. Document contributor and publishing workflows
+### 16. Document the owner publishing workflow
 
-- [ ] Write a README explaining the project, stack, prerequisites, exact install/run/build commands, and repository structure.
-- [ ] Document how to create and publish a post.
-- [ ] Document how to create a topic and add or connect a map node.
+- [ ] Write an owner-focused README explaining the project, stack, prerequisites, exact install/run/build commands, and repository structure.
+- [ ] Document how the owner creates and publishes a post.
+- [ ] Document the editorial policy: Mihir writes all publishable article-body prose; AI may assist with titles, topic names, graph/taxonomy structure, layout, code, schemas, and tooling.
+- [ ] Document how the owner creates a topic and adds or connects a map node.
+- [ ] State explicitly that contributor accounts, public submissions, collaborator roles, shared editing, and a browser-based content editor are out of scope.
 - [ ] Document draft behavior and content validation errors.
 - [ ] Document GitHub Pages settings, deployment troubleshooting, and the repository-subpath configuration.
 - [ ] Document future custom-domain DNS, Pages, HTTPS, and Astro configuration changes without assuming a final domain.
 
-**Gate:** a new contributor can add a post and a map concept by following only the README.
+**Gate:** the owner can publish his own article and add a map concept by following only the README, while the article body remains owner-authored.
 
 ### 17. Deploy and perform a live smoke test
 
@@ -215,6 +217,7 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 - Bookmarks, completion tracking, and read indicators.
 - Article-specific generated social preview images.
 - Analytics unless a concrete, privacy-conscious need emerges.
+- Multi-author roles, public submissions, collaborative editing, and CMS/editor accounts.
 
 ## Working rules
 
@@ -223,3 +226,6 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 - Add newly discovered work under the step that owns it; avoid a disconnected catch-all list.
 - Record implementation facts and outcomes in the worklog, not in this checklist.
 - Record changes to scope in both this file and the worklog, with a short reason.
+- Treat the site as a single-author blog; do not add contributor-management or collaborative-editing features.
+- Do not generate or rewrite publishable article-body prose. AI assistance with titles, topic labels, graph/taxonomy design, layout, code, schemas, and tooling is allowed.
+- Keep any AI-generated placeholder prose visibly labeled as sample or draft content until Mihir fully replaces it with his own writing.
