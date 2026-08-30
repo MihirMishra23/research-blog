@@ -91,7 +91,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 ---
 
-<BaseLayout title={entry.data.name} description={entry.data.summary}>
+<BaseLayout title={entry.data.name} description={entry.data.summary} searchable>
   <article class="topic-page">
     <Breadcrumbs items={breadcrumbs} />
 
@@ -99,7 +99,14 @@ const breadcrumbs: BreadcrumbItem[] = [
       <p class="topic-page__kind">
         {categoryLabel} · {entry.data.type.replaceAll('-', ' ')}
       </p>
-      <h1>{entry.data.name}</h1>
+      <h1 data-pagefind-meta="title">{entry.data.name}</h1>
+      {
+        entry.data.aliases.length > 0 && (
+          <span class="visually-hidden" data-pagefind-meta="tags">
+            {entry.data.aliases.join(' ')}
+          </span>
+        )
+      }
       <p class="topic-page__summary">{entry.data.summary}</p>
       <div class="topic-page__status">
         <StatusLabel status={entry.data.status} prefix="Maturity" />

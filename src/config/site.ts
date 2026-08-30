@@ -9,6 +9,8 @@ export const siteConfig = {
   title: 'The LLM Map',
   description:
     'An evolving map of how modern language models are trained, adapted, evaluated, and served.',
+  locale: 'en_US',
+  socialImage: '/social-preview.png',
   author: {
     name: 'Mihir Mishra',
     email: null,

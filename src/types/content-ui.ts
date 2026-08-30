@@ -23,6 +23,7 @@ export interface ArticleMetadata {
   date: Date | string;
   updated?: Date | string;
   topics: TopicReference[];
+  tags?: string[];
   level: DifficultyLevel;
   type: ArticleType;
   status: PublicationStatus;

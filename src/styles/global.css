@@ -127,6 +127,17 @@ p {
   text-wrap: pretty;
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .skip-link {
   position: fixed;
   z-index: 10;
@@ -2088,6 +2099,74 @@ main {
   font-size: 1.05rem;
 }
 
+.search-page__header {
+  padding: var(--space-9) var(--space-7) var(--space-8);
+  border-bottom: var(--border-strong);
+}
+
+.search-page__header h1 {
+  margin-bottom: var(--space-4);
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  letter-spacing: -0.055em;
+}
+
+.search-page__header > p:last-child {
+  max-width: 42rem;
+  margin-bottom: 0;
+  color: var(--color-ink-soft);
+  font-size: 1.15rem;
+}
+
+.search-page__body {
+  min-height: 28rem;
+  padding: var(--space-8) var(--space-7);
+}
+
+.search-page__notice {
+  padding: var(--space-4);
+  border: var(--border-thin);
+  background: var(--color-paper-raised);
+  color: var(--color-ink-soft);
+}
+
+.search-interface {
+  --pagefind-ui-scale: 0.9;
+  --pagefind-ui-primary: var(--color-accent);
+  --pagefind-ui-text: var(--color-ink);
+  --pagefind-ui-background: var(--color-paper);
+  --pagefind-ui-border: var(--color-rule-strong);
+  --pagefind-ui-tag: var(--color-paper-raised);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: var(--radius-small);
+  --pagefind-ui-image-border-radius: var(--radius-small);
+  --pagefind-ui-image-box-ratio: 3 / 2;
+  --pagefind-ui-font: var(--font-sans);
+  max-width: var(--reading-width);
+}
+
+.search-interface :is(input, button, a):focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.search-interface .pagefind-ui__search-input {
+  background: var(--color-paper-raised);
+  font-family: var(--font-sans);
+}
+
+.search-interface .pagefind-ui__result-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.search-interface .pagefind-ui__result-link {
+  color: var(--color-ink);
+}
+
+.search-interface .pagefind-ui__result-excerpt {
+  color: var(--color-ink-soft);
+}
+
 @media (max-width: 47rem) {
   .site-shell {
     width: 100%;
@@ -2130,6 +2209,8 @@ main {
   .map-page__header,
   .profile-page__header,
   .research-page__header,
+  .search-page__header,
+  .search-page__body,
   .llm-map__fallback {
     padding: var(--space-7) var(--space-4);
   }

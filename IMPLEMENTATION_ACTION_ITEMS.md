@@ -162,12 +162,12 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 14. Add discovery, feeds, and metadata
 
-- [ ] Add site-wide search for post titles, topic names, descriptions, and tags, using Pagefind if it works cleanly with the final static build.
-- [ ] Generate `/rss.xml` from published writing only.
-- [ ] Generate a sitemap automatically.
-- [ ] Add per-page title, description, canonical URL, Open Graph, and Twitter/X card metadata.
-- [ ] Add a default social preview image and appropriate favicon/site icons.
-- [ ] Verify that base-path deployment does not break search assets, feed links, sitemap links, or preview-image URLs.
+- [x] Add site-wide search for post titles, topic names, descriptions, and tags, using Pagefind if it works cleanly with the final static build.
+- [x] Generate `/rss.xml` from published writing only.
+- [x] Generate a sitemap automatically.
+- [x] Add per-page title, description, canonical URL, Open Graph, and Twitter/X card metadata.
+- [x] Add a default social preview image and appropriate favicon/site icons.
+- [x] Verify that base-path deployment does not break search assets, feed links, sitemap links, or preview-image URLs.
 
 **Gate:** generated production artifacts contain valid canonical URLs and exclude drafts.
 

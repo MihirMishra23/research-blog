@@ -19,7 +19,14 @@ interface Props {
 const { article, breadcrumbs = [], navigation } = Astro.props;
 ---
 
-<BaseLayout title={article.title} description={article.description}>
+<BaseLayout
+  title={article.title}
+  description={article.description}
+  type="article"
+  publishedTime={article.date}
+  updatedTime={article.updated}
+  searchable
+>
   <article class="article-shell">
     <Breadcrumbs items={breadcrumbs} />
 
@@ -28,6 +35,13 @@ const { article, breadcrumbs = [], navigation } = Astro.props;
         {article.type.replaceAll('-', ' ')} · {article.level}
       </p>
       <h1>{article.title}</h1>
+      {
+        article.tags && article.tags.length > 0 && (
+          <span class="visually-hidden" data-pagefind-meta="tags">
+            {article.tags.join(' ')}
+          </span>
+        )
+      }
       <ArticleSummary article={article} />
       {
         article.github && (

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist --force-language en",
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test tests/**/*.test.ts",
@@ -20,6 +20,7 @@
     "verify:map": "node scripts/verify-map.mjs",
     "verify:homepage": "node scripts/verify-homepage.mjs",
     "verify:supporting-pages": "node scripts/verify-supporting-pages.mjs",
+    "verify:discovery": "node scripts/verify-discovery.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"
@@ -27,6 +28,8 @@
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.4",
     "@astrojs/mdx": "^7.0.8",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.2.4",
     "katex": "^0.16.47",
     "rehype-katex": "^7.0.1",
@@ -35,6 +38,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@types/node": "^22.20.1",
+    "pagefind": "^1.5.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3"

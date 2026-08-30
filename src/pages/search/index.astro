@@ -1,0 +1,73 @@
+---
+import { sitePath } from '../../config/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const bundlePath = sitePath('/pagefind/');
+const siteBase = sitePath('/').replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="Search"
+  description="Search published articles and topic pages across The LLM Map."
+>
+  <Fragment slot="head">
+    <link rel="stylesheet" href={sitePath('/pagefind/pagefind-ui.css')} />
+  </Fragment>
+
+  <header class="search-page__header">
+    <p class="eyebrow">Discovery · static index</p>
+    <h1>Search</h1>
+    <p>
+      Search published writing and topic pages by title, description, concept,
+      or tag.
+    </p>
+  </header>
+
+  <section class="search-page__body" aria-labelledby="search-interface-title">
+    <h2 id="search-interface-title" class="visually-hidden">Site search</h2>
+    <noscript>
+      <p class="search-page__notice">
+        Search requires JavaScript to query the static index. All writing and
+        topics remain available from their complete indexes.
+      </p>
+    </noscript>
+    <div id="search" class="search-interface"></div>
+  </section>
+
+  <script is:inline src={sitePath('/pagefind/pagefind-ui.js')}></script>
+  <script is:inline define:vars={{ bundlePath, siteBase }}>
+    const initializeSearch = () => {
+      if (!window.PagefindUI || document.querySelector('#search form')) return;
+
+      new window.PagefindUI({
+        element: '#search',
+        bundlePath,
+        showImages: false,
+        showSubResults: true,
+        focusOnSlash: true,
+        translations: {
+          placeholder: 'Search articles and topics',
+        },
+        processResult(result) {
+          if (
+            result.url.startsWith('/') &&
+            siteBase &&
+            !result.url.startsWith(`${siteBase}/`)
+          ) {
+            result.url = `${siteBase}${result.url}`;
+          }
+
+          return result;
+        },
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeSearch, {
+        once: true,
+      });
+    } else {
+      initializeSearch();
+    }
+  </script>
+</BaseLayout>
