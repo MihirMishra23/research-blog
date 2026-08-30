@@ -25,7 +25,6 @@
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.4",
     "@astrojs/mdx": "^7.0.8",
-    "@fontsource-variable/shantell-sans": "^5.3.0",
     "astro": "^7.2.4",
     "katex": "^0.16.47",
     "rehype-katex": "^7.0.1",

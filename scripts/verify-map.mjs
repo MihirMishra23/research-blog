@@ -94,8 +94,18 @@ assert.match(
 );
 assert.match(
   css,
-  /shantell-sans-latin-wght-normal[^)]*\.woff2/,
-  'locally bundled handwritten font is missing',
+  /\.llm-map__node--root \.llm-map__label\{[^}]*font-family:var\(--font-display\)/,
+  'root should use the editorial display serif',
+);
+assert.match(
+  css,
+  /\.llm-map__label\{[^}]*font-family:var\(--font-sans\)/,
+  'topics should use the clean system sans-serif stack',
+);
+assert.doesNotMatch(
+  `${html}\n${css}`,
+  /Shantell Sans|shantell-sans|Segoe Print|cursive/,
+  'map should not retain handwriting typography',
 );
 assert.match(
   css,

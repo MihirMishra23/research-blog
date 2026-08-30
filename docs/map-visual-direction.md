@@ -4,11 +4,11 @@ This document records the approved visual direction for the interactive LLM map.
 
 ## Core character
 
-The map should feel like a working research sketch made on dotted notebook paper. It is intentionally informal, manually composed, and visibly exploratory. It should not resemble a dashboard, flowchart library, network-analysis tool, or collection of UI cards.
+The map should feel like an editorial research diagram composed on dotted notebook paper. It is manually arranged, visibly exploratory, and refined enough to match the surrounding publication. It should not resemble a dashboard, flowchart library, network-analysis tool, or collection of UI cards.
 
 The target impression is:
 
-- hand-drawn;
+- editorial and manually composed;
 - radial and associative;
 - technically dense but approachable;
 - monochrome ink with sparse red annotations;
@@ -22,10 +22,10 @@ Use a stable radial hierarchy:
 2. Place major areas around it in their own irregular ovals.
 3. Enclose every topic concept in a smaller irregular bubble so the map reads as a connected node diagram rather than annotated branches.
 4. Connect each major area to the center with a short organic stroke.
-5. Extend individual concepts outward as handwritten bubbles connected by branch strokes.
+5. Extend individual concepts outward as clean sans-serif bubbles connected by branch strokes.
 6. Allow selected concepts to branch again where a method has important descendants, such as speculative decoding leading to Medusa and EAGLE.
 
-The composition should be manually positioned in V1. Slight asymmetry, varied branch lengths, and uneven spacing are desirable when they improve the sketched quality. Avoid automatic layouts that constantly move or optimize the drawing into a regular grid.
+The composition should be manually positioned in V1. Slight asymmetry, varied branch lengths, and uneven spacing are desirable when they strengthen the authored quality. Avoid automatic layouts that constantly move or optimize the drawing into a regular grid.
 
 ## Visual vocabulary
 
@@ -44,11 +44,11 @@ The composition should be manually positioned in V1. Slight asymmetry, varied br
 - Root, category, and topic bubbles should be hand-shaped SVG paths, not pill components.
 - Selected or related paths may become marginally heavier, but should not turn into neon or glowing edges.
 
-### Lettering
+### Typography
 
-- Use a locally served, open-source handwritten face with an Excalidraw-like character for map labels.
-- Keep the editorial serif and monospace system for the surrounding site UI.
-- Vary map label sizes by hierarchy: center, category, concept, then annotation.
+- Use the site's editorial display serif for the LLM root and category bubbles.
+- Use the site's system sans-serif stack for topic bubbles.
+- Vary label sizes by hierarchy: center, category, concept, then annotation.
 - Do not rotate labels merely for decoration; readability takes priority.
 
 ### Red marks
@@ -83,7 +83,7 @@ The desktop composition is primary. On smaller screens:
 - avoid shrinking all labels until they become unreadable;
 - place the detail panel in a bottom sheet;
 - provide the hierarchical topic-list fallback immediately after the graph;
-- ensure all tap targets are comfortably larger than the visible handwriting.
+- ensure all tap targets are comfortably larger than the visible labels.
 
 ## Implementation guardrails
 
@@ -100,7 +100,7 @@ The map is visually ready when:
 
 - a side-by-side glance immediately recalls the approved reference;
 - the center → category → concept hierarchy is obvious without instructions;
-- the dotted-paper canvas, handwritten labels, irregular ovals, and organic branch strokes remain visible in both themes;
+- the dotted-paper canvas, editorial labels, irregular ovals, and organic branch strokes remain visible in both themes;
 - red marks are noticeable but rare;
 - the map still looks hand-composed after selection and highlighting states are applied;
 - desktop, keyboard, and mobile fallback behavior meet the functional map requirements.

@@ -140,7 +140,7 @@ const groupedTopics = areas.map((area) => ({
           Interactive map of six LLM concepts
         </title>
         <desc id="llm-map-svg-description">
-          A hand-drawn radial knowledge sketch. LLMs are in the center, with
+          An editorial radial knowledge map. LLMs are in the center, with
           Post-training, Inference systems, and Multimodal areas branching to
           six selectable concept bubbles.
         </desc>
@@ -265,11 +265,11 @@ const groupedTopics = areas.map((area) => ({
         data-map-detail-title
         tabindex="-1"
       >
-        Explore the sketch
+        Explore the map
       </PanelHeadingTag>
       <p data-map-detail-description>
-        Select any handwritten label to isolate its immediate conceptual
-        neighborhood. Every concept remains available as a regular link below.
+        Select any bubble to isolate its immediate conceptual neighborhood.
+        Every concept remains available as a regular link below.
       </p>
       <div class="llm-map__detail-status" data-map-detail-status hidden>
         <span>Maturity</span>
@@ -429,10 +429,10 @@ const groupedTopics = areas.map((area) => ({
       );
       if (resetButton) resetButton.hidden = true;
       if (detailIndex) detailIndex.textContent = 'Map overview';
-      if (detailTitle) detailTitle.textContent = 'Explore the sketch';
+      if (detailTitle) detailTitle.textContent = 'Explore the map';
       if (detailDescription) {
         detailDescription.textContent =
-          'Select any handwritten label to isolate its immediate conceptual neighborhood. Every concept remains available as a regular link below.';
+          'Select any bubble to isolate its immediate conceptual neighborhood. Every concept remains available as a regular link below.';
       }
       if (detailStatus) detailStatus.hidden = true;
       if (prerequisiteGroup) prerequisiteGroup.hidden = true;
