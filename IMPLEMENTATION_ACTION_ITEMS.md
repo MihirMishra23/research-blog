@@ -185,14 +185,14 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 16. Document the owner publishing workflow
 
-- [ ] Write an owner-focused README explaining the project, stack, prerequisites, exact install/run/build commands, and repository structure.
-- [ ] Document how the owner creates and publishes a post.
-- [ ] Document the editorial policy: Mihir writes all publishable article-body prose; AI may assist with titles, topic names, graph/taxonomy structure, layout, code, schemas, and tooling.
-- [ ] Document how the owner creates a topic and adds or connects a map node.
-- [ ] State explicitly that contributor accounts, public submissions, collaborator roles, shared editing, and a browser-based content editor are out of scope.
-- [ ] Document draft behavior and content validation errors.
-- [ ] Document GitHub Pages settings, deployment troubleshooting, and the repository-subpath configuration.
-- [ ] Document future custom-domain DNS, Pages, HTTPS, and Astro configuration changes without assuming a final domain.
+- [x] Write an owner-focused README explaining the project, stack, prerequisites, exact install/run/build commands, and repository structure.
+- [x] Document how the owner creates and publishes a post.
+- [x] Document the editorial policy: Mihir writes all publishable article-body prose; AI may assist with titles, topic names, graph/taxonomy structure, layout, code, schemas, and tooling.
+- [x] Document how the owner creates a topic and adds or connects a map node.
+- [x] State explicitly that contributor accounts, public submissions, collaborator roles, shared editing, and a browser-based content editor are out of scope.
+- [x] Document draft behavior and content validation errors.
+- [x] Document GitHub Pages settings, deployment troubleshooting, and the repository-subpath configuration.
+- [x] Document future custom-domain DNS, Pages, HTTPS, and Astro configuration changes without assuming a final domain.
 
 **Gate:** the owner can publish his own article and add a map concept by following only the README, while the article body remains owner-authored.
 

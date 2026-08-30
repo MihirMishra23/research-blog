@@ -22,6 +22,7 @@
     "verify:supporting-pages": "node scripts/verify-supporting-pages.mjs",
     "verify:discovery": "node scripts/verify-discovery.mjs",
     "verify:production": "node scripts/verify-production.mjs",
+    "verify:docs": "node scripts/verify-owner-docs.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"
