@@ -129,8 +129,8 @@ assert.doesNotMatch(
 );
 assert.match(
   homepage,
-  /href="\/research-blog\/map-preview\/"/,
-  'homepage does not link to the map preview',
+  /href="\/research-blog\/map\/"/,
+  'homepage does not link to the focused map route',
 );
 
 console.log(

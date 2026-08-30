@@ -1,56 +1,130 @@
 ---
+import { getCollection } from 'astro:content';
+import LlmMap from '../components/LlmMap.astro';
+import WritingArchiveItem from '../components/WritingArchiveItem.astro';
+import { createLlmMapModel } from '../content/map-model';
+import {
+  shouldIncludeTopic,
+  shouldIncludeWriting,
+} from '../content/visibility';
+import { siteConfig, siteHref } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig, sitePath } from '../config/site';
+
+const topics = (await getCollection('topics')).filter((entry) =>
+  shouldIncludeTopic(entry.data),
+);
+const writing = (await getCollection('writing'))
+  .filter((entry) => shouldIncludeWriting(entry.data))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const mapModel = createLlmMapModel(topics);
+const topicById = new Map(topics.map((entry) => [entry.id, entry]));
+const recentWriting = writing.slice(0, 5);
+const frontierTopic = topics
+  .filter(
+    (entry) =>
+      entry.data.status === 'active' || entry.data.status === 'frontier',
+  )
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))[0];
 ---
 
 <BaseLayout>
-  <section class="intro" aria-labelledby="page-title">
-    <div class="intro__content">
-      <p class="eyebrow">Research notebook · evolving in public</p>
+  <header class="home-intro" aria-labelledby="page-title">
+    <p class="eyebrow">Research notebook · evolving in public</p>
+    <div class="home-intro__content">
       <h1 id="page-title">{siteConfig.title}</h1>
-      <p class="lede">{siteConfig.description}</p>
+      <p>{siteConfig.description}</p>
     </div>
+  </header>
 
-    <aside class="annotation" aria-label="Current site status">
-      <span class="annotation__label">Now mapping</span>
-      <p>
-        The conceptual terrain between training, inference, evaluation, and the
-        systems that connect them.
-      </p>
-      <a class="annotation__link" href={sitePath('/rendering-test/')}
-        >View the math + code test →</a
-      >
-      <a class="annotation__link" href={sitePath('/content-preview/')}
-        >Browse the initial content →</a
-      >
-      <a class="annotation__link" href={sitePath('/writing/')}
-        >Open the writing archive →</a
-      >
-      <a class="annotation__link" href={sitePath('/topics/')}
-        >Explore the topic index →</a
-      >
-      <a class="annotation__link" href={sitePath('/map-preview/')}
-        >Try the interactive map →</a
-      >
-    </aside>
+  <section class="home-map" aria-labelledby="home-map-title">
+    <div class="home-map__heading">
+      <div>
+        <p class="section-index">Map / interactive</p>
+        <h2 id="home-map-title">Explore how the ideas connect</h2>
+      </div>
+      <a href={siteHref('/map/')}>Open the focused map →</a>
+    </div>
+    <LlmMap model={mapModel} headingLevel="h3" />
   </section>
 
-  <section class="field-note" aria-labelledby="field-note-title">
-    <p class="section-index">Field note / 001</p>
-    <div class="field-note__body">
-      <h2 id="field-note-title">Start with relationships, not definitions.</h2>
-      <p>
-        Modern language models make more sense when each method is placed beside
-        the problem it answered, the ideas it inherited, and the work it made
-        possible. This site is being built as that connected view.
-      </p>
-      <ul class="topic-line" aria-label="Initial areas of exploration">
-        <li>Pre-training</li>
-        <li>Post-training</li>
-        <li>Inference</li>
-        <li>Evaluation</li>
-        <li>Agents</li>
-      </ul>
+  <section class="home-paths" aria-labelledby="home-paths-title">
+    <div class="home-section-heading">
+      <p class="section-index">Choose a starting point</p>
+      <h2 id="home-paths-title">Explore at your depth</h2>
+    </div>
+
+    <div class="home-paths__list">
+      <a class="home-path" href={siteHref('/topics/')}>
+        <span>Initial route · topic framework</span>
+        <h3>I'm learning the field</h3>
+        <p>Start with the grouped concept index and build a vocabulary.</p>
+        <strong>Browse the topics →</strong>
+      </a>
+      <a class="home-path" href={siteHref('/map/')}>
+        <span>Initial route · focused map</span>
+        <h3>I know the basics</h3>
+        <p>Work directly from relationships, prerequisites, and progression.</p>
+        <strong>Open the full map →</strong>
+      </a>
+      {
+        frontierTopic && (
+          <a
+            class="home-path"
+            href={siteHref(`/topics/${frontierTopic.id}/#resources-title`)}
+          >
+            <span>Initial route · one active concept</span>
+            <h3>Show me the frontier</h3>
+            <p>Begin with open questions around {frontierTopic.data.name}.</p>
+            <strong>Read the frontier questions →</strong>
+          </a>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="home-recent" aria-labelledby="home-recent-title">
+    <div class="home-section-heading home-section-heading--with-link">
+      <div>
+        <p class="section-index">Writing / latest</p>
+        <h2 id="home-recent-title">Recently explored</h2>
+      </div>
+      <a href={siteHref('/writing/')}>View all writing →</a>
+    </div>
+
+    {
+      recentWriting.length > 0 ? (
+        <div class="home-recent__list" data-recent-writing>
+          {recentWriting.map((entry) => (
+            <WritingArchiveItem
+              id={entry.id}
+              data={entry.data}
+              topics={entry.data.topics.map((id) => {
+                const topic = topicById.get(id);
+                return {
+                  id,
+                  label: topic?.data.name ?? id,
+                  href: `/topics/${id}/`,
+                  maturity: topic?.data.status,
+                };
+              })}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>No published notes yet.</p>
+      )
+    }
+  </section>
+
+  <section class="home-notebook" aria-labelledby="home-notebook-title">
+    <p class="section-index">About this notebook</p>
+    <div>
+      <h2 id="home-notebook-title">Research in public</h2>
+      <blockquote>
+        This is my evolving map of modern deep learning. I use it to understand
+        how ideas connect, how the field got here, and what problems remain
+        unsolved.
+      </blockquote>
     </div>
   </section>
 </BaseLayout>

@@ -142,13 +142,13 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 12. Assemble the homepage and map route
 
-- [ ] Create the homepage title and introduction from the spec.
-- [ ] Place the interactive map above the secondary homepage content.
-- [ ] Add the three exploration controls: “I'm learning the field,” “I know the basics,” and “Show me the frontier.”
-- [ ] Keep non-implemented exploration modes honest by linking or labeling them as initial/simple behaviors.
-- [ ] Add “Recently explored” with the latest 3–5 published posts.
-- [ ] Add the short public-research-notebook description from the spec.
-- [ ] Create `/map/` as a focused map view using the same reusable component.
+- [x] Create the homepage title and introduction from the spec.
+- [x] Place the interactive map above the secondary homepage content.
+- [x] Add the three exploration controls: “I'm learning the field,” “I know the basics,” and “Show me the frontier.”
+- [x] Keep non-implemented exploration modes honest by linking or labeling them as initial/simple behaviors.
+- [x] Add “Recently explored” with the latest 3–5 published posts.
+- [x] Add the short public-research-notebook description from the spec.
+- [x] Create `/map/` as a focused map view using the same reusable component.
 
 **Gate:** the homepage has no giant hero, remains fast, and clearly prioritizes exploration over chronology.
 

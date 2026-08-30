@@ -18,6 +18,7 @@
     "verify:topics": "node scripts/verify-topics.mjs",
     "verify:map-model": "node scripts/verify-map-model.mjs",
     "verify:map": "node scripts/verify-map.mjs",
+    "verify:homepage": "node scripts/verify-homepage.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"

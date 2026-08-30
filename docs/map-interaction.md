@@ -1,6 +1,6 @@
 # Interactive map V1
 
-The reusable `LlmMap.astro` component renders the typed model from `src/content/map-model.ts` as a progressively enhanced SVG knowledge map. The temporary `/map-preview/` route is its integration surface until action item 12 places the same component on the homepage and focused `/map/` route.
+The reusable `LlmMap.astro` component renders the typed model from `src/content/map-model.ts` as a progressively enhanced SVG knowledge map. The homepage is the primary integration surface, `/map/` provides the focused view, and `/map-preview/` remains an isolated component-QA route.
 
 ## Visual construction
 

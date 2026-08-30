@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import LlmMap from '../../components/LlmMap.astro';
+import { createLlmMapModel } from '../../content/map-model';
+import { shouldIncludeTopic } from '../../content/visibility';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const topics = (await getCollection('topics')).filter((entry) =>
+  shouldIncludeTopic(entry.data),
+);
+const mapModel = createLlmMapModel(topics);
+---
+
+<BaseLayout
+  title="Map"
+  description="A focused interactive map of how modern language-model concepts connect."
+>
+  <header class="map-page__header">
+    <p class="eyebrow">Focused view · interactive concept map</p>
+    <h1>The LLM Map</h1>
+    <p>
+      Select a concept to inspect its immediate neighborhood, or use the text
+      view below the diagram to browse the same structure without the graph.
+    </p>
+  </header>
+  <LlmMap model={mapModel} />
+</BaseLayout>
