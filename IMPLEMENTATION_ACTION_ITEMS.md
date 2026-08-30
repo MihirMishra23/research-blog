@@ -198,11 +198,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ### 17. Deploy and perform a live smoke test
 
-- [ ] Push the completed milestone to `main` when the repository and remote are ready.
-- [ ] Confirm the GitHub Pages workflow succeeds.
-- [ ] Open the deployed URL and test the homepage, map interaction, article, topic, About, Research, RSS, sitemap, and search.
-- [ ] Confirm canonical and social metadata use the live URL.
-- [ ] Record the deployment URL, workflow result, smoke-test findings, and any follow-up items in the worklog.
+- [x] Push the completed milestone to `main` when the repository and remote are ready.
+- [x] Confirm the GitHub Pages workflow succeeds.
+- [x] Open the deployed URL and test the homepage, map interaction, article, topic, About, Research, RSS, sitemap, and search.
+- [x] Confirm canonical and social metadata use the live URL.
+- [x] Record the deployment URL, workflow result, smoke-test findings, and any follow-up items in the worklog.
 
 **Gate:** the live site meets the milestone definition of done.
 
