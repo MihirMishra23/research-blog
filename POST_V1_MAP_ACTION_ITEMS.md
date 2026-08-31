@@ -47,14 +47,14 @@ This post-V1 map milestone is complete when:
 
 ### 1.2 Draft the canonical taxonomy
 
-- [ ] Assign every candidate a stable lowercase kebab-case ID, display name, short map label, category, concept type, and maturity.
-- [ ] Merge aliases and near-duplicates into a single canonical topic where appropriate.
-- [ ] Give every concept a concise summary and identify its parent or area membership.
-- [ ] Author only relationships that can be named precisely as hierarchy, prerequisite, progression, or related.
-- [ ] Make `related` and progression relationships reciprocal according to the existing content rules.
-- [ ] Flag uncertain or disputed relationships for editorial review instead of encoding them as settled facts.
+- [x] Assign every candidate a stable lowercase kebab-case ID, display name, short map label, category, concept type, and maturity.
+- [x] Merge aliases and near-duplicates into a single canonical topic where appropriate.
+- [x] Give every concept a concise summary and identify its parent or area membership.
+- [x] Author only relationships that can be named precisely as hierarchy, prerequisite, progression, or related.
+- [x] Make `related` and progression relationships reciprocal according to the existing content rules.
+- [x] Flag uncertain or disputed relationships for editorial review instead of encoding them as settled facts.
 
-**Gate:** the reviewed taxonomy inventory uses schema-compatible IDs and relationships; concepts are not promoted to production until the dynamic layout can place the resulting node set clearly.
+**Gate:** complete. The [reviewed canonical taxonomy](./docs/post-v1-canonical-taxonomy.md) and its [machine-readable inventory](./docs/post-v1-canonical-taxonomy.json) use schema-compatible IDs and reciprocal relationships. Concepts are not promoted to production until the dynamic layout can place the resulting node set clearly.
 
 ### 1.3 Add the topic pages in controlled batches
 

@@ -46,7 +46,6 @@ for (const edgeId of [
   'progression:sft:grpo',
   'related:grpo:rlhf',
   'related:flashattention:speculative-decoding',
-  'related:flashattention:multimodal-models',
 ]) {
   assert.equal(
     model.edges.some((edge) => edge.id === edgeId),
@@ -55,10 +54,13 @@ for (const edgeId of [
   );
 }
 
-const crossCategory = model.edges.find(
-  (edge) => edge.id === 'related:flashattention:multimodal-models',
+assert.equal(
+  model.edges.some(
+    (edge) => edge.id === 'related:flashattention:multimodal-models',
+  ),
+  false,
+  'the rejected FlashAttention–Multimodal relationship should stay absent',
 );
-assert.ok(crossCategory, 'cross-category exploration edge is missing');
 
 console.log(
   'Typed V1 map data contains six resolvable topics and valid renderer-neutral edges.',

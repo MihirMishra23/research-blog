@@ -159,12 +159,7 @@ export const MAP_AREAS: readonly MapAreaNode[] = [
 
 const MAP_EDGE_ROUTES: Readonly<
   Record<string, Array<{ x: number; y: number }>>
-> = {
-  'related:flashattention:multimodal-models': [
-    { x: 1510, y: 170 },
-    { x: 1510, y: 720 },
-  ],
-};
+> = {};
 
 function topicPosition(topic: MapTopicRecord): MapPosition | undefined {
   const position = topic.data.map;

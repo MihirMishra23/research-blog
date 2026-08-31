@@ -134,13 +134,13 @@ Exclude or defer a candidate when any of the following applies:
 - [Continuous-Query Limited Memory Language Models](https://arxiv.org/abs/2607.07707) and [Mem0](https://arxiv.org/abs/2504.19413) anchor the Memory and Agents additions.
 - Anthropic's [work applying sparse autoencoders to a production language model](https://www.anthropic.com/research/mapping-mind-language-model), the [ROME paper](https://arxiv.org/abs/2202.05262), and Anthropic's [open circuit-tracing method](https://www.anthropic.com/research/open-source-circuit-tracing) anchor the three Interpretability additions.
 
-## Handoff to Action Item 1.2
+## Resolution by Action Item 1.2
 
-Action Item 1.2 must now:
+The [reviewed canonical taxonomy](./post-v1-canonical-taxonomy.md) and its [machine-readable inventory](./post-v1-canonical-taxonomy.json) now:
 
 1. resolve the current provisional names into canonical candidates without treating the inventory size as a release cap;
-2. assign IDs, display names, map labels, category, concept type, and maturity;
-3. define the boundary of “Omni-family models” and the architecture-focused boundary of Mem0;
+2. assign IDs, display names, map labels, category, concept type, maturity, aliases, and summaries;
+3. define the architecture-focused boundary of Mem0 and retain the broader Omni-family boundary for explicit editorial review;
 4. define reciprocal relationships without exceeding the hub rule;
-5. record uncertain relationships instead of presenting them as settled facts;
-6. identify which candidates need additional primary-source review before becoming topic files.
+5. record omitted and uncertain relationships instead of presenting them as settled facts;
+6. identify the remaining primary-source review required before `omni-family-models` becomes a production topic.

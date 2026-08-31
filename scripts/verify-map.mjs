@@ -32,7 +32,7 @@ assert.equal(
 );
 assert.equal(
   (html.match(/data-map-edge="[^"]+"/g) ?? []).length,
-  14,
+  13,
   'map should render every V1 edge',
 );
 

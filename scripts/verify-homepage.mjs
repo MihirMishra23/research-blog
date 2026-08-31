@@ -94,7 +94,7 @@ assert.equal(
 );
 assert.equal(
   (mapPage.match(/data-map-edge="[^"]+"/g) ?? []).length,
-  14,
+  13,
   'focused map route should render every V1 edge',
 );
 assert.match(

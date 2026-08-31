@@ -17,7 +17,6 @@ cameBefore: []
 leadsTo: []
 related:
   - speculative-decoding
-  - multimodal-models
 frontierQuestions:
   - 'How should exact attention kernels evolve for new accelerators, precisions, and sparse patterns?'
   - 'Where do end-to-end bottlenecks move after attention IO is reduced?'

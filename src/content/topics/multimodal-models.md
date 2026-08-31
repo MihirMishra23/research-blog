@@ -16,8 +16,7 @@ whatCameNext: 'Architectures are moving toward longer video and audio contexts, 
 prerequisites: []
 cameBefore: []
 leadsTo: []
-related:
-  - flashattention
+related: []
 frontierQuestions:
   - 'How can models ground language in perception without relying on shallow dataset correlations?'
   - 'Which representations and evaluations expose failures in temporal and spatial reasoning?'

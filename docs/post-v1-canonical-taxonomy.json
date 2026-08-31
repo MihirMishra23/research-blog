@@ -1,0 +1,494 @@
+{
+  "version": 1,
+  "areas": [
+    { "id": "models", "label": "Models", "mapLabel": "Models" },
+    {
+      "id": "post-training",
+      "label": "Post-training",
+      "mapLabel": "Post-training"
+    },
+    { "id": "inference", "label": "Inference", "mapLabel": "Inference" },
+    {
+      "id": "multimodal",
+      "label": "Multimodal",
+      "mapLabel": "Multimodal"
+    },
+    { "id": "memory", "label": "Memory", "mapLabel": "Memory" },
+    { "id": "agents", "label": "Agents", "mapLabel": "Agents" },
+    {
+      "id": "interpretability",
+      "label": "Interpretability",
+      "mapLabel": "Interp"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "delta-attention",
+      "name": "Delta Attention",
+      "mapLabel": "Delta Attention",
+      "category": "models",
+      "type": "method",
+      "status": "frontier",
+      "aliases": [],
+      "summary": "A sparse-attention inference method that corrects distribution shift between sparse and quadratic attention outputs.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["flashattention"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Delta Attention: Fast and Accurate Sparse Attention Inference by Delta Correction",
+          "url": "https://arxiv.org/abs/2505.11254",
+          "year": 2025
+        }
+      ]
+    },
+    {
+      "id": "grouped-query-attention",
+      "name": "Grouped-Query Attention (GQA)",
+      "mapLabel": "GQA",
+      "category": "models",
+      "type": "architecture",
+      "status": "established",
+      "aliases": ["GQA", "Grouped Query Attention"],
+      "summary": "An attention design that shares key-value heads across groups of query heads to balance quality with decoding efficiency.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["multi-head-latent-attention"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+          "url": "https://arxiv.org/abs/2305.13245",
+          "year": 2023
+        }
+      ]
+    },
+    {
+      "id": "multi-head-latent-attention",
+      "name": "Multi-head Latent Attention (MLA)",
+      "mapLabel": "MLA",
+      "category": "models",
+      "type": "architecture",
+      "status": "active",
+      "aliases": ["MLA", "Multihead Latent Attention"],
+      "summary": "An attention architecture that compresses key-value representations into a latent form to reduce inference cache requirements.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["grouped-query-attention"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model",
+          "url": "https://arxiv.org/abs/2405.04434",
+          "year": 2024
+        }
+      ]
+    },
+    {
+      "id": "sft",
+      "name": "Supervised Fine-Tuning (SFT)",
+      "mapLabel": "SFT",
+      "category": "post-training",
+      "type": "method",
+      "status": "established",
+      "aliases": ["Supervised fine-tuning", "Instruction tuning"],
+      "summary": "Continued language-model training on curated prompt-and-response demonstrations.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": ["rlhf", "grpo"],
+      "related": [],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Training language models to follow instructions with human feedback",
+          "url": "https://arxiv.org/abs/2203.02155",
+          "year": 2022
+        }
+      ]
+    },
+    {
+      "id": "rlhf",
+      "name": "Reinforcement Learning from Human Feedback (RLHF)",
+      "mapLabel": "RLHF",
+      "category": "post-training",
+      "type": "method",
+      "status": "established",
+      "aliases": ["RLHF"],
+      "summary": "Post-training that uses human preference data to optimize model behavior through a learned reward signal.",
+      "parent": null,
+      "prerequisites": ["sft"],
+      "cameBefore": ["sft"],
+      "leadsTo": [],
+      "related": ["grpo"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Training language models to follow instructions with human feedback",
+          "url": "https://arxiv.org/abs/2203.02155",
+          "year": 2022
+        }
+      ]
+    },
+    {
+      "id": "grpo",
+      "name": "Group Relative Policy Optimization (GRPO)",
+      "mapLabel": "GRPO",
+      "category": "post-training",
+      "type": "method",
+      "status": "active",
+      "aliases": ["GRPO"],
+      "summary": "A policy-optimization method that estimates relative advantages from groups of sampled responses.",
+      "parent": null,
+      "prerequisites": ["sft"],
+      "cameBefore": ["sft"],
+      "leadsTo": ["gspo", "dapo"],
+      "related": ["rlhf"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models",
+          "url": "https://arxiv.org/abs/2402.03300",
+          "year": 2024
+        }
+      ]
+    },
+    {
+      "id": "gspo",
+      "name": "Group Sequence Policy Optimization (GSPO)",
+      "mapLabel": "GSPO",
+      "category": "post-training",
+      "type": "method",
+      "status": "frontier",
+      "aliases": ["GSPO"],
+      "summary": "A group-based policy optimizer that uses sequence-level importance ratios and clipping instead of token-level ratios.",
+      "parent": null,
+      "prerequisites": ["grpo"],
+      "cameBefore": ["grpo"],
+      "leadsTo": [],
+      "related": ["dapo"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Group Sequence Policy Optimization",
+          "url": "https://arxiv.org/abs/2507.18071",
+          "year": 2025
+        }
+      ]
+    },
+    {
+      "id": "dapo",
+      "name": "DAPO",
+      "mapLabel": "DAPO",
+      "category": "post-training",
+      "type": "method",
+      "status": "frontier",
+      "aliases": [
+        "Decoupled Clip and Dynamic Sampling Policy Optimization",
+        "Decoupled Clip and Dynamic sAmpling Policy Optimization"
+      ],
+      "summary": "A large-scale reasoning-RL recipe built around decoupled clipping, dynamic sampling, token-level loss, and overlong-reward shaping.",
+      "parent": null,
+      "prerequisites": ["grpo"],
+      "cameBefore": ["grpo"],
+      "leadsTo": [],
+      "related": ["gspo"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "DAPO: An Open-Source LLM Reinforcement Learning System at Scale",
+          "url": "https://arxiv.org/abs/2503.14476",
+          "year": 2025
+        }
+      ]
+    },
+    {
+      "id": "flashattention",
+      "name": "FlashAttention",
+      "mapLabel": "FlashAttention",
+      "category": "inference",
+      "type": "method",
+      "status": "established",
+      "aliases": ["Flash Attention"],
+      "summary": "An exact, IO-aware attention algorithm that reduces expensive traffic through the GPU memory hierarchy.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["delta-attention", "speculative-decoding"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+          "url": "https://arxiv.org/abs/2205.14135",
+          "year": 2022
+        }
+      ]
+    },
+    {
+      "id": "speculative-decoding",
+      "name": "Speculative Decoding",
+      "mapLabel": "Speculative Decoding",
+      "category": "inference",
+      "type": "method",
+      "status": "active",
+      "aliases": ["Speculative sampling"],
+      "summary": "Exact accelerated decoding that drafts tokens cheaply and verifies several candidates with a larger target model.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": ["dflash"],
+      "related": ["flashattention", "multi-token-prediction"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Fast Inference from Transformers via Speculative Decoding",
+          "url": "https://arxiv.org/abs/2211.17192",
+          "year": 2022
+        }
+      ]
+    },
+    {
+      "id": "dflash",
+      "name": "DFlash",
+      "mapLabel": "DFlash",
+      "category": "inference",
+      "type": "system",
+      "status": "frontier",
+      "aliases": ["Block Diffusion for Flash Speculative Decoding"],
+      "summary": "A speculative-decoding framework that uses a lightweight block-diffusion model to draft several tokens in parallel.",
+      "parent": null,
+      "prerequisites": ["speculative-decoding"],
+      "cameBefore": ["speculative-decoding"],
+      "leadsTo": [],
+      "related": [],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "DFlash: Block Diffusion for Flash Speculative Decoding",
+          "url": "https://arxiv.org/abs/2602.06036",
+          "year": 2026
+        }
+      ]
+    },
+    {
+      "id": "multi-token-prediction",
+      "name": "Multi-Token Prediction (MTP)",
+      "mapLabel": "MTP",
+      "category": "inference",
+      "type": "method",
+      "status": "active",
+      "aliases": ["MTP", "Multi-token prediction"],
+      "summary": "A training objective with multiple prediction heads that forecasts several future tokens and can support faster generation.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["speculative-decoding"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Better & Faster Large Language Models via Multi-token Prediction",
+          "url": "https://arxiv.org/abs/2404.19737",
+          "year": 2024
+        }
+      ]
+    },
+    {
+      "id": "multimodal-models",
+      "name": "Multimodal Models",
+      "mapLabel": "Multimodal Models",
+      "category": "multimodal",
+      "type": "architecture",
+      "status": "active",
+      "aliases": ["Multimodal language models", "Vision-language models"],
+      "summary": "Models that learn across text and one or more additional modalities such as images, audio, or video.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": [],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Flamingo: a Visual Language Model for Few-Shot Learning",
+          "url": "https://arxiv.org/abs/2204.14198",
+          "year": 2022
+        }
+      ]
+    },
+    {
+      "id": "omni-family-models",
+      "name": "Omni-family Models",
+      "mapLabel": "Omni Models",
+      "category": "multimodal",
+      "type": "architecture",
+      "status": "active",
+      "aliases": ["Omni models", "Any-to-any multimodal models"],
+      "summary": "End-to-end multimodal model families that accept several input modalities and generate more than text alone.",
+      "parent": "multimodal-models",
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": [],
+      "sourceReview": "editorial-review",
+      "sources": [
+        {
+          "title": "Qwen2.5-Omni Technical Report",
+          "url": "https://arxiv.org/abs/2503.20215",
+          "year": 2025
+        }
+      ]
+    },
+    {
+      "id": "limited-memory-language-models",
+      "name": "Limited Memory Language Models (LMLMs)",
+      "mapLabel": "LMLMs",
+      "category": "memory",
+      "type": "architecture",
+      "status": "frontier",
+      "aliases": ["LMLM", "LMLMs", "LamLam"],
+      "summary": "Language models trained to externalize factual knowledge to an editable database instead of relying only on parametric memory.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["mem0"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Pre-training Limited Memory Language Models with Internal and External Knowledge",
+          "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/61f527a737e4ba61f3e10d6c3f0c4b55-Abstract-Conference.html",
+          "year": 2026
+        },
+        {
+          "title": "Co-LMLM: Continuous-Query Limited Memory Language Models",
+          "url": "https://arxiv.org/abs/2607.07707",
+          "year": 2026
+        }
+      ]
+    },
+    {
+      "id": "mem0",
+      "name": "Mem0",
+      "mapLabel": "Mem0",
+      "category": "agents",
+      "type": "system",
+      "status": "frontier",
+      "aliases": [],
+      "summary": "An agent-memory architecture that extracts, consolidates, and retrieves salient information across conversations.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["limited-memory-language-models"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory",
+          "url": "https://arxiv.org/abs/2504.19413",
+          "year": 2025
+        }
+      ]
+    },
+    {
+      "id": "sparse-autoencoders",
+      "name": "Sparse Autoencoders (SAEs)",
+      "mapLabel": "SAEs",
+      "category": "interpretability",
+      "type": "method",
+      "status": "active",
+      "aliases": ["SAE", "SAEs", "Sparse autoencoder"],
+      "summary": "Dictionary-learning models that decompose dense neural activations into sparse features intended to be easier to interpret.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": ["circuit-tracing"],
+      "related": [],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet",
+          "url": "https://transformer-circuits.pub/2024/scaling-monosemanticity/",
+          "year": 2024
+        }
+      ]
+    },
+    {
+      "id": "rome",
+      "name": "Rank-One Model Editing (ROME)",
+      "mapLabel": "ROME",
+      "category": "interpretability",
+      "type": "method",
+      "status": "established",
+      "aliases": ["ROME", "Rank-One Model Editing"],
+      "summary": "A causal model-editing method that changes selected factual associations through rank-one updates to feed-forward weights.",
+      "parent": null,
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": ["circuit-tracing"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Locating and Editing Factual Associations in GPT",
+          "url": "https://arxiv.org/abs/2202.05262",
+          "year": 2022
+        }
+      ]
+    },
+    {
+      "id": "circuit-tracing",
+      "name": "Circuit Tracing",
+      "mapLabel": "Circuit Tracing",
+      "category": "interpretability",
+      "type": "method",
+      "status": "frontier",
+      "aliases": ["Attribution graphs"],
+      "summary": "A mechanistic-interpretability method that builds attribution graphs to trace feature-level computation behind model outputs.",
+      "parent": null,
+      "prerequisites": ["sparse-autoencoders"],
+      "cameBefore": ["sparse-autoencoders"],
+      "leadsTo": [],
+      "related": ["rome"],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Circuit Tracing: Revealing Computational Graphs in Language Models",
+          "url": "https://transformer-circuits.pub/2025/attribution-graphs/methods.html",
+          "year": 2025
+        }
+      ]
+    }
+  ],
+  "uncertainRelationships": [
+    {
+      "source": "grouped-query-attention",
+      "target": "multi-head-latent-attention",
+      "proposedKind": "progression",
+      "decision": "omit",
+      "reason": "They share a KV-cache efficiency objective, but MLA is not established as a direct successor to GQA; retain only a reciprocal related edge."
+    },
+    {
+      "source": "rome",
+      "target": "limited-memory-language-models",
+      "proposedKind": "related",
+      "decision": "omit",
+      "reason": "Both concern factual-knowledge control, but weight editing and pretraining-time knowledge externalization are distinct enough that a cross-area edge may mislead."
+    },
+    {
+      "source": "flashattention",
+      "target": "multimodal-models",
+      "proposedKind": "related",
+      "decision": "remove-existing",
+      "reason": "FlashAttention can be used inside multimodal systems, but that implementation-level fact does not define a durable conceptual relationship between the two topics."
+    }
+  ]
+}
