@@ -39,11 +39,11 @@ This post-V1 map milestone is complete when:
 
 - [x] Choose the field areas that should appear in the next map release.
 - [x] Decide whether the existing category vocabulary is sufficient or needs carefully named additions.
-- [x] Set a target concept count for the release so taxonomy work has a clear stopping point.
+- [x] Keep the taxonomy open-ended: production topic files determine the current node set, with no fixed concept count or graph-size cap.
 - [x] Define inclusion criteria: conceptual importance, explanatory usefulness, durable identity, and at least one meaningful connection.
 - [x] Define exclusion criteria for vendor features, short-lived terminology, duplicate aliases, and concepts too broad to map usefully.
 
-**Gate:** complete. The reviewed scope and provisional 19-concept inventory are recorded in [Post-V1 taxonomy scope](./docs/post-v1-taxonomy-scope.md); no new nodes enter production before Action Item 1.2 resolves canonical IDs and relationships.
+**Gate:** complete. The reviewed areas and current provisional inventory are recorded in [Post-V1 taxonomy scope](./docs/post-v1-taxonomy-scope.md); no new nodes enter production before Action Item 1.2 resolves canonical IDs and relationships.
 
 ### 1.2 Draft the canonical taxonomy
 
@@ -54,13 +54,13 @@ This post-V1 map milestone is complete when:
 - [ ] Make `related` and progression relationships reciprocal according to the existing content rules.
 - [ ] Flag uncertain or disputed relationships for editorial review instead of encoding them as settled facts.
 
-**Gate:** the reviewed taxonomy inventory uses schema-compatible IDs and relationships; concepts are not promoted into topic files until their current-layout geometry is also ready.
+**Gate:** the reviewed taxonomy inventory uses schema-compatible IDs and relationships; concepts are not promoted to production until the dynamic layout can place the resulting node set clearly.
 
 ### 1.3 Add the topic pages in controlled batches
 
 - [ ] Add one area-sized batch at a time rather than importing the entire taxonomy at once.
 - [ ] Keep new topics as drafts until their metadata, links, and map placement are reviewed.
-- [ ] Give every topic file valid geometry in an existing mapped area so local development and map previews continue to build before automatic layout exists.
+- [ ] Keep new topics as drafts until the generated layout can place the current node set; do not make routine additions depend on hand-authored coordinates.
 - [ ] Create permanent topic pages with questions, sources, and clearly labeled placeholder material where complete notes do not yet exist.
 - [ ] Connect existing and new articles through topic IDs without generating article-body prose.
 - [ ] Review aliases and search terms so each concept is discoverable through common terminology.
@@ -82,7 +82,7 @@ This post-V1 map milestone is complete when:
 
 ### 2.1 Measure the limits of the current layout
 
-- [ ] Render the expanded taxonomy using the current 1536×994 authored canvas.
+- [ ] Render the current production taxonomy and record how its required canvas dimensions change as nodes are added or removed.
 - [ ] Record collisions, label crossings, excessive edge length, dense areas, and mobile navigation problems.
 - [ ] Set measurable layout constraints for node spacing, label clearance, edge crossings, area separation, and maximum initial canvas density.
 - [ ] Separate problems caused by weak taxonomy from problems caused by geometry.
@@ -103,6 +103,7 @@ This post-V1 map milestone is complete when:
 ### 2.3 Implement hybrid geometry
 
 - [ ] Extend the renderer-neutral map model with generated positions that remain serializable and testable.
+- [ ] Derive canvas dimensions and area spacing from the current production node set rather than a fixed expected count.
 - [ ] Keep optional per-topic coordinate overrides for editorially important placement.
 - [ ] Keep authored edge waypoints for exceptional cross-category routes.
 - [ ] Add collision detection for bubbles, labels, area boundaries, and routed edges.
@@ -120,7 +121,7 @@ This post-V1 map milestone is complete when:
 - [ ] Confirm the semantic text view remains complete and ordered meaningfully.
 - [ ] Add snapshot or invariant tests for stable geometry, collision absence, and valid edge endpoints.
 
-**Gate:** the scalable layout is clearer than the V1 authored layout at the expanded concept count.
+**Gate:** the scalable layout remains clearer than the V1 authored layout as the current production node set changes.
 
 ## 3. Add advanced map exploration
 

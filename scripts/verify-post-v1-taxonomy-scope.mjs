@@ -38,21 +38,17 @@ for (const removedCategory of ['training', 'inference-systems', 'retrieval']) {
   );
 }
 
-const countMatches = [
-  ...scope.matchAll(/^\| [^|]+ \| `[^`]+`\s+\|\s+(\d+) \|/gm),
-];
-const totalCount = countMatches.reduce(
-  (total, match) => total + Number(match[1]),
-  0,
-);
-
-assert.equal(countMatches.length, 7, 'expected seven selected areas');
-assert.equal(totalCount, 19, 'area counts must total 19 concepts');
-assert.match(scope, /\*\*13 additions\*\*/);
+assert.doesNotMatch(scope, /target concept count/i);
+assert.doesNotMatch(scope, /concept budget/i);
+assert.doesNotMatch(scope, /hard target/i);
+assert.doesNotMatch(scope, /exactly 19/i);
+assert.doesNotMatch(scope, /\*\*Total\*\*/);
+assert.match(scope, /\*\*No-cap rule:\*\*/);
+assert.match(scope, /\*\*Source-of-truth rule:\*\*/);
+assert.match(scope, /\*\*Dynamic-layout rule:\*\*/);
 assert.match(scope, /Training, Evaluation, and Safety are deferred/);
 assert.match(scope, /## Inclusion criteria/);
 assert.match(scope, /## Exclusion criteria/);
-assert.match(scope, /\*\*Hard target:\*\* 19 production concepts/);
 
 for (const candidate of [
   'Delta Attention',
@@ -80,5 +76,5 @@ assert.equal(
 assert.match(plan, /docs\/post-v1-taxonomy-scope\.md/);
 
 console.log(
-  'Post-V1 taxonomy scope selects seven schema-backed areas totaling 19 concepts with explicit entry and stopping rules.',
+  'Post-V1 taxonomy scope selects seven schema-backed areas and an open-ended, production-derived node set with no numeric cap.',
 );

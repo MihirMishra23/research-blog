@@ -2,7 +2,7 @@
 
 Status: approved scope for Post-V1 Map Action Item 1.1.
 
-This document defines the coverage boundary for the next map release. It selects the active areas, fixes a target concept count, and establishes inclusion and exclusion rules. Candidate names remain provisional until Action Item 1.2 assigns canonical IDs, labels, maturity, summaries, and relationships.
+This document defines the coverage boundary for the next map release. It selects the active areas and establishes inclusion and exclusion rules without imposing a node-count target. Candidate names remain provisional until Action Item 1.2 assigns canonical IDs, labels, maturity, summaries, and relationships.
 
 ## Release objective
 
@@ -14,30 +14,29 @@ Expand the map from six demonstration concepts to a focused set of concepts sele
 - Replace the `retrieval` category with **Memory** (`memory`).
 - Remove `training` from the current taxonomy vocabulary and this release.
 - Keep `evaluation` and `safety` as reserved schema categories outside this release.
-- Use **target concept count** instead of **concept budget**. It means the planned number of nodes assigned to an area for this release, not a financial budget.
+- Do not set a numeric node quota or maximum graph size. The production topic files determine which nodes exist, and layout must adapt to the current node set.
 
 ## Coverage decision
 
-The release will target **19 production concepts across seven active areas**, including the six existing concepts and thirteen additions selected by Mihir.
+The current approved inventory covers seven active areas. It includes the six existing concepts and the additions selected by Mihir, but it is a working backlog rather than a quota or cap.
 
-| Area             | Schema category    | Target concept count | Existing concepts                    | New concepts                                                          |
-| ---------------- | ------------------ | -------------------: | ------------------------------------ | --------------------------------------------------------------------- |
-| Models           | `models`           |                    3 | —                                    | Delta Attention; Grouped-Query Attention; Multi-head Latent Attention |
-| Post-training    | `post-training`    |                    5 | SFT, RLHF, GRPO                      | Group Sequence Policy Optimization; DAPO                              |
-| Inference        | `inference`        |                    4 | FlashAttention, Speculative Decoding | DFlash; Multi-Token Prediction                                        |
-| Multimodal       | `multimodal`       |                    2 | Multimodal Models                    | Omni-family models                                                    |
-| Memory           | `memory`           |                    1 | —                                    | Limited Memory Language Models                                        |
-| Agents           | `agents`           |                    1 | —                                    | Mem0                                                                  |
-| Interpretability | `interpretability` |                    3 | —                                    | Sparse Autoencoders; ROME; Circuit Tracing                            |
-| **Total**        |                    |               **19** | **6**                                | **13 additions**                                                      |
+| Area             | Schema category    | Existing concepts                    | Selected additions                                                    |
+| ---------------- | ------------------ | ------------------------------------ | --------------------------------------------------------------------- |
+| Models           | `models`           | —                                    | Delta Attention; Grouped-Query Attention; Multi-head Latent Attention |
+| Post-training    | `post-training`    | SFT, RLHF, GRPO                      | Group Sequence Policy Optimization; DAPO                              |
+| Inference        | `inference`        | FlashAttention, Speculative Decoding | DFlash; Multi-Token Prediction                                        |
+| Multimodal       | `multimodal`       | Multimodal Models                    | Omni-family models                                                    |
+| Memory           | `memory`           | —                                    | Limited Memory Language Models                                        |
+| Agents           | `agents`           | —                                    | Mem0                                                                  |
+| Interpretability | `interpretability` | —                                    | Sparse Autoencoders; ROME; Circuit Tracing                            |
 
 Training, Evaluation, and Safety are deferred from this release. They can return only through a later explicit scope decision rather than being added opportunistically during implementation.
 
 ## Candidate area-and-concept inventory
 
-These names define coverage slots, not final topic IDs. Action Item 1.2 will settle capitalization, aliases, map labels, and precise topic boundaries.
+These names are the current candidates, not fixed coverage slots or final topic IDs. Action Item 1.2 will settle capitalization, aliases, map labels, and precise topic boundaries.
 
-### Models — 3 concepts
+### Models
 
 1. Delta Attention
 2. Grouped-Query Attention (GQA)
@@ -45,7 +44,7 @@ These names define coverage slots, not final topic IDs. Action Item 1.2 will set
 
 These are assigned to Models because Mihir selected that grouping, even where a mechanism also has inference-efficiency consequences.
 
-### Post-training — 5 concepts
+### Post-training
 
 1. Supervised Fine-Tuning (SFT; existing)
 2. Reinforcement Learning from Human Feedback (RLHF; existing)
@@ -53,7 +52,7 @@ These are assigned to Models because Mihir selected that grouping, even where a 
 4. Group Sequence Policy Optimization (GSPO)
 5. DAPO (Decoupled Clip and Dynamic sAmpling Policy Optimization)
 
-### Inference — 4 concepts
+### Inference
 
 1. FlashAttention (existing)
 2. Speculative Decoding (existing)
@@ -62,26 +61,26 @@ These are assigned to Models because Mihir selected that grouping, even where a 
 
 MTP remains in Inference because Mihir selected that grouping, although its primary work also defines a training objective.
 
-### Multimodal — 2 concepts
+### Multimodal
 
 1. Multimodal Models (existing umbrella topic)
 2. Omni-family models
 
 “Omni-family models” is a provisional family-level label. Action Item 1.2 must keep its boundary broader than any single branded release while using representative omni-model technical reports as evidence.
 
-### Memory — 1 concept
+### Memory
 
 1. Limited Memory Language Models (LMLMs)
 
 Memory replaces Retrieval as the area name. Retrieval can still appear as a mechanism within a memory topic when it is necessary to explain how external knowledge or state is accessed.
 
-### Agents — 1 concept
+### Agents
 
 1. Mem0
 
 Mem0 is an explicitly owner-selected exception to the default preference for mechanism-level concepts over named systems. Its topic must explain the durable agent-memory architecture rather than read as a product page.
 
-### Interpretability — 3 concepts
+### Interpretability
 
 Use **Interp** as the short map label for this area.
 
@@ -93,7 +92,7 @@ Use **Interp** as the short map label for this area.
 
 A candidate enters the canonical taxonomy only when all of the following are true:
 
-1. **Owner selection:** it is one of the thirteen additions in this scope or one of the six existing concepts.
+1. **Editorial selection:** Mihir has selected it for the current backlog or subsequently approves it for inclusion.
 2. **Explanatory usefulness:** it can support a focused topic page with a clear problem, idea, consequences, and limitations.
 3. **Durable identity:** it has a stable technical definition or a published architecture worth explaining.
 4. **Distinct boundary:** it is not better represented as an alias, example, paper, or subsection of another selected topic.
@@ -106,7 +105,6 @@ A candidate enters the canonical taxonomy only when all of the following are tru
 
 Exclude or defer a candidate when any of the following applies:
 
-- It is outside the approved 19-concept inventory.
 - It is primarily a vendor feature, company, hosted product, or release label without a durable published architecture. An owner-selected named system such as Mem0 may be included when the topic explains its architecture rather than promoting the product.
 - It is a short-lived buzzword without a stable technical distinction.
 - It duplicates a selected topic and is better stored as an alias.
@@ -116,10 +114,12 @@ Exclude or defer a candidate when any of the following applies:
 - Its historical priority, definition, or claimed progression is disputed and cannot yet be represented with explicit uncertainty.
 - It belongs to Training, Evaluation, Safety, or another deferred area.
 
-## Balance and stopping rules
+## Growth and layout rules
 
-- **Hard target:** 19 production concepts. Another candidate must displace an approved slot or wait for a later release.
-- **Existing-node rule:** the six current concepts remain in scope, but their canonical names and boundaries may be clarified.
+- **No-cap rule:** there is no fixed target or maximum node count. New concepts do not have to displace existing concepts.
+- **Source-of-truth rule:** the current set of production topic files determines the graph's nodes; drafts remain preview-only.
+- **Dynamic-layout rule:** layout dimensions, area spacing, and node positions must be derived from the current production node set and recomputed deterministically when nodes are added or removed.
+- **Existing-node rule:** current concepts remain in scope, but their canonical names and boundaries may be clarified.
 - **Connectivity rule:** no production orphan nodes.
 - **Hub rule:** a concept with more than six immediate non-hierarchical relationships requires review for overly broad scope or noisy edges.
 - **Batch rule:** implementation adds one area-sized batch at a time.
@@ -138,7 +138,7 @@ Exclude or defer a candidate when any of the following applies:
 
 Action Item 1.2 must now:
 
-1. resolve the provisional names into exactly 19 canonical candidates;
+1. resolve the current provisional names into canonical candidates without treating the inventory size as a release cap;
 2. assign IDs, display names, map labels, category, concept type, and maturity;
 3. define the boundary of “Omni-family models” and the architecture-focused boundary of Mem0;
 4. define reciprocal relationships without exceeding the hub rule;
