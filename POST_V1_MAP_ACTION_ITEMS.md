@@ -37,13 +37,13 @@ This post-V1 map milestone is complete when:
 
 ### 1.1 Define the target coverage
 
-- [ ] Choose the field areas that should appear in the next map release.
-- [ ] Decide whether the existing category vocabulary is sufficient or needs carefully named additions.
-- [ ] Set a target concept count for the release so taxonomy work has a clear stopping point.
-- [ ] Define inclusion criteria: conceptual importance, explanatory usefulness, durable identity, and at least one meaningful connection.
-- [ ] Define exclusion criteria for vendor features, short-lived terminology, duplicate aliases, and concepts too broad to map usefully.
+- [x] Choose the field areas that should appear in the next map release.
+- [x] Decide whether the existing category vocabulary is sufficient or needs carefully named additions.
+- [x] Set a target concept count for the release so taxonomy work has a clear stopping point.
+- [x] Define inclusion criteria: conceptual importance, explanatory usefulness, durable identity, and at least one meaningful connection.
+- [x] Define exclusion criteria for vendor features, short-lived terminology, duplicate aliases, and concepts too broad to map usefully.
 
-**Gate:** a reviewed area-and-concept inventory exists before new nodes enter the production map.
+**Gate:** complete. The reviewed scope and provisional 36-concept inventory are recorded in [Post-V1 taxonomy scope](./docs/post-v1-taxonomy-scope.md); no new nodes enter production before Action Item 1.2 resolves canonical IDs and relationships.
 
 ### 1.2 Draft the canonical taxonomy
 
