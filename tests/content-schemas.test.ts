@@ -11,7 +11,7 @@ const validWriting = {
   description:
     'A conceptual and technical walkthrough of speculative decoding.',
   date: '2026-08-28',
-  topics: ['inference-systems', 'speculative-decoding'],
+  topics: ['flashattention', 'speculative-decoding'],
   level: 'intermediate',
   type: 'explainer',
   status: 'published',
@@ -29,7 +29,7 @@ const validTopic = {
   name: 'Speculative Decoding',
   summary:
     'A family of methods that verify multiple proposed tokens in parallel.',
-  category: 'inference-systems',
+  category: 'inference',
   type: 'method',
   status: 'active',
   prerequisites: ['autoregressive-decoding'],

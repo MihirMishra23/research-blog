@@ -23,7 +23,7 @@ Rendering and interaction code must consume the composed model rather than repea
 The model has three node kinds:
 
 - `root`: the central `LLMs` oval;
-- `area`: manually positioned major-area ovals such as Post-training and Inference systems;
+- `area`: manually positioned major-area ovals such as Post-training and Inference;
 - `topic`: the six initial concepts, linked to their permanent topic routes.
 
 Every topic node includes a stable content ID, URL slug and href, short map label, category, description, maturity, prerequisites, relationship groups, and manually authored position. The `mapLabel` and `map` fields live beside the canonical topic metadata because they are properties of that concept, not properties of an SVG implementation.

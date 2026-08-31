@@ -89,7 +89,7 @@ test('map validation reports duplicate IDs, missing positions, areas, and target
 test('map model applies an authored outside route to the long cross-category edge', () => {
   const model = createLlmMapModel([
     topic('flashattention', {
-      category: 'inference-systems',
+      category: 'inference',
       related: ['multimodal-models'],
     }),
     topic('multimodal-models', {

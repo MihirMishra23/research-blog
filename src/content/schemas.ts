@@ -19,13 +19,12 @@ export const DIFFICULTY_LEVELS = [
 export const PUBLICATION_STATUSES = ['draft', 'published', 'archived'] as const;
 
 export const TOPIC_CATEGORIES = [
-  'training',
   'post-training',
-  'inference-systems',
+  'inference',
   'models',
   'multimodal',
   'agents',
-  'retrieval',
+  'memory',
   'evaluation',
   'interpretability',
   'safety',

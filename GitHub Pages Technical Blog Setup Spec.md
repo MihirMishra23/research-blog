@@ -218,59 +218,33 @@ It should be easy to modify later.
 ```text
 LLMs
 
-├── Training
-│   ├── Pre-training
-│   ├── Data
-│   ├── Objectives
-│   ├── Optimization
-│   └── Distributed Training
-│
 ├── Post-training
 │   ├── SFT
-│   ├── Preference Data
-│   ├── Reward Models
 │   ├── RLHF
-│   ├── PPO
-│   ├── DPO
 │   ├── GRPO
-│   └── RLVR
+│   ├── GSPO
+│   └── DAPO
 │
-├── Inference & Systems
-│   ├── KV Cache
+├── Inference
 │   ├── FlashAttention
-│   ├── PagedAttention
-│   ├── Quantization
-│   ├── Batching
 │   ├── Speculative Decoding
-│   │   ├── Medusa
-│   │   └── EAGLE
-│   └── Serving
+│   ├── DFlash
+│   └── Multi-Token Prediction
 │
 ├── Models
-│   ├── Transformers
-│   ├── Mixture of Experts
-│   ├── Diffusion
-│   └── Alternative Architectures
+│   ├── Delta Attention
+│   ├── Grouped-Query Attention
+│   └── Multi-head Latent Attention
 │
 ├── Multimodal
-│   ├── Vision-Language Models
-│   ├── Image Encoders
-│   ├── Projectors
-│   ├── Cross Attention
-│   └── Multimodal Post-training
+│   ├── Multimodal Models
+│   └── Omni-family Models
 │
 ├── Agents
-│   ├── Tool Calling
-│   ├── ReAct
-│   ├── Memory
-│   ├── Planning
-│   └── Multi-agent Systems
+│   └── Mem0
 │
-├── Retrieval
-│   ├── RAG
-│   ├── Graph RAG
-│   ├── Dynamic RAG
-│   └── Agentic RAG
+├── Memory
+│   └── Limited Memory Language Models
 │
 ├── Evaluation
 │   ├── Benchmarks
@@ -280,10 +254,9 @@ LLMs
 │   └── Multimodal Evaluation
 │
 ├── Interpretability
-│   ├── Probing
-│   ├── Circuit Tracing
 │   ├── Sparse Autoencoders
-│   └── Mechanistic Interpretability
+│   ├── ROME
+│   └── Circuit Tracing
 │
 └── Safety
     ├── Red Teaming

@@ -168,7 +168,7 @@ title: 'How does KV caching work?'
 description: 'A concise description between 10 and 240 characters.'
 date: 2026-08-30
 topics:
-  - inference-systems
+  - flashattention
 tags:
   - kv-cache
 level: intermediate
@@ -256,10 +256,10 @@ src/content/topics/kv-caching.md
 The V1 visual map currently has authored area geometry for these categories only:
 
 - `post-training`
-- `inference-systems`
+- `inference`
 - `multimodal`
 
-The schema also accepts `training`, `models`, `agents`, `retrieval`, `evaluation`, `interpretability`, and `safety`, but a topic in one of those categories cannot enter the V1 map until a matching area is added to `MAP_AREAS` in `src/content/map-model.ts`.
+The schema also accepts `models`, `agents`, `memory`, `evaluation`, `interpretability`, and `safety`, but a topic in one of those categories cannot enter the V1 map until a matching area is added to `MAP_AREAS` in `src/content/map-model.ts`.
 
 ### 2. Create the topic file
 
@@ -267,7 +267,7 @@ The schema also accepts `training`, `models`, `agents`, `retrieval`, `evaluation
 ---
 name: 'KV Caching'
 summary: 'A short explanation between 10 and 240 characters.'
-category: inference-systems
+category: inference
 type: system
 status: established
 draft: true

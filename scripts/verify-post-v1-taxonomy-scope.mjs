@@ -8,21 +8,19 @@ const [scope, plan, schemas] = await Promise.all([
 ]);
 
 const selectedCategories = [
-  'training',
   'models',
   'post-training',
-  'inference-systems',
+  'inference',
   'multimodal',
-  'retrieval',
+  'memory',
   'agents',
-  'evaluation',
-  'safety',
+  'interpretability',
 ];
 
 for (const category of selectedCategories) {
   assert.match(
     scope,
-    new RegExp(`\\|\\s+\`${category}\`\\s+\\|`),
+    new RegExp('\\\\|\\\\s+`' + category + '`\\\\s+\\\\|'),
     `scope table is missing ${category}`,
   );
   assert.match(
@@ -32,24 +30,48 @@ for (const category of selectedCategories) {
   );
 }
 
-const budgetMatches = [
+for (const removedCategory of ['training', 'inference-systems', 'retrieval']) {
+  assert.doesNotMatch(
+    schemas,
+    new RegExp(`'${removedCategory}'`),
+    `${removedCategory} should not remain in TOPIC_CATEGORIES`,
+  );
+}
+
+const countMatches = [
   ...scope.matchAll(/^\| [^|]+ \| `[^`]+`\s+\|\s+(\d+) \|/gm),
 ];
-const totalBudget = budgetMatches.reduce(
+const totalCount = countMatches.reduce(
   (total, match) => total + Number(match[1]),
   0,
 );
 
-assert.equal(budgetMatches.length, 9, 'expected nine selected areas');
-assert.equal(totalBudget, 36, 'area budgets must total 36 concepts');
-assert.match(scope, /\*\*30 additions\*\*/);
-assert.match(
-  scope,
-  /`interpretability` remains a valid reserved schema category/,
-);
+assert.equal(countMatches.length, 7, 'expected seven selected areas');
+assert.equal(totalCount, 19, 'area counts must total 19 concepts');
+assert.match(scope, /\*\*13 additions\*\*/);
+assert.match(scope, /Training, Evaluation, and Safety are deferred/);
 assert.match(scope, /## Inclusion criteria/);
 assert.match(scope, /## Exclusion criteria/);
-assert.match(scope, /\*\*Hard target:\*\* 36 production concepts/);
+assert.match(scope, /\*\*Hard target:\*\* 19 production concepts/);
+
+for (const candidate of [
+  'Delta Attention',
+  'Grouped-Query Attention',
+  'Multi-head Latent Attention',
+  'Group Sequence Policy Optimization',
+  'DAPO',
+  'DFlash',
+  'Multi-Token Prediction',
+  'Omni-family models',
+  'Limited Memory Language Models',
+  'Mem0',
+  'Sparse Autoencoders',
+  'ROME',
+  'Circuit Tracing',
+]) {
+  assert.match(scope, new RegExp(candidate), `scope is missing ${candidate}`);
+}
+
 assert.equal(
   (plan.match(/^- \[x\]/gm) ?? []).length >= 5,
   true,
@@ -58,5 +80,5 @@ assert.equal(
 assert.match(plan, /docs\/post-v1-taxonomy-scope\.md/);
 
 console.log(
-  'Post-V1 taxonomy scope selects nine schema-backed areas totaling 36 concepts with explicit entry and stopping rules.',
+  'Post-V1 taxonomy scope selects seven schema-backed areas totaling 19 concepts with explicit entry and stopping rules.',
 );

@@ -43,7 +43,7 @@ This post-V1 map milestone is complete when:
 - [x] Define inclusion criteria: conceptual importance, explanatory usefulness, durable identity, and at least one meaningful connection.
 - [x] Define exclusion criteria for vendor features, short-lived terminology, duplicate aliases, and concepts too broad to map usefully.
 
-**Gate:** complete. The reviewed scope and provisional 36-concept inventory are recorded in [Post-V1 taxonomy scope](./docs/post-v1-taxonomy-scope.md); no new nodes enter production before Action Item 1.2 resolves canonical IDs and relationships.
+**Gate:** complete. The reviewed scope and provisional 19-concept inventory are recorded in [Post-V1 taxonomy scope](./docs/post-v1-taxonomy-scope.md); no new nodes enter production before Action Item 1.2 resolves canonical IDs and relationships.
 
 ### 1.2 Draft the canonical taxonomy
 

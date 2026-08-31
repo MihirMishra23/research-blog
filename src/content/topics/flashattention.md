@@ -1,7 +1,7 @@
 ---
 name: 'FlashAttention'
 summary: 'An exact, IO-aware attention algorithm that reduces expensive traffic through the GPU memory hierarchy.'
-category: inference-systems
+category: inference
 type: method
 status: established
 aliases:

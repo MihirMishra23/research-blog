@@ -127,9 +127,9 @@ export const MAP_AREAS: readonly MapAreaNode[] = [
   },
   {
     kind: 'area',
-    id: 'area-inference-systems',
-    label: 'Inference systems',
-    category: 'inference-systems',
+    id: 'area-inference',
+    label: 'Inference',
+    category: 'inference',
     description: 'Algorithms and systems that make model execution practical.',
     position: {
       x: 970,

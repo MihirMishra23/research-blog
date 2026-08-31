@@ -36,7 +36,7 @@ title: 'Why does speculative decoding work?'
 description: 'A conceptual and technical walkthrough of speculative decoding.'
 date: 2026-08-28
 topics:
-  - inference-systems
+  - flashattention
   - speculative-decoding
 tags:
   - decoding
@@ -85,7 +85,7 @@ Topics live in `src/content/topics/` as Markdown or MDX.
 ---
 name: 'Speculative Decoding'
 summary: 'A family of methods that verify multiple proposed tokens in parallel.'
-category: inference-systems
+category: inference
 type: method
 status: active
 problem: 'Autoregressive generation normally needs one target-model pass per token.'

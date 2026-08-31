@@ -1,7 +1,7 @@
 ---
 name: 'Speculative Decoding'
 summary: 'Exact accelerated decoding that drafts tokens cheaply and verifies several candidates with a larger target model.'
-category: inference-systems
+category: inference
 type: method
 status: active
 aliases:

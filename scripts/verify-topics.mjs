@@ -29,11 +29,7 @@ assert.match(
   /id="category-post-training"/,
   'post-training group missing',
 );
-assert.match(
-  index,
-  /id="category-inference-systems"/,
-  'inference systems group missing',
-);
+assert.match(index, /id="category-inference"/, 'inference group missing');
 assert.match(index, /id="category-multimodal"/, 'multimodal group missing');
 assert.match(
   index,
