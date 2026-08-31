@@ -208,9 +208,11 @@ The milestone is complete when the site is deployed on GitHub Pages and all of t
 
 ## Explicitly deferred until after V1
 
-- Full taxonomy population beyond the initial six demonstrated concepts.
-- Automatic graph layout or a heavy graph framework.
-- Animated traversal, zoomable subgraphs, and timeline/field-evolution views.
+The three map priorities now have their own ordered plan: [Post-V1 Map Action Items](./POST_V1_MAP_ACTION_ITEMS.md).
+
+- Full taxonomy population beyond the initial six demonstrated concepts — prioritized in the post-V1 map plan.
+- Automatic graph layout or a heavy graph framework — prioritized in the post-V1 map plan.
+- Animated traversal, zoomable subgraphs, and timeline/field-evolution views — prioritized in the post-V1 map plan.
 - Full learning-path UI and personalized “what should I learn next?” behavior.
 - Dedicated frontier-mode behavior beyond data-model support and simple controls.
 - Centralized citation management beyond a minimal paper-linking structure.
