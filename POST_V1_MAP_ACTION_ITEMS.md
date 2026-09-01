@@ -91,14 +91,14 @@ This post-V1 map milestone is complete when:
 
 ### 2.2 Evaluate layout approaches
 
-- [ ] Prototype at least a deterministic hierarchical or radial layout that preserves root → area → topic structure.
-- [ ] Evaluate a lightweight layout library against a small custom layout pass; include bundle size, build-time use, determinism, edge routing, and maintenance cost.
-- [ ] Prefer build-time layout that emits static SVG geometry over a client-side force simulation.
-- [ ] Test whether the system can preserve stable positions when one topic is added or removed.
-- [ ] Verify that topic label dimensions influence placement instead of treating nodes as points.
-- [ ] Reject any approach that makes intentional edge routing or accessible static rendering impractical.
+- [x] Prototype at least a deterministic hierarchical or radial layout that preserves root → area → topic structure.
+- [x] Evaluate a lightweight layout library against a small custom layout pass; include bundle size, build-time use, determinism, edge routing, and maintenance cost.
+- [x] Prefer build-time layout that emits static SVG geometry over a client-side force simulation.
+- [x] Test whether the system can preserve stable positions when one topic is added or removed.
+- [x] Verify that topic label dimensions influence placement instead of treating nodes as points.
+- [x] Reject any approach that makes intentional edge routing or accessible static rendering impractical.
 
-**Gate:** an architecture decision record selects a layout approach and explains why a heavier framework is or is not justified.
+**Gate:** complete. [ADR 0001](./docs/adr/0001-map-layout-approach.md) selects a custom deterministic build-time hybrid, records the measured Dagre comparison, and assigns the prototype's unresolved clearance and routing failures to Action 2.3 rather than promoting raw prototype geometry.
 
 ### 2.3 Implement hybrid geometry
 
