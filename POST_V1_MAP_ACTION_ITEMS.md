@@ -82,12 +82,12 @@ This post-V1 map milestone is complete when:
 
 ### 2.1 Measure the limits of the current layout
 
-- [ ] Render the current production taxonomy and record how its required canvas dimensions change as nodes are added or removed.
-- [ ] Record collisions, label crossings, excessive edge length, dense areas, and mobile navigation problems.
-- [ ] Set measurable layout constraints for node spacing, label clearance, edge crossings, area separation, and maximum initial canvas density.
-- [ ] Separate problems caused by weak taxonomy from problems caused by geometry.
+- [x] Render the current production taxonomy and record how its required canvas dimensions change as nodes are added or removed.
+- [x] Record collisions, label crossings, excessive edge length, dense areas, and mobile navigation problems.
+- [x] Set measurable layout constraints for node spacing, label clearance, edge crossings, area separation, and maximum initial canvas density.
+- [x] Separate problems caused by weak taxonomy from problems caused by geometry.
 
-**Gate:** layout requirements are written from real expanded-map failures rather than assumptions.
+**Gate:** complete. The reproducible [map layout baseline](./docs/map-layout-baseline.md) records current geometry, removal sensitivity, all 14 blocked additions, four missing area layouts, the existing edge-clearance defect, mobile overflow, and measurable constraints for Action 2.2.
 
 ### 2.2 Evaluate layout approaches
 
