@@ -2,12 +2,10 @@
 import { getCollection } from 'astro:content';
 import LlmMap from '../../components/LlmMap.astro';
 import { createLlmMapModel } from '../../content/map-model';
-import { shouldIncludeTopic } from '../../content/visibility';
+import { topicsForCurrentMap } from '../../content/visibility';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const topics = (await getCollection('topics')).filter((entry) =>
-  shouldIncludeTopic(entry.data),
-);
+const topics = topicsForCurrentMap(await getCollection('topics'));
 const mapModel = createLlmMapModel(topics);
 ---
 

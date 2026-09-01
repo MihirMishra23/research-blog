@@ -58,15 +58,15 @@ This post-V1 map milestone is complete when:
 
 ### 1.3 Add the topic pages in controlled batches
 
-- [ ] Add one area-sized batch at a time rather than importing the entire taxonomy at once.
-- [ ] Keep new topics as drafts until their metadata, links, and map placement are reviewed.
-- [ ] Keep new topics as drafts until the generated layout can place the current node set; do not make routine additions depend on hand-authored coordinates.
-- [ ] Create permanent topic pages with questions, sources, and clearly labeled placeholder material where complete notes do not yet exist.
-- [ ] Connect existing and new articles through topic IDs without generating article-body prose.
-- [ ] Review aliases and search terms so each concept is discoverable through common terminology.
-- [ ] Run content, topic, reference, search, and production checks after every batch.
+- [x] Add one area-sized batch at a time rather than importing the entire taxonomy at once.
+- [x] Keep new topics as drafts until their metadata, links, and map placement are reviewed.
+- [x] Keep new topics as drafts until the generated layout can place the current node set; do not make routine additions depend on hand-authored coordinates.
+- [x] Create permanent topic pages with questions, sources, and clearly labeled placeholder material where complete notes do not yet exist.
+- [x] Connect existing and new articles through topic IDs without generating article-body prose. Existing article links were reviewed and left unchanged because their current bodies do not substantively cover the new concepts; future Mihir-authored articles can use the stable IDs immediately.
+- [x] Review aliases and search terms so each concept is discoverable through common terminology.
+- [x] Run content, topic, reference, search, and production checks after every batch.
 
-**Gate:** every production node resolves to a useful topic page and every relationship target exists.
+**Gate:** complete. Every production node still resolves to a useful topic page, all 13 additions have permanent draft routes during development, every canonical relationship target exists, and no draft is emitted into the production map, routes, or search index. The drafts intentionally have no manual `map` coordinates and must wait for the generated layout before promotion.
 
 ### 1.4 Validate the taxonomy as a whole
 

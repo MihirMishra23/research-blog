@@ -19,3 +19,28 @@ export function shouldIncludeTopic(
 ): boolean {
   return !isProduction || data.draft === false;
 }
+
+/**
+ * Keep the current hand-positioned map limited to reviewed, positioned topics.
+ * Draft topic routes may exist during development without requiring temporary
+ * coordinates. Relationships to hidden drafts are projected out of the map;
+ * the source topic metadata remains intact for full reference validation.
+ */
+export function topicsForCurrentMap<T extends { id: string; data: TopicData }>(
+  topics: T[],
+): T[] {
+  const included = topics.filter((entry) => entry.data.draft === false);
+  const includedIds = new Set(included.map((entry) => entry.id));
+  const visible = (ids: string[]) => ids.filter((id) => includedIds.has(id));
+
+  return included.map((entry) => ({
+    ...entry,
+    data: {
+      ...entry.data,
+      prerequisites: visible(entry.data.prerequisites),
+      cameBefore: visible(entry.data.cameBefore),
+      leadsTo: visible(entry.data.leadsTo),
+      related: visible(entry.data.related),
+    },
+  }));
+}

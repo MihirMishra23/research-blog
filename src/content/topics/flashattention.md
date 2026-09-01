@@ -16,6 +16,7 @@ prerequisites: []
 cameBefore: []
 leadsTo: []
 related:
+  - delta-attention
   - speculative-decoding
 frontierQuestions:
   - 'How should exact attention kernels evolve for new accelerators, precisions, and sparse patterns?'

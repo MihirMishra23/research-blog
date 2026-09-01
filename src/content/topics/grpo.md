@@ -16,7 +16,9 @@ prerequisites:
   - sft
 cameBefore:
   - sft
-leadsTo: []
+leadsTo:
+  - gspo
+  - dapo
 related:
   - rlhf
 frontierQuestions:

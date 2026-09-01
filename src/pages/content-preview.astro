@@ -4,15 +4,22 @@ import ArticleSummary from '../components/ArticleSummary.astro';
 import StatusLabel from '../components/StatusLabel.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { assertContentReferences } from '../content/references';
+import {
+  shouldIncludeTopic,
+  shouldIncludeWriting,
+} from '../content/visibility';
 
-const topics = (await getCollection('topics')).sort((a, b) =>
-  a.data.name.localeCompare(b.data.name),
-);
-const writing = (await getCollection('writing')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const allTopics = await getCollection('topics');
+const allWriting = await getCollection('writing');
 
-assertContentReferences(topics, writing);
+assertContentReferences(allTopics, allWriting);
+
+const topics = allTopics
+  .filter((entry) => shouldIncludeTopic(entry.data))
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+const writing = allWriting
+  .filter((entry) => shouldIncludeWriting(entry.data))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const topicById = new Map(topics.map((entry) => [entry.id, entry]));
 const renderedTopics = await Promise.all(
@@ -33,12 +40,13 @@ const topicName = (id: string) => topicById.get(id)?.data.name ?? id;
     <p class="eyebrow">Content milestone · step 07</p>
     <h1>Initial content set</h1>
     <p>
-      A temporary integration view for six topic entries and two sample
-      articles. Both article and topic entries now have permanent routes.
+      A temporary integration view for {topics.length} topic entries and {
+        writing.length
+      } sample articles. Both article and topic entries now have permanent routes.
     </p>
     <nav aria-label="Preview sections">
-      <a href="#writing">2 sample articles</a>
-      <a href="#topics">6 topic entries</a>
+      <a href="#writing">{writing.length} sample articles</a>
+      <a href="#topics">{topics.length} topic entries</a>
     </nav>
   </header>
 
@@ -48,7 +56,9 @@ const topicName = (id: string) => topicById.get(id)?.data.name ?? id;
     aria-labelledby="writing-title"
   >
     <div class="content-preview__section-heading">
-      <p class="section-index">Writing / 02</p>
+      <p class="section-index">
+        Writing / {String(writing.length).padStart(2, '0')}
+      </p>
       <h2 id="writing-title">Sample articles</h2>
     </div>
 
@@ -83,7 +93,9 @@ const topicName = (id: string) => topicById.get(id)?.data.name ?? id;
     aria-labelledby="topics-title"
   >
     <div class="content-preview__section-heading">
-      <p class="section-index">Topics / 06</p>
+      <p class="section-index">
+        Topics / {String(topics.length).padStart(2, '0')}
+      </p>
       <h2 id="topics-title">Concept entries</h2>
     </div>
 
@@ -95,7 +107,10 @@ const topicName = (id: string) => topicById.get(id)?.data.name ?? id;
             ...entry.data.cameBefore,
             ...entry.data.leadsTo,
             ...entry.data.related,
-          ].filter((id, index, values) => values.indexOf(id) === index);
+          ].filter(
+            (id, index, values) =>
+              values.indexOf(id) === index && topicById.has(id),
+          );
 
           return (
             <article class="content-preview__entry" id={`topic-${entry.id}`}>

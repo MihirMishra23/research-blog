@@ -4,15 +4,14 @@ import LlmMap from '../components/LlmMap.astro';
 import WritingArchiveItem from '../components/WritingArchiveItem.astro';
 import { createLlmMapModel } from '../content/map-model';
 import {
-  shouldIncludeTopic,
   shouldIncludeWriting,
+  topicsForCurrentMap,
 } from '../content/visibility';
 import { siteConfig, siteHref } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const topics = (await getCollection('topics')).filter((entry) =>
-  shouldIncludeTopic(entry.data),
-);
+const allTopics = await getCollection('topics');
+const topics = topicsForCurrentMap(allTopics);
 const writing = (await getCollection('writing'))
   .filter((entry) => shouldIncludeWriting(entry.data))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());

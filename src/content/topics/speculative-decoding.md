@@ -14,9 +14,11 @@ limitations: 'Low acceptance, costly drafting, small batches, or serving overhea
 whatCameNext: 'Research now explores self-speculation, learned draft heads, tree-shaped proposals, and serving-aware scheduling strategies.'
 prerequisites: []
 cameBefore: []
-leadsTo: []
+leadsTo:
+  - dflash
 related:
   - flashattention
+  - multi-token-prediction
 frontierQuestions:
   - 'Which draft mechanisms maximize accepted tokens without adding excessive draft cost?'
   - 'How should serving systems schedule verification across heterogeneous requests and hardware?'

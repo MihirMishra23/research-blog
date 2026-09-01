@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   shouldIncludeTopic,
   shouldIncludeWriting,
+  topicsForCurrentMap,
 } from '../src/content/visibility.ts';
 import { topicSchema, writingSchema } from '../src/content/schemas.ts';
 
@@ -129,4 +130,31 @@ test('production visibility excludes draft topics', () => {
   assert.equal(shouldIncludeTopic(published, true), true);
   assert.equal(shouldIncludeTopic(draft, true), false);
   assert.equal(shouldIncludeTopic(draft, false), true);
+});
+
+test('current map projection excludes drafts and relationships to hidden topics', () => {
+  const visible = topicSchema.parse({
+    ...validTopic,
+    prerequisites: [],
+    leadsTo: ['draft-method'],
+    related: ['draft-method'],
+  });
+  const draft = topicSchema.parse({
+    ...validTopic,
+    name: 'Draft method',
+    draft: true,
+    prerequisites: ['speculative-decoding'],
+    leadsTo: [],
+    related: ['speculative-decoding'],
+  });
+
+  const projected = topicsForCurrentMap([
+    { id: 'speculative-decoding', data: visible },
+    { id: 'draft-method', data: draft },
+  ]);
+
+  assert.equal(projected.length, 1);
+  assert.equal(projected[0]?.id, 'speculative-decoding');
+  assert.deepEqual(projected[0]?.data.leadsTo, []);
+  assert.deepEqual(projected[0]?.data.related, []);
 });
