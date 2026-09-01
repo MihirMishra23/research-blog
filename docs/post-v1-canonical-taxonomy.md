@@ -39,6 +39,7 @@ Area membership is expressed through the schema `category`. `parent` is reserved
 | `speculative-decoding`           | Speculative Decoding                              | Speculative Decoding | Inference        | method       | active      |
 | `dflash`                         | DFlash                                            | DFlash               | Inference        | system       | frontier    |
 | `multi-token-prediction`         | Multi-Token Prediction (MTP)                      | MTP                  | Inference        | method       | active      |
+| `clip`                           | Contrastive Language-Image Pre-training (CLIP)    | CLIP                 | Multimodal       | architecture | established |
 | `multimodal-models`              | Multimodal Models                                 | Multimodal Models    | Multimodal       | architecture | active      |
 | `omni-family-models`             | Omni-family Models                                | Omni Models          | Multimodal       | architecture | active      |
 | `limited-memory-language-models` | Limited Memory Language Models (LMLMs)            | LMLMs                | Memory           | architecture | frontier    |
@@ -51,7 +52,7 @@ The Interpretability area uses **Interp** only as its compact area label. Its sc
 
 ## Alias and boundary decisions
 
-- Acronyms such as GQA, MLA, GSPO, MTP, SAE, and ROME are aliases or compact map labels, not separate nodes.
+- Acronyms such as GQA, MLA, GSPO, MTP, CLIP, SAE, and ROME are aliases or compact map labels, not separate nodes.
 - DAPO remains the display name because the paper presents the acronym as the method's primary name; both the stylized and normally capitalized expansions are aliases.
 - DFlash remains one system-level topic; “Block Diffusion for Flash Speculative Decoding” is an alias, not a second diffusion node.
 - `omni-family-models` is an umbrella for end-to-end models that consume several modalities and emit more than text. It must not become a page devoted only to Qwen2.5-Omni.
@@ -71,6 +72,7 @@ Every edge below has a named semantic reason. Area-membership edges are omitted 
 | progression | GRPO                           | DAPO                        | DAPO is presented as a large-scale reasoning-RL recipe developed from the GRPO family.          |
 | progression | Speculative Decoding           | DFlash                      | DFlash replaces sequential autoregressive drafting with parallel block-diffusion drafting.      |
 | progression | Sparse Autoencoders            | Circuit Tracing             | Circuit Tracing composes learned features into attribution graphs of model computation.         |
+| hierarchy   | Multimodal Models              | CLIP                        | CLIP is a specific dual-encoder image-language architecture within the broader multimodal area. |
 | hierarchy   | Multimodal Models              | Omni-family Models          | Omni-family models are a narrower end-to-end, multi-input and multi-output multimodal family.   |
 | related     | RLHF                           | GRPO                        | Both optimize policies from reward signals but estimate and use those signals differently.      |
 | related     | GSPO                           | DAPO                        | Both are GRPO-family reasoning-RL developments with different stability and sampling changes.   |

@@ -46,17 +46,17 @@ assert.deepEqual(Object.fromEntries(areaCounts), {
   models: 3,
   'post-training': 5,
   inference: 4,
-  multimodal: 2,
+  multimodal: 3,
   memory: 1,
   agents: 1,
   interpretability: 3,
 });
 assert.deepEqual(Object.fromEntries(maturityCounts), {
   frontier: 7,
-  established: 5,
+  established: 6,
   active: 7,
 });
-assert.equal(edges.size, 14, 'audit edge count drifted');
+assert.equal(edges.size, 15, 'audit edge count drifted');
 assert.deepEqual(
   [...neighbors]
     .filter(([, topicNeighbors]) => topicNeighbors.size === 0)
@@ -84,7 +84,7 @@ assert.equal(
 assert.equal(neighbors.get('flashattention').has('delta-attention'), true);
 assert.equal(neighbors.get('limited-memory-language-models').has('mem0'), true);
 
-for (const id of ['grouped-query-attention', 'rome']) {
+for (const id of ['grouped-query-attention', 'clip', 'rome']) {
   const source = await readFile(`src/content/topics/${id}.md`, 'utf8');
   assert.match(source, /^status: established$/m);
   assert.match(source, /^draft: true$/m);

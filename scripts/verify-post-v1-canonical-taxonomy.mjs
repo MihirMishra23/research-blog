@@ -56,6 +56,7 @@ const requiredCandidateIds = [
   'speculative-decoding',
   'dflash',
   'multi-token-prediction',
+  'clip',
   'multimodal-models',
   'omni-family-models',
   'limited-memory-language-models',

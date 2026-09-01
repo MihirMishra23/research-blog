@@ -25,7 +25,7 @@ The current approved inventory covers seven active areas. It includes the six ex
 | Models           | `models`           | —                                    | Delta Attention; Grouped-Query Attention; Multi-head Latent Attention |
 | Post-training    | `post-training`    | SFT, RLHF, GRPO                      | Group Sequence Policy Optimization; DAPO                              |
 | Inference        | `inference`        | FlashAttention, Speculative Decoding | DFlash; Multi-Token Prediction                                        |
-| Multimodal       | `multimodal`       | Multimodal Models                    | Omni-family models                                                    |
+| Multimodal       | `multimodal`       | Multimodal Models                    | CLIP; Omni-family models                                              |
 | Memory           | `memory`           | —                                    | Limited Memory Language Models                                        |
 | Agents           | `agents`           | —                                    | Mem0                                                                  |
 | Interpretability | `interpretability` | —                                    | Sparse Autoencoders; ROME; Circuit Tracing                            |
@@ -64,7 +64,8 @@ MTP remains in Inference because Mihir selected that grouping, although its prim
 ### Multimodal
 
 1. Multimodal Models (existing umbrella topic)
-2. Omni-family models
+2. Contrastive Language-Image Pre-training (CLIP)
+3. Omni-family models
 
 “Omni-family models” is a provisional family-level label. Action Item 1.2 must keep its boundary broader than any single branded release while using representative omni-model technical reports as evidence.
 
@@ -130,7 +131,7 @@ Exclude or defer a candidate when any of the following applies:
 - [Delta Attention](https://arxiv.org/abs/2505.11254), [Grouped-Query Attention](https://arxiv.org/abs/2305.13245), and [DeepSeek-V2](https://arxiv.org/abs/2405.04434) provide primary definitions for the three Models candidates.
 - [Group Sequence Policy Optimization](https://arxiv.org/abs/2507.18071) and [DAPO](https://arxiv.org/abs/2503.14476) provide the names and technical boundaries for the two Post-training additions.
 - [DFlash](https://arxiv.org/abs/2602.06036) and [Multi-Token Prediction](https://arxiv.org/abs/2404.19737) anchor the two Inference additions.
-- The [Qwen2.5-Omni Technical Report](https://arxiv.org/abs/2503.20215) is a representative primary source for the provisional Omni-family models boundary.
+- The [CLIP paper](https://arxiv.org/abs/2103.00020) defines the selected image-language dual-encoder architecture, while the [Qwen2.5-Omni Technical Report](https://arxiv.org/abs/2503.20215) is a representative primary source for the provisional Omni-family models boundary.
 - [Continuous-Query Limited Memory Language Models](https://arxiv.org/abs/2607.07707) and [Mem0](https://arxiv.org/abs/2504.19413) anchor the Memory and Agents additions.
 - Anthropic's [work applying sparse autoencoders to a production language model](https://www.anthropic.com/research/mapping-mind-language-model), the [ROME paper](https://arxiv.org/abs/2202.05262), and Anthropic's [open circuit-tracing method](https://www.anthropic.com/research/open-source-circuit-tracing) anchor the three Interpretability additions.
 

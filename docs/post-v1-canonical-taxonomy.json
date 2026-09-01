@@ -302,6 +302,29 @@
       ]
     },
     {
+      "id": "clip",
+      "name": "Contrastive Language-Image Pre-training (CLIP)",
+      "mapLabel": "CLIP",
+      "category": "multimodal",
+      "type": "architecture",
+      "status": "established",
+      "aliases": ["CLIP", "Contrastive Language-Image Pre-training"],
+      "summary": "A dual-encoder architecture trained on image-text pairs to learn aligned visual and language representations through contrastive learning.",
+      "parent": "multimodal-models",
+      "prerequisites": [],
+      "cameBefore": [],
+      "leadsTo": [],
+      "related": [],
+      "sourceReview": "complete",
+      "sources": [
+        {
+          "title": "Learning Transferable Visual Models From Natural Language Supervision",
+          "url": "https://arxiv.org/abs/2103.00020",
+          "year": 2021
+        }
+      ]
+    },
+    {
       "id": "multimodal-models",
       "name": "Multimodal Models",
       "mapLabel": "Multimodal Models",

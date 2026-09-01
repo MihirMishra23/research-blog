@@ -58,6 +58,7 @@ for (const candidate of [
   'DAPO',
   'DFlash',
   'Multi-Token Prediction',
+  'Contrastive Language-Image Pre-training',
   'Omni-family models',
   'Limited Memory Language Models',
   'Mem0',

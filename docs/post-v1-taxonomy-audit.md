@@ -7,7 +7,7 @@ This design note audits the current canonical inventory as a graph and as an edi
 ## Decision summary
 
 - Keep all seven areas. Their uneven sizes reflect the current concepts rather than a quota; do not add filler topics to equalize the map.
-- Keep all 19 current concepts. Alias review found no duplicate nodes, and the close pairs below have distinct boundaries.
+- Keep all 20 current concepts. Alias review found no duplicate nodes, and the close pairs below have distinct boundaries.
 - Keep GRPO as the most connected topic. Its four neighbors are justified by two progressions and two method-family comparisons; it is not an accidental catch-all hub.
 - Remove the FlashAttention ↔ Speculative Decoding related edge. Their shared Inference area already represents the broad performance connection, so a direct edge overstated the relationship.
 - Retain the narrower cross-area comparisons Delta Attention ↔ FlashAttention and Limited Memory Language Models ↔ Mem0.
@@ -39,9 +39,10 @@ This is the complete, non-interactive text view of the current taxonomy. It requ
 - **DFlash** (`dflash`) — system · frontier. Prerequisite and came before: Speculative Decoding.
 - **Multi-Token Prediction (MTP)** (`multi-token-prediction`) — method · active. Related: Speculative Decoding.
 
-### Multimodal — 2
+### Multimodal — 3
 
-- **Multimodal Models** (`multimodal-models`) — architecture · active. Parent of: Omni-family Models.
+- **Contrastive Language-Image Pre-training (CLIP)** (`clip`) — architecture · established. Parent: Multimodal Models.
+- **Multimodal Models** (`multimodal-models`) — architecture · active. Parent of: CLIP and Omni-family Models.
 - **Omni-family Models** (`omni-family-models`) — architecture · active. Parent: Multimodal Models. Boundary remains under editorial review.
 
 ### Memory — 1
@@ -62,11 +63,11 @@ This is the complete, non-interactive text view of the current taxonomy. It requ
 
 | Area             | Topics | Share | Decision                                                                   |
 | ---------------- | -----: | ----: | -------------------------------------------------------------------------- |
-| Post-training    |      5 |   26% | Largest area, but every node reflects Mihir's requested post-training set. |
-| Inference        |      4 |   21% | Coherent set spanning kernels, decoding, and multi-token proposals.        |
-| Models           |      3 |   16% | Three distinct attention architectures or methods.                         |
-| Interpretability |      3 |   16% | Three distinct feature, editing, and tracing methods.                      |
-| Multimodal       |      2 |   11% | Broad parent plus a narrower omni-family child.                            |
+| Post-training    |      5 |   25% | Largest area, but every node reflects Mihir's requested post-training set. |
+| Inference        |      4 |   20% | Coherent set spanning kernels, decoding, and multi-token proposals.        |
+| Models           |      3 |   15% | Three distinct attention architectures or methods.                         |
+| Interpretability |      3 |   15% | Three distinct feature, editing, and tracing methods.                      |
+| Multimodal       |      3 |   15% | Broad parent with distinct CLIP and omni-family children.                  |
 | Memory           |      1 |    5% | Intentionally narrow LMLM pretraining paradigm.                            |
 | Agents           |      1 |    5% | Intentionally narrow persistent agent-memory system.                       |
 
@@ -74,7 +75,7 @@ The largest-to-smallest ratio is 5:1. That is a layout constraint, not evidence 
 
 ## Graph-health audit
 
-The inventory contains 19 topics and 14 unique topic-to-topic edges after the FlashAttention ↔ Speculative Decoding removal.
+The inventory contains 20 topics and 15 unique topic-to-topic edges after adding CLIP under Multimodal Models.
 
 - **Orphans:** none when hierarchy, prerequisite, progression, and related edges are considered. Area membership also guarantees every topic a semantic home.
 - **Redundant nodes:** none. Acronyms remain aliases, and the potentially close pairs GQA/MLA, GSPO/DAPO, LMLMs/Mem0, and ROME/Circuit Tracing have different mechanisms and boundaries.
@@ -89,25 +90,27 @@ Maturity describes the technical concept, never the completeness of Mihir's page
 
 | Maturity       | Count | Current concepts                                                                    |
 | -------------- | ----: | ----------------------------------------------------------------------------------- |
-| `established`  |     5 | GQA, SFT, RLHF, FlashAttention, ROME                                                |
+| `established`  |     6 | GQA, SFT, RLHF, FlashAttention, CLIP, ROME                                          |
 | `active`       |     7 | MLA, GRPO, Speculative Decoding, MTP, Multimodal Models, Omni-family Models, SAEs   |
 | `frontier`     |     7 | Delta Attention, GSPO, DAPO, DFlash, LMLMs, Mem0, Circuit Tracing                   |
 | `foundational` |     0 | Reserved for later concepts that are structurally necessary historical foundations. |
 
-The strongest evidence that page readiness is independent is that GQA and ROME are both `established` while their pages remain drafts. Conversely, the published GRPO and Multimodal Models pages are `active`, not automatically `established` because they have visible content.
+The strongest evidence that page readiness is independent is that GQA, CLIP, and ROME are `established` while their pages remain drafts. Conversely, the published GRPO and Multimodal Models pages are `active`, not automatically `established` because they have visible content.
 
 ## Boundaries requiring continued attention
 
 1. **Omni-family Models:** still awaiting broader primary-source review before production promotion.
-2. **Memory versus Agents:** LMLMs remains a pretraining architecture under Memory; Mem0 remains a conversational-memory system under Agents. Their related edge is comparative, not hierarchical.
-3. **Models versus Inference:** Delta Attention remains under Models because the requested grouping treats it as an attention method; its FlashAttention edge crosses into Inference intentionally. Revisit only if area definitions become architecture-stage rather than editorial groupings.
-4. **Progression semantics:** `cameBefore` and `leadsTo` encode a defensible conceptual development, not merely publication chronology.
+2. **CLIP versus the Multimodal Models parent:** CLIP remains a specific dual-encoder image-language architecture, not an alias for the broader multimodal area.
+3. **Memory versus Agents:** LMLMs remains a pretraining architecture under Memory; Mem0 remains a conversational-memory system under Agents. Their related edge is comparative, not hierarchical.
+4. **Models versus Inference:** Delta Attention remains under Models because the requested grouping treats it as an attention method; its FlashAttention edge crosses into Inference intentionally. Revisit only if area definitions become architecture-stage rather than editorial groupings.
+5. **Progression semantics:** `cameBefore` and `leadsTo` encode a defensible conceptual development, not merely publication chronology.
 
 ## Approval gate
 
 Before Section 2 makes automatic layout the source of initial positions, Mihir should approve:
 
 - the seven-area balance without filler nodes;
+- CLIP as an established child of Multimodal Models;
 - the removal of FlashAttention ↔ Speculative Decoding;
 - GRPO's four retained relationships;
 - the retained cross-area Delta Attention ↔ FlashAttention and LMLMs ↔ Mem0 comparisons;
