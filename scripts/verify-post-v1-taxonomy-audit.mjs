@@ -98,14 +98,14 @@ assert.match(audit, /## Category-balance audit/);
 assert.match(audit, /## Graph-health audit/);
 assert.match(audit, /## Maturity audit/);
 assert.match(audit, /## Boundaries requiring continued attention/);
-assert.match(audit, /Status: \*\*awaiting Mihir's approval\*\*/);
+assert.match(audit, /Status: \*\*approved by Mihir on 2026-08-31\*\*/);
 
 const action14 = plan.match(
   /### 1\.4 Validate the taxonomy as a whole[\s\S]+?(?=## 2\.)/,
 )?.[0];
 assert.ok(action14, 'Action Item 1.4 section is missing');
 assert.doesNotMatch(action14, /^\s*- \[ \]/gm);
-assert.match(action14, /awaiting Mihir's approval/);
+assert.match(action14, /Mihir approved/);
 
 console.log(
   `Taxonomy audit validates ${inventory.candidates.length} topics, ${inventory.areas.length} areas, ${edges.size} intentional edges, no orphans, and one reviewed four-neighbor hub.`,

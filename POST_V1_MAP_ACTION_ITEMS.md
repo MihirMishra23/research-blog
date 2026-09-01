@@ -76,7 +76,7 @@ This post-V1 map milestone is complete when:
 - [x] Confirm the semantic text view exposes the complete taxonomy without JavaScript or SVG interaction.
 - [x] Record taxonomy decisions and disputed boundaries in a dedicated design note.
 
-**Gate:** audit complete and [recorded in the dedicated design note](./docs/post-v1-taxonomy-audit.md); awaiting Mihir's approval before automatic layout becomes the source of initial positions.
+**Gate:** complete. Mihir approved the [dedicated taxonomy audit](./docs/post-v1-taxonomy-audit.md) on 2026-08-31, so Section 2 may make automatic layout the source of initial positions.
 
 ## 2. Introduce a scalable layout system
 

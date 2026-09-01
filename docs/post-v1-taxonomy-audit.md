@@ -1,6 +1,6 @@
 # Post-V1 taxonomy audit
 
-Status: **awaiting Mihir's approval** for Post-V1 Map Action 1.4.
+Status: **approved by Mihir on 2026-08-31** for Post-V1 Map Action 1.4.
 
 This design note audits the current canonical inventory as a graph and as an editorial taxonomy. It does not assess topic-page prose completeness. The machine-readable source remains [post-v1-canonical-taxonomy.json](./post-v1-canonical-taxonomy.json).
 
