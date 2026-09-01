@@ -17,7 +17,6 @@ cameBefore: []
 leadsTo:
   - dflash
 related:
-  - flashattention
   - multi-token-prediction
 frontierQuestions:
   - 'Which draft mechanisms maximize accepted tokens without adding excessive draft cost?'

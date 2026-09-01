@@ -26,6 +26,7 @@
     "verify:post-v1-plan": "node scripts/verify-post-v1-taxonomy-scope.mjs",
     "verify:post-v1-taxonomy": "node scripts/verify-post-v1-canonical-taxonomy.mjs",
     "verify:post-v1-drafts": "node scripts/verify-post-v1-topic-drafts.mjs",
+    "verify:post-v1-audit": "node scripts/verify-post-v1-taxonomy-audit.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro"

@@ -2,6 +2,8 @@
 
 Status: reviewed inventory for Post-V1 Map Action Item 1.2.
 
+The whole-taxonomy balance, graph-health, maturity, and boundary review is recorded in the [Post-V1 taxonomy audit](./post-v1-taxonomy-audit.md).
+
 The machine-readable companion file, [post-v1-canonical-taxonomy.json](./post-v1-canonical-taxonomy.json), is the source of truth for the candidate metadata in this document. It is a current backlog, not a fixed node target. Production topic files will remain the source of truth for which nodes actually appear on the public map.
 
 This inventory defines topic structure and graph metadata only. It does not provide publishable article-body prose; Mihir remains the author of every article.
@@ -74,7 +76,6 @@ Every edge below has a named semantic reason. Area-membership edges are omitted 
 | related     | GSPO                           | DAPO                        | Both are GRPO-family reasoning-RL developments with different stability and sampling changes.   |
 | related     | Grouped-Query Attention        | Multi-head Latent Attention | Both reduce KV-cache cost through different sharing or compression structures.                  |
 | related     | Delta Attention                | FlashAttention              | Both accelerate attention computation, while one is sparse and corrective and the other exact.  |
-| related     | FlashAttention                 | Speculative Decoding        | They address complementary kernel-level and decoding-level inference bottlenecks.               |
 | related     | Speculative Decoding           | Multi-Token Prediction      | Multi-token heads can provide multiple future-token proposals useful to accelerated decoding.   |
 | related     | Limited Memory Language Models | Mem0                        | Both externalize memory, but one manages factual knowledge during training and one agent state. |
 | related     | ROME                           | Circuit Tracing             | Both use causal interventions to study internal computation, with editing versus tracing goals. |
@@ -88,6 +89,7 @@ These lines must not enter the production graph without a later editorial decisi
 - **GQA → MLA as progression:** omitted. They share a KV-cache goal, but available evidence does not establish MLA as a direct successor to GQA. A reciprocal `related` edge is sufficient.
 - **ROME ↔ LMLMs:** omitted. Both offer factual-knowledge control, but weight editing and pretraining-time knowledge externalization are distinct; the cross-area edge could mislead.
 - **FlashAttention ↔ Multimodal Models:** removed from the existing production metadata. FlashAttention may be implemented inside a multimodal model, but that alone is not a durable conceptual relationship.
+- **FlashAttention ↔ Speculative Decoding:** removed during the whole-taxonomy audit. Both improve inference performance, but their shared Inference area already expresses that broad similarity; a direct edge implied a stronger conceptual relationship than the evidence supports.
 
 ## Source-review disposition
 

@@ -45,7 +45,6 @@ for (const edgeId of [
   'progression:sft:rlhf',
   'progression:sft:grpo',
   'related:grpo:rlhf',
-  'related:flashattention:speculative-decoding',
 ]) {
   assert.equal(
     model.edges.some((edge) => edge.id === edgeId),
@@ -60,6 +59,13 @@ assert.equal(
   ),
   false,
   'the rejected FlashAttention–Multimodal relationship should stay absent',
+);
+assert.equal(
+  model.edges.some(
+    (edge) => edge.id === 'related:flashattention:speculative-decoding',
+  ),
+  false,
+  'the rejected FlashAttention–Speculative Decoding relationship should stay absent',
 );
 
 console.log(

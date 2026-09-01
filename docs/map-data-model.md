@@ -52,9 +52,9 @@ Coordinates use the stable 1536 × 994 V1 canvas. They intentionally preserve a 
 - `prerequisite`: directed prerequisite relationships not already represented by the same progression;
 - `related`: normalized, undirected topic relationships.
 
-An edge may include authored renderer-neutral waypoints when a direct cross-category route would cross another label or node. The long FlashAttention ↔ Multimodal Models relationship uses two outside waypoints; ordinary edges remain automatic.
+An edge may include authored renderer-neutral waypoints when a direct cross-category route would cross another label or node. Ordinary edges remain automatic; no current V1 edge requires an authored waypoint.
 
-The initial model includes SFT → RLHF and SFT → GRPO progression, the RLHF ↔ GRPO relationship, the FlashAttention ↔ Speculative Decoding systems relationship, and a FlashAttention ↔ Multimodal Models cross-category exploration link.
+The current production model includes SFT → RLHF and SFT → GRPO progression plus the RLHF ↔ GRPO comparison. The broader FlashAttention ↔ Speculative Decoding and FlashAttention ↔ Multimodal Models relationships were removed during taxonomy review because area membership already expressed the useful connection more accurately.
 
 ## Validation
 

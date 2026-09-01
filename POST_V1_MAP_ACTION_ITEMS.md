@@ -70,13 +70,13 @@ This post-V1 map milestone is complete when:
 
 ### 1.4 Validate the taxonomy as a whole
 
-- [ ] Review category balance so one crowded area does not dominate the map unintentionally.
-- [ ] Identify orphan nodes, redundant nodes, weak relationships, and overly connected hubs.
-- [ ] Confirm maturity labels still describe the concepts rather than the completeness of their topic pages.
-- [ ] Confirm the semantic text view exposes the complete taxonomy without JavaScript or SVG interaction.
-- [ ] Record taxonomy decisions and disputed boundaries in a dedicated design note.
+- [x] Review category balance so one crowded area does not dominate the map unintentionally.
+- [x] Identify orphan nodes, redundant nodes, weak relationships, and overly connected hubs.
+- [x] Confirm maturity labels still describe the concepts rather than the completeness of their topic pages.
+- [x] Confirm the semantic text view exposes the complete taxonomy without JavaScript or SVG interaction.
+- [x] Record taxonomy decisions and disputed boundaries in a dedicated design note.
 
-**Gate:** Mihir approves the taxonomy before automatic layout becomes the source of initial positions.
+**Gate:** audit complete and [recorded in the dedicated design note](./docs/post-v1-taxonomy-audit.md); awaiting Mihir's approval before automatic layout becomes the source of initial positions.
 
 ## 2. Introduce a scalable layout system
 

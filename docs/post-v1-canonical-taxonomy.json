@@ -222,7 +222,7 @@
       "prerequisites": [],
       "cameBefore": [],
       "leadsTo": [],
-      "related": ["delta-attention", "speculative-decoding"],
+      "related": ["delta-attention"],
       "sourceReview": "complete",
       "sources": [
         {
@@ -245,7 +245,7 @@
       "prerequisites": [],
       "cameBefore": [],
       "leadsTo": ["dflash"],
-      "related": ["flashattention", "multi-token-prediction"],
+      "related": ["multi-token-prediction"],
       "sourceReview": "complete",
       "sources": [
         {
@@ -489,6 +489,13 @@
       "proposedKind": "related",
       "decision": "remove-existing",
       "reason": "FlashAttention can be used inside multimodal systems, but that implementation-level fact does not define a durable conceptual relationship between the two topics."
+    },
+    {
+      "source": "flashattention",
+      "target": "speculative-decoding",
+      "proposedKind": "related",
+      "decision": "remove-existing",
+      "reason": "Both improve inference performance, but that broad area-level similarity is already represented by their shared Inference category and does not justify a direct topic edge."
     }
   ]
 }
