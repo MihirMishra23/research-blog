@@ -7,24 +7,7 @@ const deploymentBase = customDomain ? '/' : githubPagesBase;
 
 export const siteConfig = {
   title: 'The LLM Map',
-  description:
-    'An evolving map of how modern language models are trained, adapted, evaluated, and served.',
-  locale: 'en_US',
-  socialImage: '/social-preview.png',
-  author: {
-    name: 'Mihir Mishra',
-    email: null,
-    github: 'https://github.com/MihirMishra23',
-    googleScholar: null,
-    linkedIn: null,
-    x: null,
-    cv: null,
-  },
-  repository: {
-    owner: 'MihirMishra23',
-    name: 'research-blog',
-    url: 'https://github.com/MihirMishra23/research-blog',
-  },
+  description: 'Mihir Mishra’s LLM concept map and research writing.',
   deployment: {
     customDomain,
     origin: deploymentOrigin,
@@ -51,7 +34,6 @@ export function sitePath(path = '/'): string {
   return `${siteConfig.deployment.base}${normalizedPath}`;
 }
 
-/** Resolve internal root-relative links while leaving absolute URLs and anchors alone. */
 export function siteHref(href: string): string {
   if (/^(?:[a-z][a-z\d+.-]*:|#)/i.test(href)) {
     return href;

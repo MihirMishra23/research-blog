@@ -1,21 +1,15 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { topicSchema, writingSchema } from './content/schemas';
+import { z } from 'astro/zod';
 
-const writing = defineCollection({
-  loader: glob({
-    base: './src/content/writing',
-    pattern: '**/*.{md,mdx}',
+const posts = defineCollection({
+  loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string().min(1),
+    status: z.enum(['stub', 'published']),
+    description: z.string().optional(),
+    publishedAt: z.coerce.date().optional(),
   }),
-  schema: writingSchema,
 });
 
-const topics = defineCollection({
-  loader: glob({
-    base: './src/content/topics',
-    pattern: '**/*.{md,mdx}',
-  }),
-  schema: topicSchema,
-});
-
-export const collections = { topics, writing };
+export const collections = { posts };

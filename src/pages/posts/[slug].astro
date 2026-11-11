@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import { siteHref } from '../../config/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description ?? `${post.data.title} by Mihir Mishra`}
+>
+  <main class="article-shell">
+    <a class="back-link" href={siteHref('/')}>← The LLM Map</a>
+    <article>
+      <header>
+        <p class="section-label">Blog post</p>
+        <h1>{post.data.title}</h1>
+        {
+          post.data.status === 'stub' && (
+            <p class="draft-label">Draft — coming soon</p>
+          )
+        }
+      </header>
+      <div class="article-body">
+        <Content />
+      </div>
+    </article>
+  </main>
+</BaseLayout>
