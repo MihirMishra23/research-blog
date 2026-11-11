@@ -310,66 +310,71 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
     tabindex="0"
     aria-label="Scrollable and zoomable LLM concept map"
   >
-    <div class="static-map__surface" data-map-surface>
-      <svg
-        viewBox="0 0 1600 1100"
-        role="img"
-        aria-labelledby="llm-map-title llm-map-description"
-      >
-        <title id="llm-map-title">The LLM Map</title>
-        <desc id="llm-map-description">
-          LLMs connect to seven areas: models, post-training, inference,
-          multimodal, agents, memory, and interpretability. Each area branches
-          to the concepts currently on Mihir’s map.
-        </desc>
+    <div class="static-map__stage" data-map-stage>
+      <div class="static-map__surface" data-map-surface>
+        <svg
+          viewBox="0 0 1600 1100"
+          role="img"
+          aria-labelledby="llm-map-title llm-map-description"
+        >
+          <title id="llm-map-title">The LLM Map</title>
+          <desc id="llm-map-description">
+            LLMs connect to seven areas: models, post-training, inference,
+            multimodal, agents, memory, and interpretability. Each area branches
+            to the concepts currently on Mihir’s map.
+          </desc>
 
-        <defs>
-          <pattern
-            id="dot-grid"
-            width="80"
-            height="80"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="6" cy="6" r="2.4"></circle>
-          </pattern>
-        </defs>
+          <defs>
+            <pattern
+              id="dot-grid"
+              width="80"
+              height="80"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="6" cy="6" r="2.4"></circle>
+            </pattern>
+          </defs>
 
-        <rect class="map-paper" width="1600" height="1100"></rect>
-        <rect class="map-grid" width="1600" height="1100" fill="url(#dot-grid)"
-        ></rect>
+          <rect class="map-paper" width="1600" height="1100"></rect>
+          <rect
+            class="map-grid"
+            width="1600"
+            height="1100"
+            fill="url(#dot-grid)"></rect>
 
-        <g class="map-edges" aria-hidden="true">
-          {
-            edges.map(({ source, target }) => (
-              <line x1={source.x} y1={source.y} x2={target.x} y2={target.y} />
-            ))
-          }
-        </g>
+          <g class="map-edges" aria-hidden="true">
+            {
+              edges.map(({ source, target }) => (
+                <line x1={source.x} y1={source.y} x2={target.x} y2={target.y} />
+              ))
+            }
+          </g>
 
-        <g class="map-nodes">
-          {
-            nodes.map((node) => (
-              <g class:list={['map-node', `map-node--${node.kind}`]}>
-                <rect
-                  x={node.x - node.width / 2}
-                  y={node.y - node.height / 2}
-                  width={node.width}
-                  height={node.height}
-                  rx={node.height / 2}
-                />
-                <text
-                  x={node.x}
-                  y={node.y}
-                  text-anchor="middle"
-                  dominant-baseline="central"
-                >
-                  {node.label}
-                </text>
-              </g>
-            ))
-          }
-        </g>
-      </svg>
+          <g class="map-nodes">
+            {
+              nodes.map((node) => (
+                <g class:list={['map-node', `map-node--${node.kind}`]}>
+                  <rect
+                    x={node.x - node.width / 2}
+                    y={node.y - node.height / 2}
+                    width={node.width}
+                    height={node.height}
+                    rx={node.height / 2}
+                  />
+                  <text
+                    x={node.x}
+                    y={node.y}
+                    text-anchor="middle"
+                    dominant-baseline="central"
+                  >
+                    {node.label}
+                  </text>
+                </g>
+              ))
+            }
+          </g>
+        </svg>
+      </div>
     </div>
   </div>
 
@@ -412,7 +417,7 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
 
     let scale = 1;
 
-    const setScale = (nextScale: number) => {
+    const setScale = (nextScale: number, recenter = false) => {
       const normalized = Math.min(
         MAX_SCALE,
         Math.max(MIN_SCALE, Math.round(nextScale * 100) / 100),
@@ -422,12 +427,20 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
       const ratio = normalized / scale;
 
       scale = normalized;
-      surface.style.setProperty('--map-scale', String(scale));
+      viewer.style.setProperty('--map-scale', String(scale));
       value.value = `${Math.round(scale * 100)}%`;
       zoomOut.disabled = scale <= MIN_SCALE;
       zoomIn.disabled = scale >= MAX_SCALE;
 
       requestAnimationFrame(() => {
+        if (recenter) {
+          viewport.scrollLeft =
+            (viewport.scrollWidth - viewport.clientWidth) / 2;
+          viewport.scrollTop =
+            (viewport.scrollHeight - viewport.clientHeight) / 2;
+          return;
+        }
+
         viewport.scrollLeft = centerX * ratio - viewport.clientWidth / 2;
         viewport.scrollTop = centerY * ratio - viewport.clientHeight / 2;
       });
@@ -435,13 +448,13 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
 
     zoomOut.addEventListener('click', () => setScale(scale - SCALE_STEP));
     zoomIn.addEventListener('click', () => setScale(scale + SCALE_STEP));
-    reset.addEventListener('click', () => setScale(1));
+    reset.addEventListener('click', () => setScale(1, true));
     fit.addEventListener('click', () => {
       const horizontalFit = (viewport.clientWidth - 24) / MAP_WIDTH;
       const verticalFit = (viewport.clientHeight - 24) / MAP_HEIGHT;
-      setScale(Math.min(horizontalFit, verticalFit));
+      setScale(Math.min(horizontalFit, verticalFit), true);
     });
 
-    setScale(1);
+    setScale(1, true);
   }
 </script>

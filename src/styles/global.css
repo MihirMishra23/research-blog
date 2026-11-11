@@ -107,6 +107,7 @@ a:hover {
 }
 
 .map-viewer {
+  --map-scale: 1;
   position: relative;
 }
 
@@ -168,8 +169,14 @@ a:hover {
   scrollbar-color: var(--line) var(--paper);
 }
 
+.static-map__stage {
+  display: grid;
+  width: max(100%, calc(100rem * var(--map-scale)));
+  height: max(100%, calc(68.75rem * var(--map-scale)));
+  place-items: center;
+}
+
 .static-map__surface {
-  --map-scale: 1;
   width: calc(100rem * var(--map-scale));
   height: calc(68.75rem * var(--map-scale));
 }

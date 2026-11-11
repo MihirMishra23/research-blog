@@ -15,6 +15,7 @@ assert.match(home, /Async RL/);
 assert.match(home, /Coming soon/);
 assert.doesNotMatch(home, /data-map-node|aria-expanded|data-map-model/);
 assert.match(home, /data-map-viewport/);
+assert.match(home, /data-map-stage/);
 assert.match(home, /data-map-zoom-out/);
 assert.match(home, /data-map-zoom-in/);
 assert.match(home, /data-map-fit/);
