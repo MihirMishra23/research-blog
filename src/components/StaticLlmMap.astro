@@ -300,8 +300,9 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
     <button type="button" data-map-zoom-out aria-label="Zoom out">−</button>
     <output data-map-zoom-value aria-live="polite">100%</output>
     <button type="button" data-map-zoom-in aria-label="Zoom in">+</button>
-    <button type="button" data-map-fit>Fit</button>
-    <button type="button" data-map-reset>100%</button>
+    <button type="button" data-map-reset aria-label="Fit map at 100%"
+      >100%</button
+    >
   </div>
 
   <div
@@ -378,13 +379,15 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
     </div>
   </div>
 
-  <p class="map-hint">Scroll or swipe to move around the map.</p>
+  <p class="map-hint">
+    100% fits the complete map. Zoom in, then scroll or swipe to move around.
+  </p>
 </div>
 
 <script>
-  const MIN_SCALE = 0.2;
-  const MAX_SCALE = 1.75;
-  const SCALE_STEP = 0.25;
+  const MIN_ZOOM = 0.5;
+  const MAX_ZOOM = 4;
+  const ZOOM_STEP = 0.25;
   const MAP_WIDTH = 1600;
   const MAP_HEIGHT = 1100;
 
@@ -401,36 +404,36 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
     );
     const zoomIn =
       viewer.querySelector<HTMLButtonElement>('[data-map-zoom-in]');
-    const fit = viewer.querySelector<HTMLButtonElement>('[data-map-fit]');
     const reset = viewer.querySelector<HTMLButtonElement>('[data-map-reset]');
 
-    if (
-      !viewport ||
-      !surface ||
-      !value ||
-      !zoomOut ||
-      !zoomIn ||
-      !fit ||
-      !reset
-    )
+    if (!viewport || !surface || !value || !zoomOut || !zoomIn || !reset)
       continue;
 
-    let scale = 1;
+    let zoom = 1;
+    let renderedScale = 1;
 
-    const setScale = (nextScale: number, recenter = false) => {
+    const fitScale = () => {
+      const horizontalFit = (viewport.clientWidth - 24) / MAP_WIDTH;
+      const verticalFit = (viewport.clientHeight - 24) / MAP_HEIGHT;
+      return Math.min(horizontalFit, verticalFit);
+    };
+
+    const setZoom = (nextZoom: number, recenter = false) => {
       const normalized = Math.min(
-        MAX_SCALE,
-        Math.max(MIN_SCALE, Math.round(nextScale * 100) / 100),
+        MAX_ZOOM,
+        Math.max(MIN_ZOOM, Math.round(nextZoom * 100) / 100),
       );
       const centerX = viewport.scrollLeft + viewport.clientWidth / 2;
       const centerY = viewport.scrollTop + viewport.clientHeight / 2;
-      const ratio = normalized / scale;
+      const nextRenderedScale = fitScale() * normalized;
+      const ratio = nextRenderedScale / renderedScale;
 
-      scale = normalized;
-      viewer.style.setProperty('--map-scale', String(scale));
-      value.value = `${Math.round(scale * 100)}%`;
-      zoomOut.disabled = scale <= MIN_SCALE;
-      zoomIn.disabled = scale >= MAX_SCALE;
+      zoom = normalized;
+      renderedScale = nextRenderedScale;
+      viewer.style.setProperty('--map-scale', String(renderedScale));
+      value.value = `${Math.round(zoom * 100)}%`;
+      zoomOut.disabled = zoom <= MIN_ZOOM;
+      zoomIn.disabled = zoom >= MAX_ZOOM;
 
       requestAnimationFrame(() => {
         if (recenter) {
@@ -446,15 +449,11 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
       });
     };
 
-    zoomOut.addEventListener('click', () => setScale(scale - SCALE_STEP));
-    zoomIn.addEventListener('click', () => setScale(scale + SCALE_STEP));
-    reset.addEventListener('click', () => setScale(1, true));
-    fit.addEventListener('click', () => {
-      const horizontalFit = (viewport.clientWidth - 24) / MAP_WIDTH;
-      const verticalFit = (viewport.clientHeight - 24) / MAP_HEIGHT;
-      setScale(Math.min(horizontalFit, verticalFit), true);
-    });
+    zoomOut.addEventListener('click', () => setZoom(zoom - ZOOM_STEP));
+    zoomIn.addEventListener('click', () => setZoom(zoom + ZOOM_STEP));
+    reset.addEventListener('click', () => setZoom(1, true));
 
-    setScale(1, true);
+    new ResizeObserver(() => setZoom(zoom, true)).observe(viewport);
+    setZoom(1, true);
   }
 </script>

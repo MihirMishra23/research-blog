@@ -18,8 +18,8 @@ assert.match(home, /data-map-viewport/);
 assert.match(home, /data-map-stage/);
 assert.match(home, /data-map-zoom-out/);
 assert.match(home, /data-map-zoom-in/);
-assert.match(home, /data-map-fit/);
 assert.match(home, /data-map-reset/);
+assert.doesNotMatch(home, /data-map-fit/);
 
 const mapSection = home.match(
   /<section class="map-section"[\s\S]*?<\/section>/,
