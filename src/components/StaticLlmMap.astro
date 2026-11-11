@@ -294,64 +294,154 @@ const edges = Object.entries(children).flatMap(([source, targets]) =>
 );
 ---
 
-<div class="static-map" aria-label="Static LLM concept map">
-  <svg
-    viewBox="0 0 1600 1100"
-    role="img"
-    aria-labelledby="llm-map-title llm-map-description"
+<div class="map-viewer" data-map-viewer>
+  <div class="map-toolbar" role="group" aria-label="Map zoom controls">
+    <span>Zoom</span>
+    <button type="button" data-map-zoom-out aria-label="Zoom out">−</button>
+    <output data-map-zoom-value aria-live="polite">100%</output>
+    <button type="button" data-map-zoom-in aria-label="Zoom in">+</button>
+    <button type="button" data-map-fit>Fit</button>
+    <button type="button" data-map-reset>100%</button>
+  </div>
+
+  <div
+    class="static-map"
+    data-map-viewport
+    tabindex="0"
+    aria-label="Scrollable and zoomable LLM concept map"
   >
-    <title id="llm-map-title">The LLM Map</title>
-    <desc id="llm-map-description">
-      LLMs connect to seven areas: models, post-training, inference, multimodal,
-      agents, memory, and interpretability. Each area branches to the concepts
-      currently on Mihir’s map.
-    </desc>
-
-    <defs>
-      <pattern
-        id="dot-grid"
-        width="80"
-        height="80"
-        patternUnits="userSpaceOnUse"
+    <div class="static-map__surface" data-map-surface>
+      <svg
+        viewBox="0 0 1600 1100"
+        role="img"
+        aria-labelledby="llm-map-title llm-map-description"
       >
-        <circle cx="6" cy="6" r="2.4"></circle>
-      </pattern>
-    </defs>
+        <title id="llm-map-title">The LLM Map</title>
+        <desc id="llm-map-description">
+          LLMs connect to seven areas: models, post-training, inference,
+          multimodal, agents, memory, and interpretability. Each area branches
+          to the concepts currently on Mihir’s map.
+        </desc>
 
-    <rect class="map-paper" width="1600" height="1100"></rect>
-    <rect class="map-grid" width="1600" height="1100" fill="url(#dot-grid)"
-    ></rect>
+        <defs>
+          <pattern
+            id="dot-grid"
+            width="80"
+            height="80"
+            patternUnits="userSpaceOnUse"
+          >
+            <circle cx="6" cy="6" r="2.4"></circle>
+          </pattern>
+        </defs>
 
-    <g class="map-edges" aria-hidden="true">
-      {
-        edges.map(({ source, target }) => (
-          <line x1={source.x} y1={source.y} x2={target.x} y2={target.y} />
-        ))
-      }
-    </g>
+        <rect class="map-paper" width="1600" height="1100"></rect>
+        <rect class="map-grid" width="1600" height="1100" fill="url(#dot-grid)"
+        ></rect>
 
-    <g class="map-nodes">
-      {
-        nodes.map((node) => (
-          <g class:list={['map-node', `map-node--${node.kind}`]}>
-            <rect
-              x={node.x - node.width / 2}
-              y={node.y - node.height / 2}
-              width={node.width}
-              height={node.height}
-              rx={node.height / 2}
-            />
-            <text
-              x={node.x}
-              y={node.y}
-              text-anchor="middle"
-              dominant-baseline="central"
-            >
-              {node.label}
-            </text>
-          </g>
-        ))
-      }
-    </g>
-  </svg>
+        <g class="map-edges" aria-hidden="true">
+          {
+            edges.map(({ source, target }) => (
+              <line x1={source.x} y1={source.y} x2={target.x} y2={target.y} />
+            ))
+          }
+        </g>
+
+        <g class="map-nodes">
+          {
+            nodes.map((node) => (
+              <g class:list={['map-node', `map-node--${node.kind}`]}>
+                <rect
+                  x={node.x - node.width / 2}
+                  y={node.y - node.height / 2}
+                  width={node.width}
+                  height={node.height}
+                  rx={node.height / 2}
+                />
+                <text
+                  x={node.x}
+                  y={node.y}
+                  text-anchor="middle"
+                  dominant-baseline="central"
+                >
+                  {node.label}
+                </text>
+              </g>
+            ))
+          }
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <p class="map-hint">Scroll or swipe to move around the map.</p>
 </div>
+
+<script>
+  const MIN_SCALE = 0.2;
+  const MAX_SCALE = 1.75;
+  const SCALE_STEP = 0.25;
+  const MAP_WIDTH = 1600;
+  const MAP_HEIGHT = 1100;
+
+  for (const viewer of document.querySelectorAll<HTMLElement>(
+    '[data-map-viewer]',
+  )) {
+    const viewport = viewer.querySelector<HTMLElement>('[data-map-viewport]');
+    const surface = viewer.querySelector<HTMLElement>('[data-map-surface]');
+    const value = viewer.querySelector<HTMLOutputElement>(
+      '[data-map-zoom-value]',
+    );
+    const zoomOut = viewer.querySelector<HTMLButtonElement>(
+      '[data-map-zoom-out]',
+    );
+    const zoomIn =
+      viewer.querySelector<HTMLButtonElement>('[data-map-zoom-in]');
+    const fit = viewer.querySelector<HTMLButtonElement>('[data-map-fit]');
+    const reset = viewer.querySelector<HTMLButtonElement>('[data-map-reset]');
+
+    if (
+      !viewport ||
+      !surface ||
+      !value ||
+      !zoomOut ||
+      !zoomIn ||
+      !fit ||
+      !reset
+    )
+      continue;
+
+    let scale = 1;
+
+    const setScale = (nextScale: number) => {
+      const normalized = Math.min(
+        MAX_SCALE,
+        Math.max(MIN_SCALE, Math.round(nextScale * 100) / 100),
+      );
+      const centerX = viewport.scrollLeft + viewport.clientWidth / 2;
+      const centerY = viewport.scrollTop + viewport.clientHeight / 2;
+      const ratio = normalized / scale;
+
+      scale = normalized;
+      surface.style.setProperty('--map-scale', String(scale));
+      value.value = `${Math.round(scale * 100)}%`;
+      zoomOut.disabled = scale <= MIN_SCALE;
+      zoomIn.disabled = scale >= MAX_SCALE;
+
+      requestAnimationFrame(() => {
+        viewport.scrollLeft = centerX * ratio - viewport.clientWidth / 2;
+        viewport.scrollTop = centerY * ratio - viewport.clientHeight / 2;
+      });
+    };
+
+    zoomOut.addEventListener('click', () => setScale(scale - SCALE_STEP));
+    zoomIn.addEventListener('click', () => setScale(scale + SCALE_STEP));
+    reset.addEventListener('click', () => setScale(1));
+    fit.addEventListener('click', () => {
+      const horizontalFit = (viewport.clientWidth - 24) / MAP_WIDTH;
+      const verticalFit = (viewport.clientHeight - 24) / MAP_HEIGHT;
+      setScale(Math.min(horizontalFit, verticalFit));
+    });
+
+    setScale(1);
+  }
+</script>

@@ -8,12 +8,17 @@ const [home, asyncRl, rootEntries] = await Promise.all([
 ]);
 
 assert.match(home, /The LLM Map/);
-assert.match(home, /Static LLM concept map/);
+assert.match(home, /Scrollable and zoomable LLM concept map/);
 assert.match(home, /Blog posts/);
 assert.match(home, /href="\/research-blog\/posts\/async-rl\/"/);
 assert.match(home, /Async RL/);
 assert.match(home, /Coming soon/);
 assert.doesNotMatch(home, /data-map-node|aria-expanded|data-map-model/);
+assert.match(home, /data-map-viewport/);
+assert.match(home, /data-map-zoom-out/);
+assert.match(home, /data-map-zoom-in/);
+assert.match(home, /data-map-fit/);
+assert.match(home, /data-map-reset/);
 
 const mapSection = home.match(
   /<section class="map-section"[\s\S]*?<\/section>/,
@@ -35,13 +40,13 @@ assert.equal(
 const htmlFiles = rootEntries.filter((entry) => entry.endsWith('.html')).sort();
 assert.deepEqual(htmlFiles, ['index.html', 'posts/async-rl/index.html']);
 
-const clientScripts = [...home.matchAll(/<script\b[^>]*src=/g)];
+const clientScripts = [...home.matchAll(/<script\b/g)];
 assert.equal(
   clientScripts.length,
-  0,
-  'The homepage should ship no client JavaScript.',
+  1,
+  'The homepage should ship one small map-controls script.',
 );
 
 console.log(
-  'Verified the static map homepage and empty Async RL article stub.',
+  'Verified the zoomable, scrollable map homepage and empty Async RL article stub.',
 );

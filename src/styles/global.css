@@ -106,17 +106,86 @@ a:hover {
   background: var(--paper);
 }
 
+.map-viewer {
+  position: relative;
+}
+
+.map-toolbar {
+  display: flex;
+  min-height: 3.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.65rem max(1.25rem, calc((100vw - 76rem) / 2));
+  border-bottom: 1px solid #30332e;
+  background: var(--paper-raised);
+}
+
+.map-toolbar > span {
+  margin-right: 0.25rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.map-toolbar button {
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #4a4d46;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.map-toolbar button:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.map-toolbar button:disabled {
+  color: #686a63;
+  cursor: not-allowed;
+}
+
+.map-toolbar output {
+  min-width: 3.7rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
 .static-map {
   width: 100%;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
+  height: min(72vh, 48rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--line) var(--paper);
+}
+
+.static-map__surface {
+  --map-scale: 1;
+  width: calc(100rem * var(--map-scale));
+  height: calc(68.75rem * var(--map-scale));
 }
 
 .static-map svg {
   display: block;
   width: 100%;
-  min-width: 64rem;
-  height: auto;
+  height: 100%;
+}
+
+.map-hint {
+  width: min(100% - 2.5rem, 76rem);
+  margin: 0 auto;
+  padding-block: 0.75rem;
+  color: var(--muted);
+  font-size: 0.78rem;
 }
 
 .map-paper {
@@ -249,8 +318,14 @@ a:hover {
     padding-block-start: 3rem;
   }
 
-  .static-map svg {
-    min-width: 54rem;
+  .map-toolbar {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-inline: 1.25rem;
+  }
+
+  .static-map {
+    height: 65vh;
   }
 
   .posts li {

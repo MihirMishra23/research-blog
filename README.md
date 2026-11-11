@@ -1,6 +1,7 @@
 # The LLM Map
 
-Mihir Mishra’s intentionally small research blog: one static LLM concept map and a list of blog posts.
+Mihir Mishra’s intentionally small research blog: one LLM concept map with a
+scrollable, zoomable viewport and a list of blog posts.
 
 - Live site: <https://mihirmishra23.github.io/research-blog/>
 - Full pre-simplification site: branch `archive/full-site-v1`
