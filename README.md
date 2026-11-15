@@ -37,7 +37,7 @@ Change `status` to `published` when the article is ready. The homepage lists bot
 
 ## Browser editor
 
-Run `npm run dev` and, in a second terminal, `npm run editor`. Open <http://localhost:4321/research-blog/admin/> (use the port printed by Astro if 4321 is busy).
+Run `npm run write` in one terminal. It starts the site and local editor server together and prints the writing desk URL. Open that URL, then press Ctrl+C in the terminal when finished to stop both servers. The separate `dev` and `editor` commands remain available if needed.
 
 The Decap editor reads and saves Markdown files on your computer. It requires no GitHub login. Its local file server binds only to `127.0.0.1`; stop it with Ctrl+C when finished. Do not expose this unauthenticated server to a network. The editor loads its pinned interface from a CDN, so initial loading needs internet access.
 

@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "write": "node scripts/write.mjs",
     "editor": "BIND_HOST=127.0.0.1 MODE=fs decap-server",
     "build": "astro build",
     "preview": "astro preview",
