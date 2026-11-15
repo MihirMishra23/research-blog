@@ -4,9 +4,9 @@ import StaticLlmMap from '../components/StaticLlmMap.astro';
 import { siteHref } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const posts = (await getCollection('posts')).sort((a, b) =>
-  a.data.title.localeCompare(b.data.title),
-);
+const posts = (await getCollection('posts'))
+  .filter((post) => post.data.status !== 'draft')
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 
 <BaseLayout>

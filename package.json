@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "editor": "BIND_HOST=127.0.0.1 MODE=fs decap-server",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
@@ -17,13 +18,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.2.4"
+    "astro": "7.2.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@types/node": "^22.20.1",
+    "decap-server": "3.11.3",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "decap-server": {
+      "@hapi/joi": "npm:joi@18.3.2",
+      "simple-git": "4.0.2"
+    }
   }
 }

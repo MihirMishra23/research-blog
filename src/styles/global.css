@@ -320,6 +320,15 @@ a:hover {
   line-height: 1.75;
 }
 
+.article-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.article-body pre {
+  overflow-x: auto;
+}
+
 @media (max-width: 42rem) {
   .intro {
     padding-block-start: 3rem;

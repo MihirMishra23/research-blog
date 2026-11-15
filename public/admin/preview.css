@@ -1,0 +1,39 @@
+:root {
+  color-scheme: dark;
+  background: #151714;
+  color: #f3efe5;
+  font-family: system-ui, sans-serif;
+}
+.article-shell {
+  max-width: 48rem;
+  margin: auto;
+  padding: 3rem 1.5rem;
+}
+h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+.section-label {
+  color: #aaa99f;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.72rem;
+}
+.article-body {
+  font:
+    1.2rem/1.75 Georgia,
+    serif;
+  overflow-wrap: anywhere;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+pre {
+  overflow-x: auto;
+}
+a {
+  color: #f07167;
+}

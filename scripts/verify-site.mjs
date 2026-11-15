@@ -39,7 +39,11 @@ assert.equal(
 );
 
 const htmlFiles = rootEntries.filter((entry) => entry.endsWith('.html')).sort();
-assert.deepEqual(htmlFiles, ['index.html', 'posts/async-rl/index.html']);
+assert.deepEqual(htmlFiles, [
+  'admin/index.html',
+  'index.html',
+  'posts/async-rl/index.html',
+]);
 
 const clientScripts = [...home.matchAll(/<script\b/g)];
 assert.equal(
@@ -47,6 +51,10 @@ assert.equal(
   1,
   'The homepage should ship one small map-controls script.',
 );
+
+const admin = await readFile('dist/admin/index.html', 'utf8');
+assert.match(admin, /editor runs on your computer/);
+assert.doesNotMatch(admin, /decap-cms@|id="cms-config"/);
 
 console.log(
   'Verified the zoomable, scrollable map homepage and empty Async RL article stub.',

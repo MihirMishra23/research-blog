@@ -4,7 +4,9 @@ import { siteHref } from '../../config/site';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
+  const posts = (await getCollection('posts')).filter(
+    (post) => post.data.status !== 'draft',
+  );
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 

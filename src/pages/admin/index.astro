@@ -1,0 +1,110 @@
+---
+import { siteConfig, sitePath } from '../../config/site';
+import '../../styles/global.css';
+
+const localEditor = import.meta.env.DEV;
+const config = {
+  load_config_file: false,
+  local_backend: {
+    url: 'http://localhost:8081/api/v1',
+    allowed_hosts: ['localhost', '127.0.0.1'],
+  },
+  backend: {
+    name: 'github',
+    repo: 'MihirMishra23/research-blog',
+    branch: 'main',
+    open_authoring: false,
+  },
+  publish_mode: 'simple',
+  site_url: siteConfig.deployment.url,
+  display_url: siteConfig.deployment.url,
+  media_folder: 'public/uploads',
+  public_folder: sitePath('/uploads'),
+  collections: [
+    {
+      name: 'posts',
+      label: 'Blog posts',
+      folder: 'src/content/posts',
+      create: true,
+      delete: false,
+      slug: '{{slug}}',
+      extension: 'md',
+      format: 'frontmatter',
+      preview_path: 'posts/{{slug}}/',
+      fields: [
+        { label: 'Title', name: 'title', widget: 'string' },
+        {
+          label: 'Visibility after publishing',
+          name: 'status',
+          widget: 'select',
+          default: 'draft',
+          options: [
+            { label: 'Hidden draft', value: 'draft' },
+            { label: 'Public coming-soon stub', value: 'stub' },
+            { label: 'Public article', value: 'published' },
+          ],
+          hint: 'All saves are local files. Hidden drafts never appear on the website. Choose Public article when ready, then commit and push to deploy.',
+        },
+        {
+          label: 'Description',
+          name: 'description',
+          widget: 'text',
+          required: false,
+        },
+        {
+          label: 'Publication date',
+          name: 'publishedAt',
+          widget: 'datetime',
+          required: false,
+        },
+        { label: 'Article', name: 'body', widget: 'markdown', required: false },
+      ],
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Write · The LLM Map</title>
+    <script is:inline>
+      window.CMS_MANUAL_INIT = true;
+    </script>
+  </head>
+  <body>
+    {
+      localEditor ? (
+        <>
+          <script
+            src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"
+            is:inline
+          />
+          <script
+            is:inline
+            type="application/json"
+            id="cms-config"
+            set:html={JSON.stringify(config).replaceAll('<', '\\u003c')}
+          />
+          <script src={sitePath('/admin/editor.js')} is:inline />
+        </>
+      ) : (
+        <main class="article-shell">
+          <a class="back-link" href={sitePath('/')}>
+            ← The LLM Map
+          </a>
+          <article>
+            <h1>Writing desk</h1>
+            <p>
+              The writing editor runs on your computer. Open the local
+              development site to write and save drafts.
+            </p>
+          </article>
+        </main>
+      )
+    }
+  </body>
+</html>
